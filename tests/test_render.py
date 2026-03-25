@@ -167,3 +167,26 @@ class TestRenderEngine:
     def test_grid_pattern(self, tmp_path):
         path = render_story(_sample_story("company"), template="clean-fabrication", output_dir=tmp_path)
         assert path.exists()
+
+
+class TestCLI:
+    def test_render_from_json(self, tmp_path):
+        from src.render.model import StoryContent
+        story = StoryContent(
+            hook="Test hook.", headline="Test Headline",
+            body=["Test body paragraph."],
+            insight="Test insight.", source="Test", source_url="https://test.com",
+            pillar="breaking-ai", account="personal",
+        )
+        json_path = tmp_path / "story.json"
+        story.to_json(str(json_path))
+
+        from click.testing import CliRunner
+        from run import cli
+        result = CliRunner().invoke(cli, [
+            "render", str(json_path),
+            "--template", "dark-glassmorphism",
+            "--output-dir", str(tmp_path),
+        ])
+        assert result.exit_code == 0
+        assert "Saved" in result.output
