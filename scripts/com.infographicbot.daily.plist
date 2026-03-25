@@ -7,9 +7,9 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/bin/env</string>
-        <string>python3</string>
+        <string>/Users/thegeshwar/ai-infographic-bot/.venv/bin/python</string>
         <string>run.py</string>
+        <string>run</string>
     </array>
 
     <key>WorkingDirectory</key>

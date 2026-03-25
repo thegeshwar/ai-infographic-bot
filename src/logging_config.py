@@ -29,11 +29,18 @@ def setup_logging(data_dir: Path | None = None, level: int = logging.INFO) -> No
     root = logging.getLogger()
     root.setLevel(level)
 
-    # File handler
-    fh = logging.FileHandler(log_file, encoding="utf-8")
-    fh.setLevel(level)
-    fh.setFormatter(logging.Formatter(fmt, datefmt=datefmt))
-    root.addHandler(fh)
+    # File handler (only add if not already pointing at the exact same file)
+    resolved = str(log_file.resolve())
+    has_file = any(
+        isinstance(h, logging.FileHandler) and hasattr(h, 'baseFilename')
+        and h.baseFilename == resolved
+        for h in root.handlers
+    )
+    if not has_file:
+        fh = logging.FileHandler(log_file, encoding="utf-8")
+        fh.setLevel(level)
+        fh.setFormatter(logging.Formatter(fmt, datefmt=datefmt))
+        root.addHandler(fh)
 
     # Console handler (only add if none exists)
     has_console = any(

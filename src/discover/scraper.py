@@ -155,19 +155,35 @@ def _fetch_scrape(source: Source) -> list[Story]:
 # ---------------------------------------------------------------------------
 
 def discover_stories() -> list[Story]:
-    """Discover stories from all configured sources."""
+    """Discover stories from all configured sources, with dedup and caching."""
     from src.config import NEWSAPI_KEY  # lazy to avoid circular at import time
+    from src.discover.dedup import deduplicate
+    from src.discover.cache import CacheManager
 
+    cache = CacheManager()
     all_stories: list[Story] = []
+
     for source in SOURCES:
+        # Check rate limit — skip if fetched too recently
+        if not cache.should_fetch(source.name):
+            cached = cache.read(source.name)
+            if cached:
+                all_stories.extend(cached)
+                continue
+
         if source.source_type == "rss":
-            all_stories.extend(_fetch_rss(source))
+            fetched = _fetch_rss(source)
         elif source.source_type == "api":
-            all_stories.extend(_fetch_newsapi(source, api_key=NEWSAPI_KEY))
+            fetched = _fetch_newsapi(source, api_key=NEWSAPI_KEY)
         elif source.source_type == "scrape":
-            all_stories.extend(_fetch_scrape(source))
+            fetched = _fetch_scrape(source)
         else:
             logger.info(f"Skipping unsupported source type: {source.source_type}")
+            continue
 
-    logger.info(f"Discovered {len(all_stories)} stories from {len(SOURCES)} sources")
+        cache.write(source.name, fetched)
+        all_stories.extend(fetched)
+
+    all_stories = deduplicate(all_stories)
+    logger.info(f"Discovered {len(all_stories)} stories from {len(SOURCES)} sources (after dedup)")
     return all_stories

@@ -1,7 +1,6 @@
 """Source credibility scoring and story ranking."""
 
-import re
-from datetime import datetime
+from datetime import datetime, timezone
 
 from src.discover.scraper import Story
 
@@ -38,7 +37,11 @@ def _recency_score(published: datetime | None) -> float:
     """Return a recency score between 0.0 and 1.0. More recent = higher."""
     if published is None:
         return 0.5  # neutral if unknown
-    age_hours = (datetime.now() - published).total_seconds() / 3600
+    # Ensure both sides are tz-aware or tz-naive for safe subtraction
+    now = datetime.now(timezone.utc)
+    if published.tzinfo is None:
+        now = datetime.now()
+    age_hours = (now - published).total_seconds() / 3600
     if age_hours < 0:
         age_hours = 0
     # Stories less than 6 hours old get full score, decays over 7 days

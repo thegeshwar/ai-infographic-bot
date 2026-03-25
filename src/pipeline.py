@@ -41,12 +41,16 @@ def run_pipeline(stages: list[str] | None = None):
                     stories = discover_stories()
                 curated = curate_stories(stories)
 
-            # Filter out already-posted stories
-            new_curated = [s for s in curated if not is_posted(s.get("url", ""))]
+            # Filter out already-posted stories (use original_title as key since
+            # curated dicts from Claude don't carry URL)
+            new_curated = [
+                s for s in curated
+                if not is_posted(s.get("original_title", s.get("headline", "")))
+            ]
             if not new_curated:
                 logger.info("All stories already posted — skipping generation")
-            else:
-                curated = new_curated
+                return
+            curated = new_curated
             image_path = generate_infographic(curated)
             logger.info(f"Generated infographic: {image_path}")
 
@@ -78,7 +82,7 @@ def _build_caption(curated: list[dict]) -> str:
     """Build a social media caption from curated stories."""
     lines = ["🤖 AI/ML Daily Digest\n"]
     for story in curated:
-        lines.append(f"▸ {story['headline']}")
+        lines.append(f"▸ {story.get('headline', 'Untitled')}")
     lines.append("\n#AI #MachineLearning #Tech #AINews")
     return "\n".join(lines)
 
@@ -98,6 +102,6 @@ async def _post_all(image_path, caption: str, curated: list[dict] | None = None)
             # Record successful posts to history
             if curated:
                 for story in curated:
-                    record_post(story, platform.lower(), str(image_path))
+                    record_post(story, platform.lower(), str(image_path), key="original_title")
         else:
             logger.info(f"{platform}: skipped (not configured)")

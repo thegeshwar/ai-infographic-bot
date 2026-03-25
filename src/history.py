@@ -26,18 +26,23 @@ def _save(entries: list[dict], history_file: Path) -> None:
     )
 
 
-def is_posted(url: str, history_file: Path = _DEFAULT_HISTORY) -> bool:
-    """Check if a story URL has already been posted.
+def is_posted(identifier: str, history_file: Path = _DEFAULT_HISTORY) -> bool:
+    """Check if a story has already been posted.
 
     Args:
-        url: The story URL to check.
+        identifier: Story identifier (original_title or URL) to check.
         history_file: Path to history JSON file.
 
     Returns:
-        True if the URL exists in posting history.
+        True if the identifier exists in posting history.
     """
+    if not identifier:
+        return False
     entries = _load(history_file)
-    return any(entry["url"] == url for entry in entries)
+    return any(
+        entry.get("url") == identifier or entry.get("title") == identifier
+        for entry in entries
+    )
 
 
 def record_post(
@@ -45,20 +50,22 @@ def record_post(
     platform: str,
     image_path: str,
     history_file: Path = _DEFAULT_HISTORY,
+    key: str = "url",
 ) -> None:
     """Record a successful post to history.
 
     Args:
-        story: Story dict with at least 'url' and 'headline' keys.
+        story: Story dict (curated format with 'headline', 'original_title', etc.).
         platform: Platform name (e.g. 'twitter', 'linkedin').
         image_path: Path to the generated infographic image.
         history_file: Path to history JSON file.
+        key: Which story field to use as the URL identifier.
     """
     entries = _load(history_file)
     entries.append(
         {
-            "url": story["url"],
-            "title": story["headline"],
+            "url": story.get(key, story.get("headline", "")),
+            "title": story.get("headline", ""),
             "platform": platform,
             "image_path": str(image_path),
             "timestamp": datetime.now().isoformat(),

@@ -285,15 +285,15 @@ async def post_to_instagram(image_path: Path, caption: str) -> bool:
                         await btn.click()
                         await page.wait_for_timeout(1000)
 
-            # Open "new post" dialog
-            await page.click('svg[aria-label="New post"]')
+            # Open "new post" dialog — try SVG icon first, fall back to button
+            new_post = await page.query_selector('svg[aria-label="New post"]')
+            if new_post:
+                await new_post.click()
+            else:
+                create_btn = await page.query_selector('[aria-label="New post"]')
+                if create_btn:
+                    await create_btn.click()
             await page.wait_for_timeout(1000)
-
-            # Alternative: try the create button
-            create_btn = await page.query_selector('[aria-label="New post"]')
-            if create_btn:
-                await create_btn.click()
-                await page.wait_for_timeout(1000)
 
             # Upload image
             file_input = await page.wait_for_selector('input[type="file"]')

@@ -101,7 +101,11 @@ def _simple_curate(stories: list[Story]) -> list[dict]:
     return [
         {
             "headline": s.title[:60],
-            "bullets": [s.summary[:80]],
+            "bullets": [
+                s.summary[:80] if s.summary else "Details pending",
+                f"Source: {s.source}",
+                f"Published: {s.published.strftime('%b %d') if s.published else 'Recent'}",
+            ],
             "category": "industry",
             "original_title": s.title,
         }

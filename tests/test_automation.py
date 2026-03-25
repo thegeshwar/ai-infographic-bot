@@ -262,14 +262,11 @@ class TestNotify:
         """send_notification should call all configured channels."""
         from src.notify import send_notification
 
-        env = {
-            "SLACK_WEBHOOK_URL": "https://hooks.slack.com/test",
-            "SMTP_HOST": "smtp.example.com",
-            "SMTP_FROM": "bot@x.com",
-            "SMTP_TO": "admin@x.com",
-            "SMTP_PASSWORD": "pw",
-        }
-        with mock.patch.dict(os.environ, env, clear=False):
+        with mock.patch("src.config.SLACK_WEBHOOK_URL", "https://hooks.slack.com/test"), \
+             mock.patch("src.config.SMTP_HOST", "smtp.example.com"), \
+             mock.patch("src.config.SMTP_FROM", "bot@x.com"), \
+             mock.patch("src.config.SMTP_TO", "admin@x.com"), \
+             mock.patch("src.config.SMTP_PASSWORD", "pw"):
             send_notification("Title", "Message", level="error")
 
         mock_macos.assert_called_once()

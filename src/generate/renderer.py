@@ -50,13 +50,13 @@ def _draw_gradient(width: int, height: int, start_hex: str, end_hex: str) -> Ima
     r1, g1, b1 = _hex_to_rgb(start_hex)
     r2, g2, b2 = _hex_to_rgb(end_hex)
 
+    draw = ImageDraw.Draw(img)
     for y in range(height):
         t = y / max(height - 1, 1)
         r = int(r1 + (r2 - r1) * t)
         g = int(g1 + (g2 - g1) * t)
         b = int(b1 + (b2 - b1) * t)
-        for x in range(width):
-            img.putpixel((x, y), (r, g, b))
+        draw.line([(0, y), (width - 1, y)], fill=(r, g, b))
 
     return img
 
@@ -231,6 +231,6 @@ def generate_infographic(
 
     # -- save --------------------------------------------------------------
     output_path = OUTPUT_DIR / f"infographic_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
-    img.save(output_path, "PNG", quality=95)
+    img.save(output_path, "PNG")
     logger.info("Saved infographic to %s", output_path)
     return output_path

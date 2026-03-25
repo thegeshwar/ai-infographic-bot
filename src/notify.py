@@ -2,7 +2,6 @@
 
 import json
 import logging
-import os
 import smtplib
 import subprocess
 import urllib.request
@@ -18,7 +17,9 @@ def notify_macos(title: str, message: str) -> None:
         title: Notification title.
         message: Notification body text.
     """
-    script = f'display notification "{message}" with title "{title}"'
+    safe_message = message.replace('\\', '\\\\').replace('"', '\\"')
+    safe_title = title.replace('\\', '\\\\').replace('"', '\\"')
+    script = f'display notification "{safe_message}" with title "{safe_title}"'
     try:
         subprocess.run(["osascript", "-e", script], check=False, capture_output=True)
     except Exception as e:
@@ -95,14 +96,10 @@ def send_notification(title: str, message: str, level: str = "error") -> None:
     notify_macos(title, message)
 
     # Slack (optional)
-    slack_url = os.getenv("SLACK_WEBHOOK_URL")
-    if slack_url:
-        notify_slack(slack_url, title, message)
+    from src.config import SLACK_WEBHOOK_URL, SMTP_HOST, SMTP_FROM, SMTP_TO, SMTP_PASSWORD
+    if SLACK_WEBHOOK_URL:
+        notify_slack(SLACK_WEBHOOK_URL, title, message)
 
     # Email (optional)
-    smtp_host = os.getenv("SMTP_HOST")
-    smtp_from = os.getenv("SMTP_FROM")
-    smtp_to = os.getenv("SMTP_TO")
-    smtp_password = os.getenv("SMTP_PASSWORD", "")
-    if smtp_host and smtp_from and smtp_to:
-        notify_email(smtp_host, smtp_from, smtp_to, smtp_password, title, message)
+    if SMTP_HOST and SMTP_FROM and SMTP_TO:
+        notify_email(SMTP_HOST, SMTP_FROM, SMTP_TO, SMTP_PASSWORD, title, message)
