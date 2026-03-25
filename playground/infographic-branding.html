@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Infographic Bot — Branding Playground</title>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #1a1a1a;
+    --surface2: #252525;
+    --text: #e0e0e0;
+    --text-muted: #888;
+    --accent: #4f8cff;
+    --border: #333;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+  .header {
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 16px;
+  }
+  .header h1 { font-size: 20px; font-weight: 600; }
+  .header .tabs { display: flex; gap: 4px; margin-left: auto; }
+  .header .tab {
+    padding: 8px 20px; border-radius: 8px; cursor: pointer;
+    background: var(--surface); color: var(--text-muted); font-size: 14px;
+    border: 1px solid transparent; transition: all 0.2s;
+  }
+  .header .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .header .tab:hover:not(.active) { background: var(--surface2); color: var(--text); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 24px;
+    padding: 32px;
+  }
+
+  .card {
+    background: var(--surface);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card.selected { border-color: var(--accent); box-shadow: 0 0 20px rgba(79,140,255,0.3); }
+  .card .badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--accent); color: #fff; font-size: 11px; font-weight: 700;
+    padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  .card canvas { width: 100%; display: block; }
+  .card .info { padding: 16px; }
+  .card .info h3 { font-size: 15px; margin-bottom: 4px; }
+  .card .info p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  .prompt-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 16px 32px; display: flex; align-items: center; gap: 16px;
+  }
+  .prompt-bar .prompt-text {
+    flex: 1; font-size: 13px; color: var(--text-muted);
+    font-family: 'SF Mono', 'Fira Code', monospace; line-height: 1.5;
+    max-height: 60px; overflow-y: auto;
+  }
+  .prompt-bar button {
+    padding: 10px 24px; border-radius: 8px; border: none;
+    background: var(--accent); color: #fff; font-weight: 600;
+    cursor: pointer; font-size: 13px; white-space: nowrap;
+  }
+  .prompt-bar button:hover { opacity: 0.9; }
+
+  .spacer { height: 100px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Infographic Branding Explorer</h1>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('personal')">Personal</div>
+    <div class="tab" onclick="switchTab('company')">CU Circuits</div>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+<div class="spacer"></div>
+
+<div class="prompt-bar">
+  <div class="prompt-text" id="prompt">Click a design to select it.</div>
+  <button onclick="copyPrompt()">Copy Prompt</button>
+</div>
+
+<script>
+const SAMPLE_STORIES = [
+  { headline: "GPT-5 Achieves 95% on ARC-AGI", category: "breakthrough", bullets: ["First model to score 95% on the ARC reasoning benchmark", "Uses novel chain-of-thought with self-verification", "Available via API starting next week"] },
+  { headline: "Apple Acquires AI Chip Startup for $2B", category: "industry", bullets: ["Startup specialized in on-device inference chips", "Deal signals Apple's push into local AI processing", "Expected to ship in iPhone 18 series"] },
+  { headline: "Open-Source Llama 4 Outperforms Claude", category: "product", bullets: ["Meta releases Llama 4 with 400B parameters", "Beats proprietary models on 8 of 12 benchmarks", "Fully open weights under permissive license"] },
+  { headline: "EU AI Act Enforcement Begins Today", category: "policy", bullets: ["Companies must disclose AI training data sources", "Fines up to 7% of global revenue for violations", "Grace period ends for high-risk AI systems"] },
+  { headline: "DeepMind Solves Protein Folding v2", category: "research", bullets: ["AlphaFold 3 predicts protein interactions with DNA", "Accuracy improved 40% over previous version", "Free database expanded to 200M structures"] },
+];
+
+const SAMPLE_CU = [
+  { headline: "6-Layer HDI PCB Under $5 in India", category: "product", bullets: ["CU Circuits launches budget HDI stackup service", "2-day turnaround for prototypes up to 6 layers", "Free DFM check included with every order"] },
+  { headline: "3D Printed Enclosures Ship Same Week", category: "product", bullets: ["SLA and FDM options for rapid prototyping", "Integrated with PCB orders for matched delivery", "Custom color and finish options available"] },
+  { headline: "Flex PCB Demand Up 300% in India", category: "industry", bullets: ["Wearable and IoT growth drives flexible circuit adoption", "Indian fabs adding capacity to meet demand surge", "Lead times dropping as local supply matures"] },
+  { headline: "New IPC-2581 Standard Simplifies Orders", category: "industry", bullets: ["Single file replaces Gerber + drill + netlist bundles", "Major fabs now accept IPC-2581 natively", "Reduces quoting errors by 60% in early trials"] },
+  { headline: "Copper Prices Hit 5-Year Low", category: "industry", bullets: ["Global copper surplus drives PCB material costs down", "1oz copper clad laminate pricing drops 18% YoY", "Budget window for bulk prototype orders opens up"] },
+];
+
+const CATEGORY_COLORS = {
+  breakthrough: { primary: "#FF6B35", accent: "#FFB563" },
+  product:      { primary: "#4ECDC4", accent: "#A8E6CF" },
+  research:     { primary: "#6C5CE7", accent: "#A29BFE" },
+  industry:     { primary: "#0984E3", accent: "#74B9FF" },
+  policy:       { primary: "#E17055", accent: "#FAB1A0" },
+};
+
+const CATEGORY_ICONS = {
+  breakthrough: "\u{1F52C}", product: "\u{1F4F1}", research: "\u{1F4CA}",
+  industry: "\u{1F3ED}", policy: "\u{1F3DB}"
+};
+
+const personalDesigns = [
+  {
+    id: "p1", name: "Dark Glassmorphism",
+    desc: "Frosted glass cards on deep navy. Vibrant category accents. Modern tech influencer feel.",
+    bg: ["#0a0a1a", "#0a0a1a"],
+    cardBg: "rgba(255,255,255,0.06)", cardBorder: "rgba(255,255,255,0.1)", cardRadius: 16,
+    textPrimary: "#ffffff", textSecondary: "#c0c0d0", textMuted: "#707090",
+    headerFont: 44, headlineFont: 26, bulletFont: 16,
+    titleText: "AI / ML Daily Digest", watermark: "thegeshwar",
+    accentLine: "#4f8cff", tagStyle: "pill",
+  },
+  {
+    id: "p2", name: "Neon Gradient",
+    desc: "Deep purple-to-blue gradient. Neon accent highlights. Chunky bold typography. Scroll-stopper.",
+    bg: ["#1a0533", "#0a1628"],
+    cardBg: "rgba(255,255,255,0.04)", cardBorder: "rgba(138,43,226,0.3)", cardRadius: 12,
+    textPrimary: "#ffffff", textSecondary: "#d0b8ff", textMuted: "#8060b0",
+    headerFont: 48, headlineFont: 28, bulletFont: 16,
+    titleText: "AI / ML DAILY", watermark: "thegeshwar",
+    accentLine: "#bf5fff", tagStyle: "neon",
+  },
+  {
+    id: "p3", name: "Clean Editorial",
+    desc: "White background, crisp black text. Single accent color. Newspaper-inspired. Professional authority.",
+    bg: ["#f8f8f8", "#f8f8f8"],
+    cardBg: "#ffffff", cardBorder: "#e0e0e0", cardRadius: 4,
+    textPrimary: "#111111", textSecondary: "#444444", textMuted: "#999999",
+    headerFont: 40, headlineFont: 24, bulletFont: 15,
+    titleText: "AI/ML Daily Digest", watermark: "thegeshwar",
+    accentLine: "#0066ff", tagStyle: "underline",
+  },
+  {
+    id: "p4", name: "Midnight Teal",
+    desc: "Dark charcoal with teal/cyan accents. GitHub-inspired. Calm but modern developer aesthetic.",
+    bg: ["#0d1117", "#0d1117"],
+    cardBg: "#161b22", cardBorder: "#30363d", cardRadius: 10,
+    textPrimary: "#e6edf3", textSecondary: "#8b949e", textMuted: "#484f58",
+    headerFont: 42, headlineFont: 25, bulletFont: 15,
+    titleText: "AI/ML Daily Digest", watermark: "thegeshwar",
+    accentLine: "#2dd4bf", tagStyle: "chip",
+  },
+  {
+    id: "p5", name: "Warm Mono",
+    desc: "Off-black with warm amber highlights. Monospace typography. Dev/hacker terminal aesthetic.",
+    bg: ["#1c1917", "#1c1917"],
+    cardBg: "#292524", cardBorder: "#44403c", cardRadius: 8,
+    textPrimary: "#fafaf9", textSecondary: "#a8a29e", textMuted: "#78716c",
+    headerFont: 38, headlineFont: 24, bulletFont: 15,
+    titleText: "> AI_ML_DIGEST", watermark: "@thegeshwar",
+    accentLine: "#f59e0b", tagStyle: "bracket",
+  },
+  {
+    id: "p6", name: "Polar Light",
+    desc: "Soft blue-gray gradient. Rounded airy cards. Pastel category colors. Friendly and approachable.",
+    bg: ["#eef2ff", "#e0e7ff"],
+    cardBg: "#ffffff", cardBorder: "#c7d2fe", cardRadius: 20,
+    textPrimary: "#1e1b4b", textSecondary: "#4338ca", textMuted: "#6366f1",
+    headerFont: 42, headlineFont: 25, bulletFont: 15,
+    titleText: "AI/ML Daily Digest", watermark: "thegeshwar",
+    accentLine: "#818cf8", tagStyle: "pill",
+  },
+];
+
+const cuDesigns = [
+  {
+    id: "c1", name: "Circuit Board Dark",
+    desc: "Deep PCB green on matte black. Trace-line accents. Copper highlights. Engineering authority.",
+    bg: ["#0a0a0a", "#0a0f0a"],
+    cardBg: "#0d1a0d", cardBorder: "#1a4d2e", cardRadius: 8,
+    textPrimary: "#e0ffe0", textSecondary: "#88cc88", textMuted: "#447744",
+    headerFont: 42, headlineFont: 25, bulletFont: 15,
+    titleText: "CU CIRCUITS", subtitle: "Industry Insights",
+    accentLine: "#d4a017", tagStyle: "chip",
+    logo: true, logoBg: "#006644",
+  },
+  {
+    id: "c2", name: "Copper & Navy",
+    desc: "Deep navy background. Copper/gold accent lines. Premium B2B feel. Technical but polished.",
+    bg: ["#0c1222", "#0c1222"],
+    cardBg: "#111c33", cardBorder: "#1e3050", cardRadius: 10,
+    textPrimary: "#ffffff", textSecondary: "#8899bb", textMuted: "#556688",
+    headerFont: 44, headlineFont: 26, bulletFont: 15,
+    titleText: "CU CIRCUITS", subtitle: "PCB & 3D Fab Weekly",
+    accentLine: "#cd7f32", tagStyle: "pill",
+    logo: true, logoBg: "#cd7f32",
+  },
+  {
+    id: "c3", name: "Clean Fabrication",
+    desc: "White background with subtle grid pattern. Green accent. Clinical precision feel. Data-forward.",
+    bg: ["#fafafa", "#fafafa"],
+    cardBg: "#ffffff", cardBorder: "#d4d4d4", cardRadius: 6,
+    textPrimary: "#171717", textSecondary: "#525252", textMuted: "#a3a3a3",
+    headerFont: 40, headlineFont: 24, bulletFont: 15,
+    titleText: "CU CIRCUITS", subtitle: "Industry Report",
+    accentLine: "#006644", tagStyle: "underline",
+    logo: true, logoBg: "#006644", gridPattern: true,
+  },
+  {
+    id: "c4", name: "Solder Mask Blue",
+    desc: "Classic PCB blue solder mask color. White silkscreen text. Nostalgic hardware feel.",
+    bg: ["#002244", "#001133"],
+    cardBg: "rgba(255,255,255,0.08)", cardBorder: "rgba(255,255,255,0.15)", cardRadius: 8,
+    textPrimary: "#ffffff", textSecondary: "#aaccee", textMuted: "#6699cc",
+    headerFont: 44, headlineFont: 26, bulletFont: 15,
+    titleText: "CU CIRCUITS", subtitle: "Fab & Print Digest",
+    accentLine: "#ffffff", tagStyle: "chip",
+    logo: true, logoBg: "#0055aa",
+  },
+  {
+    id: "c5", name: "3D Print Orange",
+    desc: "Dark background with maker-orange accents. Bold. Represents the 3D printing side strongly.",
+    bg: ["#1a1a1a", "#1a1a1a"],
+    cardBg: "#242424", cardBorder: "#3d3d3d", cardRadius: 12,
+    textPrimary: "#ffffff", textSecondary: "#cccccc", textMuted: "#888888",
+    headerFont: 44, headlineFont: 26, bulletFont: 16,
+    titleText: "CU CIRCUITS", subtitle: "PCB + 3D Print Intel",
+    accentLine: "#ff6600", tagStyle: "neon",
+    logo: true, logoBg: "#ff6600",
+  },
+  {
+    id: "c6", name: "India Tech Gradient",
+    desc: "Saffron-to-green gradient accent bar. Clean dark base. Celebrates 'Made in India' positioning.",
+    bg: ["#111111", "#111111"],
+    cardBg: "#1c1c1c", cardBorder: "#333333", cardRadius: 10,
+    textPrimary: "#f5f5f5", textSecondary: "#bbbbbb", textMuted: "#777777",
+    headerFont: 42, headlineFont: 25, bulletFont: 15,
+    titleText: "CU CIRCUITS", subtitle: "Made in India \u{1F1EE}\u{1F1F3}",
+    accentLine: "#ff9933", tagStyle: "pill",
+    logo: true, logoBg: "#138808", gradientAccent: ["#ff9933", "#ffffff", "#138808"],
+  },
+];
+
+let currentTab = "personal";
+let selectedId = null;
+
+function switchTab(tab) {
+  currentTab = tab;
+  selectedId = null;
+  document.querySelectorAll(".tab").forEach(function(t) { t.classList.remove("active"); });
+  var tabs = document.querySelectorAll(".tab");
+  tabs[tab === "personal" ? 0 : 1].classList.add("active");
+  renderGrid();
+  updatePrompt();
+}
+
+function renderGrid() {
+  var designs = currentTab === "personal" ? personalDesigns : cuDesigns;
+  var stories = currentTab === "personal" ? SAMPLE_STORIES : SAMPLE_CU;
+  var grid = document.getElementById("grid");
+
+  // Clear grid safely
+  while (grid.firstChild) grid.removeChild(grid.firstChild);
+
+  designs.forEach(function(d, idx) {
+    var card = document.createElement("div");
+    card.className = "card" + (selectedId === d.id ? " selected" : "");
+    card.addEventListener("click", function() { selectedId = d.id; renderGrid(); updatePrompt(); });
+
+    var badge = document.createElement("div");
+    badge.className = "badge";
+    badge.textContent = String(idx + 1);
+    card.appendChild(badge);
+
+    var canvas = document.createElement("canvas");
+    canvas.width = 540; canvas.height = 675;
+    card.appendChild(canvas);
+
+    var info = document.createElement("div");
+    info.className = "info";
+    var h3 = document.createElement("h3");
+    h3.textContent = d.name;
+    var p = document.createElement("p");
+    p.textContent = d.desc;
+    info.appendChild(h3);
+    info.appendChild(p);
+    card.appendChild(info);
+
+    grid.appendChild(card);
+    drawInfographic(canvas, d, stories);
+  });
+}
+
+function drawInfographic(canvas, design, stories) {
+  var ctx = canvas.getContext("2d");
+  var W = canvas.width, H = canvas.height;
+  var scale = 0.5;
+
+  // Background
+  if (design.bg[0] !== design.bg[1]) {
+    var grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, design.bg[0]);
+    grad.addColorStop(1, design.bg[1]);
+    ctx.fillStyle = grad;
+  } else {
+    ctx.fillStyle = design.bg[0];
+  }
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid pattern for Clean Fabrication
+  if (design.gridPattern) {
+    ctx.strokeStyle = "rgba(0,0,0,0.04)";
+    ctx.lineWidth = 1;
+    for (var gx = 0; gx < W; gx += 20) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke(); }
+    for (var gy = 0; gy < H; gy += 20) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); }
+  }
+
+  var margin = 30;
+  var y = 24;
+
+  // Gradient accent bar for India Tech
+  if (design.gradientAccent) {
+    var aGrad = ctx.createLinearGradient(margin, y, W - margin, y);
+    design.gradientAccent.forEach(function(c, i) { aGrad.addColorStop(i / (design.gradientAccent.length - 1), c); });
+    ctx.fillStyle = aGrad;
+    ctx.fillRect(margin, y, W - 2 * margin, 4);
+    y += 12;
+  }
+
+  // Logo placeholder for company designs
+  if (design.logo) {
+    ctx.fillStyle = design.logoBg;
+    ctx.beginPath();
+    ctx.roundRect(margin, y, 36, 36, 6);
+    ctx.fill();
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 16px -apple-system, sans-serif";
+    ctx.fillText("CU", margin + 6, y + 24);
+    y += 10;
+  }
+
+  // Title
+  ctx.fillStyle = design.textPrimary;
+  ctx.font = "bold " + (design.headerFont * scale) + "px -apple-system, sans-serif";
+  ctx.fillText(design.titleText, margin + (design.logo ? 44 : 0), y + 30);
+
+  if (design.subtitle) {
+    ctx.fillStyle = design.textMuted;
+    ctx.font = "12px -apple-system, sans-serif";
+    ctx.fillText(design.subtitle, margin + (design.logo ? 44 : 0), y + 46);
+  }
+
+  // Date
+  var dateX = design.logo ? margin + 44 : margin;
+  ctx.fillStyle = design.textMuted;
+  ctx.font = "11px -apple-system, sans-serif";
+  ctx.fillText("March 25, 2026", dateX, y + (design.subtitle ? 62 : 48));
+  y += design.subtitle ? 72 : 56;
+
+  // Accent line
+  ctx.strokeStyle = design.accentLine;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(margin, y);
+  ctx.lineTo(W - margin, y);
+  ctx.stroke();
+  y += 14;
+
+  // Stories
+  var maxStories = Math.min(5, stories.length);
+  var availH = H - y - 50;
+  var cardH = Math.min(availH / maxStories - 8, 108);
+
+  for (var i = 0; i < maxStories; i++) {
+    var story = stories[i];
+    var cat = story.category;
+    var colors = CATEGORY_COLORS[cat] || CATEGORY_COLORS.industry;
+    var cardTop = y;
+
+    // Card background
+    ctx.fillStyle = design.cardBg;
+    ctx.beginPath();
+    ctx.roundRect(margin - 4, cardTop, W - 2 * margin + 8, cardH, design.cardRadius * scale);
+    ctx.fill();
+
+    // Card border
+    if (design.cardBorder) {
+      ctx.strokeStyle = design.cardBorder;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(margin - 4, cardTop, W - 2 * margin + 8, cardH, design.cardRadius * scale);
+      ctx.stroke();
+    }
+
+    var cy = cardTop + 12;
+
+    // Category tag
+    var icon = CATEGORY_ICONS[cat] || "";
+    var tagText = icon + " " + cat.toUpperCase();
+    ctx.font = "bold 9px -apple-system, sans-serif";
+
+    if (design.tagStyle === "neon") {
+      ctx.fillStyle = colors.primary;
+      ctx.shadowColor = colors.primary;
+      ctx.shadowBlur = 8;
+      ctx.fillText(tagText, margin + 8, cy + 2);
+      ctx.shadowBlur = 0;
+    } else if (design.tagStyle === "underline") {
+      ctx.fillStyle = colors.primary;
+      ctx.fillText(tagText, margin + 8, cy + 2);
+      ctx.strokeStyle = colors.primary;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      var tw = ctx.measureText(tagText).width;
+      ctx.moveTo(margin + 8, cy + 5);
+      ctx.lineTo(margin + 8 + tw, cy + 5);
+      ctx.stroke();
+    } else if (design.tagStyle === "bracket") {
+      ctx.fillStyle = colors.primary;
+      ctx.font = "bold 9px monospace";
+      ctx.fillText("[" + tagText + "]", margin + 8, cy + 2);
+    } else {
+      // pill or chip
+      var tagW = ctx.measureText(tagText).width + 18;
+      ctx.fillStyle = colors.primary;
+      ctx.beginPath();
+      ctx.roundRect(margin + 6, cy - 8, tagW, 18, design.tagStyle === "pill" ? 9 : 4);
+      ctx.fill();
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 9px -apple-system, sans-serif";
+      ctx.fillText(tagText, margin + 14, cy + 3);
+    }
+
+    // Story number
+    ctx.fillStyle = colors.accent;
+    ctx.font = "bold 10px -apple-system, sans-serif";
+    ctx.fillText(String(i + 1), W - margin - 16, cy + 3);
+
+    cy += 18;
+
+    // Headline
+    ctx.fillStyle = design.textPrimary;
+    ctx.font = "bold " + (design.headlineFont * scale) + "px -apple-system, sans-serif";
+    var headline = story.headline.length > 42 ? story.headline.slice(0, 40) + "..." : story.headline;
+    ctx.fillText(headline, margin + 8, cy + 4);
+    cy += 18;
+
+    // Bullets
+    ctx.fillStyle = design.textSecondary;
+    ctx.font = (design.bulletFont * scale) + "px -apple-system, sans-serif";
+    story.bullets.slice(0, 2).forEach(function(b) {
+      var bullet = b.length > 55 ? b.slice(0, 53) + "..." : b;
+      ctx.fillText("\u2022 " + bullet, margin + 14, cy + 3);
+      cy += 14;
+    });
+
+    y = cardTop + cardH + 6;
+  }
+
+  // Footer
+  ctx.fillStyle = design.textMuted;
+  ctx.font = "10px -apple-system, sans-serif";
+  ctx.fillText("#AI #MachineLearning #DailyDigest", margin, H - 26);
+  ctx.fillText("Generated by AI Infographic Bot \u2014 " + (design.watermark || "CU Circuits"), margin, H - 12);
+}
+
+function updatePrompt() {
+  var el = document.getElementById("prompt");
+  if (!selectedId) {
+    el.textContent = "Click a design to select it.";
+    return;
+  }
+
+  var designs = currentTab === "personal" ? personalDesigns : cuDesigns;
+  var d = designs.find(function(x) { return x.id === selectedId; });
+  var target = currentTab === "personal" ? "personal LinkedIn" : "CU Circuits company LinkedIn page";
+
+  var parts = [
+    "Use the \"" + d.name + "\" branding style for the " + target + " infographic.",
+    "Background: " + (d.bg[0] === d.bg[1] ? d.bg[0] : "gradient from " + d.bg[0] + " to " + d.bg[1]) + ".",
+    "Card style: " + d.cardBg + " background, " + d.cardRadius + "px radius, " + d.cardBorder + " border.",
+    "Typography: title " + d.headerFont + "px bold, headlines " + d.headlineFont + "px bold, bullets " + d.bulletFont + "px.",
+    "Colors: primary text " + d.textPrimary + ", secondary " + d.textSecondary + ", muted " + d.textMuted + ".",
+    "Accent line: " + d.accentLine + ". Tag style: " + d.tagStyle + ".",
+  ];
+
+  if (d.logo) parts.push("Include CU Circuits logo placeholder (" + d.logoBg + " background).");
+  if (d.subtitle) parts.push("Subtitle: \"" + d.subtitle + "\".");
+  if (d.gradientAccent) parts.push("India tri-color gradient accent bar at top.");
+
+  el.textContent = parts.join(" ");
+}
+
+function copyPrompt() {
+  var text = document.getElementById("prompt").textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.querySelector(".prompt-bar button");
+    btn.textContent = "Copied!";
+    setTimeout(function() { btn.textContent = "Copy Prompt"; }, 1500);
+  });
+}
+
+renderGrid();
+</script>
+</body>
+</html>
