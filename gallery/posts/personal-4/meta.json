@@ -1,0 +1,23 @@
+{
+  "hook": "Can AI discover the cancer drug humans couldn't?",
+  "headline": "AI-Designed Drugs Hit Phase 3 Trials in 2026",
+  "body": [
+    "For the first time, multiple drug candidates designed primarily by AI systems are entering late-stage clinical trials. Insilico Medicine's ISM001-055 just posted positive Phase IIa results for pulmonary fibrosis. Zasocitinib, designed using physics-enabled AI, has advanced to Phase 3.",
+    "The numbers shifting the industry: AI could cut drug development costs by 16% and handle up to 30% of preclinical work. Digital twins are moving from pilot programs to standard practice in clinical trial design, enabling precision oncology approaches that match treatments to individual tumor profiles.",
+    "2026 is the year AI drug discovery stops being a promise and starts delivering prescriptions."
+  ],
+  "insight": "The real signal isn't that AI found new drugs -- it's that AI-discovered drugs are surviving clinical trials at higher rates than traditionally discovered ones. The selection filter just permanently changed.",
+  "source": "World Economic Forum",
+  "source_url": "https://www.weforum.org/stories/2026/01/how-ai-is-reshaping-drug-discovery/",
+  "pillar": "future-signals",
+  "account": "personal",
+  "hashtags": ["#AIHealthcare", "#DrugDiscovery", "#Biotech", "#PrecisionMedicine", "#FutureOfHealth", "#ClinicalTrials"],
+  "caption": "What if the biggest AI story of 2026 isn't chatbots or image generators -- but a cancer drug?\n\nFor the first time ever, AI-designed drug candidates are reaching Phase 3 clinical trials. Not as a novelty. As the new standard.\n\nDigital twins modeling individual patients. AI handling 30% of preclinical work. Drug development costs dropping 16%.\n\nWe spend so much time debating AI's impact on knowledge work. But the most profound impact might be measured in lives saved, not jobs displaced.\n\nWhat AI application excites you most outside of tech? I'd love to hear.",
+  "strategy": {
+    "voice": "Curious Explorer",
+    "hook": "Question",
+    "depth": "Minimal",
+    "caption_style": "opinion-led",
+    "visual_template": "midnight-teal"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "hook": "What if the best AI coding tool isn't owned by anyone?",
+  "headline": "Eclipse's Theia AI Takes on Cursor and Copilot",
+  "body": [
+    "Two years ago, a small team at the Eclipse Foundation looked at the developer tools landscape and saw a problem nobody was talking about. GitHub Copilot owned the AI coding market. Cursor was eating into VS Code's dominance. Every serious AI dev tool was controlled by a single company with its own agenda. The open-source community -- the people who built the modern web -- had no seat at the table.",
+    "So they built Theia AI. Not just another code completion plugin, but an entire open-source framework that lets any tool builder integrate any LLM -- cloud, self-hosted, or fully local -- into any IDE. Full control over prompt engineering, agentic workflows, and context management. No vendor lock-in. No surprise pricing changes. No data leaving your machine unless you choose.",
+    "The alpha release of the AI-Powered Theia IDE landed this month with MCP integration, intelligent coding agents, and AI-powered terminal support. It's rough around the edges. But the architecture is what matters: a foundation that 47 organizations are already building on, from SAP to ARM to IBM.",
+    "The pattern is familiar. Linux didn't beat Windows by being better on day one. It won by being open. Theia AI is making the same bet -- that the developer tools of the future should be collectively owned, not rented."
+  ],
+  "insight": "Theia AI's real weapon isn't features -- it's the MCP integration that lets developers wire any AI model to any tool. In a world where the best model changes every 3 months, the IDE that's model-agnostic wins by default.",
+  "source": "Eclipse Foundation",
+  "source_url": "https://newsroom.eclipse.org/news/announcements/eclipse-foundation-unveils-theia-ai-advanced-open-source-ai-innovations",
+  "pillar": "builders-edge",
+  "account": "personal",
+  "hashtags": ["#TheiaAI", "#OpenSource", "#DeveloperTools", "#Eclipse", "#CodingTools", "#AIAgents", "#DevEx"],
+  "caption": "The AI coding tools market is about to get its 'Linux moment.'\n\nTheia AI just dropped as a fully open-source alternative to Cursor and GitHub Copilot. And it's backed by the Eclipse Foundation -- the same org behind enterprise Java tooling used by millions.\n\nHere's why this matters for every developer: the ability to plug in ANY model (cloud, local, self-hosted), control your own prompt engineering, and own your data. No vendor lock-in.\n\n47 organizations including SAP, ARM, and IBM are already building on the framework.\n\nIs open-source the future of AI dev tools, or will the proprietary players stay too far ahead? Curious what you think.",
+  "strategy": {
+    "voice": "Storyteller",
+    "hook": "What-if",
+    "depth": "Medium",
+    "caption_style": "opinion-led",
+    "visual_template": "clean-editorial"
+  }
+}

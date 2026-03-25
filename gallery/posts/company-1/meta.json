@@ -1,0 +1,23 @@
+{
+  "hook": "Is your annular ring quietly killing your yield?",
+  "headline": "The DFM Mistake Costing You $2/Board",
+  "body": [
+    "Here's something we see every week on our fab floor: engineers submit designs with 3-mil annular rings on vias, right at the edge of manufacturability. The EDA tool didn't flag it. The design review missed it. But when drill wander and layer misregistration stack up, those vias fail — and suddenly you're looking at a 15-20% yield drop.",
+    "The fix is almost embarrassingly simple. IPC Class 2 calls for a minimum 4-mil annular ring, but experienced designers target 6 mil or more. On a 12-mil drill, that means a 24-mil pad — not the 18-mil default many EDA libraries ship with. That extra 3 mils of copper per side is the difference between a board that breezes through fab and one that triggers rework.",
+    "The real cost isn't just the scrap boards. It's the 3-5 day delay while your fab house flags the issue, the back-and-forth with your layout engineer, and the respun gerbers. We've seen teams lose entire sprint cycles to a problem that takes 10 minutes to prevent.",
+    "Run your DFM check before you export gerbers, not after. Most modern EDA tools — KiCad 9, Altium, OrCAD — have built-in design rule checkers that flag annular ring violations in real time. Set your minimum to your fab house's actual capability plus 2 mil margin. Your future self will thank you."
+  ],
+  "insight": "Target 6+ mil annular rings on vias (not the EDA default). That single rule change can improve first-pass yield by 10-15% and eliminate the most common DFM rejection we see.",
+  "source": "IPC-2221 Standard / PCBSync DFM Analysis",
+  "source_url": "https://pcbsync.com/annular-ring-pcb/",
+  "pillar": "dfm-tips",
+  "account": "company",
+  "hashtags": ["#PCB", "#Manufacturing", "#MadeInIndia", "#DFM", "#PCBDesign", "#AnnularRing", "#HardwareEngineering", "#DesignForManufacturing", "#ElectronicsDesign", "#PrototypeTips"],
+  "caption": "This is the single most common DFM issue we flag at CU Circuits — and it's 100% preventable.\n\nEvery week we see designs come in with annular rings right at the minimum. The designer's EDA tool said it was fine. But stack up drill wander, etch compensation, and layer misregistration, and suddenly your via reliability craters.\n\nQuick rule of thumb: take your fab house's minimum annular ring spec and add 2 mil. That's your new design rule.\n\nWhat's the most frustrating DFM rejection you've dealt with? Drop it in the comments — let's build a checklist together.",
+  "strategy": {
+    "voice": "Helpful Engineer",
+    "hook_style": "Question",
+    "depth": "Medium",
+    "template": "circuit-board-dark"
+  }
+}

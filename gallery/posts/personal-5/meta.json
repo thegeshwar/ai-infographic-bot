@@ -1,0 +1,23 @@
+{
+  "hook": "This open-source model just mass-obsoleted your GPU budget",
+  "headline": "NVIDIA Nemotron 3 Super: 120B Power, 12B Cost",
+  "body": [
+    "I've been benchmarking AI models for production deployments all year, and NVIDIA just dropped something that changes the math entirely. Nemotron 3 Super, unveiled at GTC on March 11, is a 120B-parameter mixture-of-experts model that only activates 12B parameters per inference call. The result? 5x higher throughput than the previous generation on Blackwell GPUs.",
+    "What makes this practical, not just impressive, is the architecture. Super's latent MoE approach calls four expert specialists for the inference cost of one, compressing tokens before they hit the experts. It handles 1M-token context windows, which is critical when your agent conversations balloon to 15x standard chat length. And it scores 60.47% on SWE-Bench Verified, putting it in serious territory for code generation.",
+    "The kicker: it ships under NVIDIA's permissive open license with full weights, training data, and development recipes on Hugging Face. Pretrained on 25 trillion tokens using NVFP4 precision. For builders running agentic systems, this is the moment your cost-per-query drops by an order of magnitude.",
+    "I'm already testing it for our multi-agent pipeline. If you're still paying frontier-model API prices for tasks that don't need them, Nemotron 3 Super is your exit ramp."
+  ],
+  "insight": "The MoE architecture activating only 12B of 120B parameters means enterprise teams can now run frontier-class reasoning at mid-tier model costs. The open weight release forces every cloud provider to reprice their inference tiers.",
+  "source": "NVIDIA Blog",
+  "source_url": "https://blogs.nvidia.com/blog/nemotron-3-super-agentic-ai/",
+  "pillar": "builders-edge",
+  "account": "personal",
+  "hashtags": ["#AI", "#NVIDIA", "#OpenSource", "#NemotronSuper", "#AgenticAI", "#GTC2026", "#Developers", "#MLOps"],
+  "caption": "NVIDIA just made running 120B-parameter models affordable for every dev team.\n\nNemotron 3 Super activates only 12B of its 120B parameters per call. 5x throughput. 1M-token context. Open weights on Hugging Face.\n\nFor anyone building agentic AI systems, this is the inflection point where you stop choosing between quality and cost.\n\nThe open-source AI stack just leveled up. Who's already testing it?",
+  "strategy": {
+    "voice": "Builder",
+    "hook_style": "Bold claim",
+    "depth": "Medium",
+    "template": "warm-mono"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "hook": "What if your next PCB didn't need a factory at all?",
+  "headline": "MIT Prints a Working Motor in 3 Hours",
+  "body": [
+    "Let me explain why this matters for every hardware engineer reading this. Researchers at MIT's Microsystems Technology Laboratories have built a 3D-printing platform with four extruders that can deposit conductive, insulating, structural, and magnetic materials — and they used it to print a fully functional electric linear motor in just three hours. Total material cost: about 50 cents.",
+    "The key breakthrough isn't just speed — it's integration. Their multi-material system prints copper traces, insulating layers, structural supports, and magnetic components in a single continuous process. No assembly. No soldering. No separate PCB fabrication step. The printed motor generated several times more actuation force than conventional hydraulic-amplifier linear engines.",
+    "Now, let's be clear about what this doesn't mean. 3D-printed electronics won't replace conventional PCB manufacturing for production volumes anytime soon. The resolution, reliability, and throughput of traditional etched copper on FR-4 remain unmatched for anything beyond prototyping. But for rapid iteration — testing motor geometries, sensor placements, or antenna configurations — this collapses the design cycle from weeks to hours.",
+    "The future of electronics manufacturing isn't 3D printing versus traditional fab. It's both working together — 3D printing for exploration and validation, conventional PCB manufacturing for production. Understanding where each fits is becoming a core competency for hardware teams."
+  ],
+  "insight": "MIT's multi-material 3D printer fabricated a working linear motor in 3 hours for $0.50. While not production-ready, this technology is collapsing prototype iteration cycles from weeks to hours — every hardware team should be watching this space.",
+  "source": "MIT News / Virtual and Physical Prototyping",
+  "source_url": "https://news.mit.edu/2026/3d-printing-platform-rapidly-produces-complex-electric-machines-0218",
+  "pillar": "new-tech",
+  "account": "company",
+  "hashtags": ["#PCB", "#Manufacturing", "#MadeInIndia", "#3DPrinting", "#AdditiveManufacturing", "#MIT", "#ElectronicsInnovation", "#Prototyping", "#HardwareEngineering", "#FutureOfManufacturing"],
+  "caption": "A working electric motor. 3D printed. Three hours. Fifty cents in materials.\n\nMIT's Microsystems Technology Lab just demonstrated something that should be on every hardware engineer's radar: a multi-material 3D printing platform that prints conductive traces, insulation, structural parts, and magnetics in one continuous process.\n\nThis won't replace your PCB fab line (the physics of etched copper on FR-4 is still king for production). But for prototyping — testing geometries, validating concepts, iterating on sensor placements — this is a paradigm shift.\n\nAt CU Circuits, we see 3D printing and traditional PCB fab as complementary tools. Prototype fast, then manufacture right.\n\nWhat emerging manufacturing tech are you most excited about? Share below.",
+  "strategy": {
+    "voice": "Educator",
+    "hook_style": "What-if",
+    "depth": "Medium",
+    "template": "clean-fabrication"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "hook": "India just bet ₹40,000 crore that PCBs will be Made in India.",
+  "headline": "ECMS Budget Doubles — PCB Manufacturing's Moment",
+  "body": [
+    "The Union Budget 2026-27 just dropped a bombshell for Indian electronics manufacturing: the Electronics Components Manufacturing Scheme (ECMS) outlay has been hiked to ₹40,000 crore — a 75% jump from its original ₹22,919 crore. This isn't incremental policy. This is India going all-in on building a domestic PCB and components ecosystem.",
+    "The numbers back up the ambition. Investment commitments under ECMS have already hit ₹1.15 lakh crore — nearly double the original target. Forty-six projects across 11 states are approved, covering multi-layer PCBs, camera modules, connectors, optical transceivers, and more. Projected production over six years: over ₹10.3 lakh crore. Direct jobs: 1.4 lakh and counting.",
+    "For startups and hardware companies building in India, this changes the math on domestic sourcing. Until now, high-layer-count PCBs meant looking at China, Taiwan, or Thailand. But with this kind of government backing, domestic fab capacity for 8+ layer boards is finally scaling up. Chennai, Bangalore, and Hyderabad are emerging as serious PCB manufacturing corridors.",
+    "We started CU Circuits because we believed Indian fab could compete on quality, not just cost. This budget tells us the government agrees — and is putting serious money behind that belief. The USD 500-billion electronics manufacturing ecosystem India is targeting by 2030-31 needs world-class PCB fabs. We're building one."
+  ],
+  "insight": "India's ECMS budget hike to ₹40,000 crore signals a structural shift — domestic multi-layer PCB capacity is scaling, and hardware startups should start qualifying Indian fab partners now before demand outpaces supply.",
+  "source": "Union Budget 2026-27 / Business Today",
+  "source_url": "https://www.businesstoday.in/union-budget/news/story/budget-2026-govt-hikes-ecms-outlay-to-rs-40000-crore-to-boost-electronics-component-manufacturing-513999-2026-02-01",
+  "pillar": "made-in-india",
+  "account": "company",
+  "hashtags": ["#PCB", "#Manufacturing", "#MadeInIndia", "#ECMS", "#IndiaElectronics", "#StartupIndia", "#PLIScheme", "#ElectronicsManufacturing", "#AatmaNirbharBharat", "#ChennaiTech"],
+  "caption": "₹40,000 crore. That's not a typo — that's India's new bet on domestic electronics component manufacturing.\n\nThe ECMS outlay just got a 75% boost in the Union Budget, and multi-layer PCBs are right at the center of it. Investment commitments have already crossed ₹1.15 lakh crore.\n\nAt CU Circuits, this is the moment we've been building toward. Indian PCB fab isn't just catching up — it's gearing up to compete globally.\n\nAre you sourcing PCBs domestically yet? If not, what's holding you back? Let's talk about it.",
+  "strategy": {
+    "voice": "Scrappy Startup",
+    "hook_style": "Bold claim",
+    "depth": "Medium",
+    "template": "india-tech-gradient"
+  }
+}

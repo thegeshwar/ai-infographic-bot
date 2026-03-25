@@ -1,0 +1,24 @@
+{
+  "hook": "$105.2 billion. That's global PCB output in 2026 — up 13.9% YoY.",
+  "headline": "AI Is Eating the PCB Supply Chain",
+  "body": [
+    "The numbers are staggering. Global PCB output is projected to hit $105.2 billion in 2026, a 13.9% year-over-year surge driven almost entirely by AI infrastructure demand. But behind that headline figure lies a supply chain under structural stress that every hardware company needs to understand.",
+    "Upstream raw materials — glass yarns, copper foils (particularly VLP 1-5, RTF, and heavy copper), low-loss resin systems, and related chemistries — have entered a phase of tightening availability and accelerating price increases. Copper on the London Metal Exchange pushed above $13,300 per tonne in January, more than 20% higher than the late-2025 average. Some CCL suppliers have issued price adjustments of up to 30% across all thicknesses.",
+    "The European Association of PCB and Electronics Industries (EIPC) warns that this is no longer cyclical noise — it is a structural reality. As Japanese and Taiwanese production shifts toward AI-grade specialty substrates, dependency on Chinese E-glass and copper foil is deepening. Major AI hardware buyers are now engaging directly with Chinese yarn and glass-fabric producers, accelerating a fundamental reallocation of global capacity.",
+    "For mid-market PCB buyers — the IoT designers, industrial OEMs, and consumer electronics teams — the strategic implications are clear: secure allocation early, diversify your material qualifications, and strengthen direct upstream relationships. Lead times that were 3-4 weeks in 2024 are now stretching to 8-12 weeks for standard FR-4 in many regions.",
+    "The AI supercycle isn't just reshaping what gets built on PCBs. It's reshaping who gets to build at all."
+  ],
+  "insight": "AI server demand is structurally reallocating global PCB material capacity. Mid-market buyers who don't lock in supply agreements now face 8-12 week lead times on standard FR-4 — double the 2024 baseline.",
+  "source": "EIPC Q1 2026 Supply Chain Update / I-Connect007",
+  "source_url": "https://eipc.org/ai-demand-is-reshaping-pcb-supply-chains-allocation-pressures-market-reality-q1-2026-update/",
+  "pillar": "industry-intel",
+  "account": "company",
+  "hashtags": ["#PCB", "#Manufacturing", "#MadeInIndia", "#SupplyChain", "#AI", "#CopperPrices", "#ElectronicsManufacturing", "#PCBIndustry", "#HardwareTrends", "#Semiconductors"],
+  "caption": "The AI boom isn't just a software story — it's rewriting the rules of hardware supply chains.\n\nGlobal PCB output is surging to $105.2B in 2026, but behind that growth lies a materials squeeze that's hitting everyone from hyperscalers to small-batch prototype shops. Copper foil prices up 20%+. CCL suppliers issuing 30% price hikes. Lead times doubling.\n\nAt CU Circuits, we're seeing these pressures firsthand — and working to keep our customers ahead of the curve by maintaining material buffers and diversified sourcing.\n\nThree questions for hardware leaders:\n1. Have you locked in material allocation for H2 2026?\n2. Are your designs qualified for alternative laminates?\n3. When did you last audit your fab partner's supply chain?\n\nThe teams answering these questions now will ship on time. The rest will learn the hard way.",
+  "strategy": {
+    "voice": "Industry Expert",
+    "hook_style": "Statistic",
+    "depth": "Dense",
+    "template": "copper-navy"
+  }
+}

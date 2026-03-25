@@ -1,0 +1,22 @@
+{
+  "hook": "$1.03B. That's what a single AI seed round costs now.",
+  "headline": "LeCun's AMI Labs: Largest European Seed Ever",
+  "body": [
+    "Yann LeCun's AMI Labs closed $1.03 billion in seed funding at a $3.5B pre-money valuation. Europe's largest seed round ever. Backed by Bezos, NVIDIA, Samsung, Eric Schmidt, and Mark Cuban.",
+    "The bet: world models built on JEPA architecture will outperform LLMs by learning physical laws rather than predicting text tokens. LeCun left Meta to prove the entire AI industry has the wrong approach.",
+    "AMI plans corporate partnerships within two years and 'fairly universal intelligent systems' within five. At this valuation, investors are pricing in a paradigm shift, not incremental progress."
+  ],
+  "insight": "A $1B seed round for an architecture that doesn't exist yet in production signals that top-tier investors believe the LLM paradigm has a ceiling. The JEPA bet is binary: either world models unlock AGI-class capabilities, or this becomes the most expensive research lab in history.",
+  "source": "TechCrunch",
+  "source_url": "https://techcrunch.com/2026/03/09/yann-lecuns-ami-labs-raises-1-03-billion-to-build-world-models/",
+  "pillar": "money-moves",
+  "account": "personal",
+  "hashtags": ["#AIFunding", "#AMILabs", "#YannLeCun", "#WorldModels", "#JEPA", "#VentureCapital", "#AIStartup"],
+  "caption": "$1.03 billion. Seed round. Four months old.\n\nYann LeCun just raised the largest seed in European history to prove that LLMs are the wrong path to intelligence.\n\nAMI Labs is building world models on JEPA architecture: AI that learns physics, not just predicts text.\n\nIs this the most important funding round of 2026, or the most expensive contrarian bet in tech history?",
+  "strategy": {
+    "voice": "Analyst",
+    "hook_style": "Statistic",
+    "depth": "Minimal",
+    "template": "clean-editorial"
+  }
+}

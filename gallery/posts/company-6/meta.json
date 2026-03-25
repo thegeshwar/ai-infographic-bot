@@ -1,0 +1,23 @@
+{
+  "hook": "Everyone's celebrating the new IPC-A-610J revision. They shouldn't be -- at least not for the reasons they think.",
+  "headline": "IPC-A-610J Dropped Target Conditions. Here's What That Actually Means for Your Fab Floor.",
+  "body": [
+    "When IPC released Revision J of IPC-A-610 in 2024, the headline was 'new SMT component types added.' But the quiet, more consequential change was the removal of target conditions -- the aspirational 'perfect' benchmarks that guided assembly quality for decades.",
+    "What we see on the fab floor is this: teams that built their quality processes around hitting target conditions are now scrambling. Without that north star, the gap between 'acceptable' and 'defect' feels uncomfortably narrow. The September 2025 Automotive Addendum to both IPC-A-610J and J-STD-001J signals that even IPC knows one-size-fits-all acceptance criteria is over.",
+    "The real shift is philosophical. IPC is moving from prescriptive targets to application-specific acceptability. Your consumer IoT device and an automotive ECU shouldn't be judged by the same visual benchmark. Input from 31 countries shaped this revision -- it reflects a global manufacturing reality where Class 2 and Class 3 requirements need clearer separation."
+  ],
+  "insight": "Don't just update your reference documents. Rebuild your inspection criteria around the class-specific requirements that matter for YOUR product. The era of one standard fits all is ending.",
+  "source": "IPC / Sierra Circuits / ANSI Blog",
+  "source_url": "https://www.protoexpress.com/blog/h-revisions-ipc-j-std-001-and-ipc-a-610-soldering-standards/",
+  "pillar": "standards-process",
+  "account": "company",
+  "hashtags": ["#IPC", "#IPCA610", "#QualityControl", "#PCBAssembly", "#ElectronicsManufacturing", "#Standards"],
+  "caption": "IPC-A-610J removed target conditions. Most people shrugged. They shouldn't have.\n\nTarget conditions were the 'gold standard' images that every inspector compared their boards against. Without them, quality becomes about understanding class-specific requirements deeply -- not just pattern-matching against a photo.\n\nIf your inspection team hasn't retrained on Revision J, now is the time.\n\n#IPC #IPCA610 #QualityControl #PCBAssembly #ElectronicsManufacturing #Standards",
+  "strategy": {
+    "voice": "Insider",
+    "hook_style": "Contrarian",
+    "depth": "Medium",
+    "template": "threed-print-orange",
+    "caption_style": "Opinion-led"
+  }
+}

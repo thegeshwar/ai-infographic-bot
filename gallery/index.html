@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Infographic Bot — Test Gallery</title>
+<style>
+:root { --bg:#0d0d0d; --surface:#1a1a1a; --surface2:#252525; --text:#e0e0e0; --muted:#888; --accent:#4f8cff; --border:#333; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
+.header { padding:20px 32px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:16px; }
+.header h1 { font-size:20px; font-weight:600; }
+.header .count { color:var(--muted); font-size:14px; margin-left:8px; }
+.tabs { display:flex; gap:4px; margin-left:auto; }
+.tab { padding:8px 20px; border-radius:8px; cursor:pointer; background:var(--surface); color:var(--muted); font-size:14px; border:1px solid transparent; transition:all 0.2s; }
+.tab.active { background:var(--accent); color:#fff; }
+.tab:hover:not(.active) { background:var(--surface2); color:var(--text); }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:24px; padding:32px; }
+.card { background:var(--surface); border-radius:16px; overflow:hidden; transition:transform 0.2s; }
+.card:hover { transform:translateY(-2px); }
+.card[hidden] { display:none; }
+.card img { width:100%; display:block; }
+.meta { padding:16px; }
+.meta h3 { font-size:15px; margin:8px 0 4px; }
+.meta .hook-text { font-size:13px; color:var(--accent); font-style:italic; margin-bottom:8px; }
+.meta .insight { font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:8px; }
+.meta .source { font-size:11px; color:var(--muted); }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:8px; }
+.tag { font-size:10px; padding:2px 8px; border-radius:4px; background:var(--surface2); color:var(--muted); }
+.tag.voice { background:#1a2a1a; color:#4ecdc4; }
+.tag.hook { background:#2a1a2a; color:#bf5fff; }
+.tag.depth { background:#1a1a2a; color:#4f8cff; }
+.tag.template { background:#2a2a1a; color:#f59e0b; }
+.tag.pillar { background:#1a2a2a; color:#2dd4bf; }
+details { margin:8px 0; }
+summary { font-size:12px; color:var(--accent); cursor:pointer; }
+.caption { font-size:11px; color:var(--muted); white-space:pre-wrap; max-height:200px; overflow-y:auto; margin-top:8px; background:var(--bg); padding:12px; border-radius:8px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>AI Infographic Bot — Test Gallery</h1>
+  <span class="count">16 posts</span>
+  <div class="tabs">
+    <div class="tab active" onclick="filter('all')">All (16)</div>
+    <div class="tab" onclick="filter('personal')">Personal (8)</div>
+    <div class="tab" onclick="filter('company')">CU Circuits (8)</div>
+  </div>
+</div>
+<div class="grid" id="grid">
+<div class="card" data-account="personal">
+  <img src="posts/personal-1/infographic_20260325_134918.png" alt="GPT-5.4 Outscores Human Analysts at 83% on GDPVal" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Analyst</span>
+      <span class="tag hook">Statistic</span>
+      <span class="tag depth">Medium</span>
+      <span class="tag template">dark-glassmorphism</span>
+      <span class="tag pillar">breaking-ai</span>
+    </div>
+    <h3>GPT-5.4 Outscores Human Analysts at 83% on GDPVal</h3>
+    <p class="hook-text">"83%. That&#x27;s GPT-5.4&#x27;s score beating human experts."</p>
+    <p class="insight">The real disruption isn&#x27;t the 83% score -- it&#x27;s that GPT-5.4&#x27;s 33% error reduction crosses the reliability threshold where enterprises can actually deploy AI for unsupervised decision-making. We just </p>
+    <details><summary>Caption Preview</summary><pre class="caption">The benchmark wars are over. The reliability war just started.
+
+GPT-5.4 didn&#x27;t just beat human experts on knowledge work tasks -- it did it while making 33% fewer errors than its predecessor. That error reduction matters more than any leaderboard score.
+
+Why? Because enterprises don&#x27;t deploy AI based on peak performance. They deploy based on worst-case reliability. And GPT-5.4 just moved the floor up significantly.
+
+The question isn&#x27;t whether AI can do your job. It&#x27;s whether your job description just quietly changed.
+
+What&#x27;s the first knowledge work task you&#x27;d trust to an 83%-accurate AI? Drop it below.</pre></details>
+    <p class="source">Source: TechCrunch</p>
+  </div>
+</div>
+<div class="card" data-account="personal">
+  <img src="posts/personal-2/infographic_20260325_134920.png" alt="OpenAI&#x27;s $120B Round Signals an IPO Exit, Not Innovation" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Contrarian</span>
+      <span class="tag hook">Contrarian</span>
+      <span class="tag depth">Dense</span>
+      <span class="tag template">neon-gradient</span>
+      <span class="tag pillar">money-moves</span>
+    </div>
+    <h3>OpenAI&#x27;s $120B Round Signals an IPO Exit, Not Innovation</h3>
+    <p class="hook-text">"Everyone&#x27;s celebrating OpenAI&#x27;s $120B. They shouldn&#x27;t be."</p>
+    <p class="insight">At $850B valuation, OpenAI needs to generate $50B+ in annual revenue to justify investor returns. That math forces them toward enterprise SaaS optimization, not moonshot research. The real AI breakthr</p>
+    <details><summary>Caption Preview</summary><pre class="caption">Hot take: OpenAI&#x27;s $120 billion round is the beginning of the end of OpenAI as a research leader.
+
+I know that sounds dramatic. But follow the money.
+
+When your valuation hits $850B and your investors include Amazon, SoftBank, and sovereign wealth funds -- you&#x27;re no longer optimizing for breakthrough research. You&#x27;re optimizing for quarterly revenue growth and an IPO roadshow.
+
+Meanwhile, DeepSeek just shipped a 1T parameter model. AMI Labs raised $1B in Europe to build world models. The frontier is moving to labs that can afford to take risks.
+
+The most dangerous position in tech isn&#x27;t being underfunded. It&#x27;s being so overfunded that you can&#x27;t afford to fail.
+
+Agree or disagree? I want to hear your take.</pre></details>
+    <p class="source">Source: CNBC</p>
+  </div>
+</div>
+<div class="card" data-account="personal">
+  <img src="posts/personal-3/infographic_20260325_134920.png" alt="Eclipse&#x27;s Theia AI Takes on Cursor and Copilot" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Storyteller</span>
+      <span class="tag hook">What-if</span>
+      <span class="tag depth">Medium</span>
+      <span class="tag template">clean-editorial</span>
+      <span class="tag pillar">builders-edge</span>
+    </div>
+    <h3>Eclipse&#x27;s Theia AI Takes on Cursor and Copilot</h3>
+    <p class="hook-text">"What if the best AI coding tool isn&#x27;t owned by anyone?"</p>
+    <p class="insight">Theia AI&#x27;s real weapon isn&#x27;t features -- it&#x27;s the MCP integration that lets developers wire any AI model to any tool. In a world where the best model changes every 3 months, the IDE that&#x27;s model-agnos</p>
+    <details><summary>Caption Preview</summary><pre class="caption">The AI coding tools market is about to get its &#x27;Linux moment.&#x27;
+
+Theia AI just dropped as a fully open-source alternative to Cursor and GitHub Copilot. And it&#x27;s backed by the Eclipse Foundation -- the same org behind enterprise Java tooling used by millions.
+
+Here&#x27;s why this matters for every developer: the ability to plug in ANY model (cloud, local, self-hosted), control your own prompt engineering, and own your data. No vendor lock-in.
+
+47 organizations including SAP, ARM, and IBM are already building on the framework.
+
+Is open-source the future of AI dev tools, or will the proprietary players stay too far ahead? Curious what you think.</pre></details>
+    <p class="source">Source: Eclipse Foundation</p>
+  </div>
+</div>
+<div class="card" data-account="personal">
+  <img src="posts/personal-4/infographic_20260325_134921.png" alt="AI-Designed Drugs Hit Phase 3 Trials in 2026" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Curious Explorer</span>
+      <span class="tag hook">Question</span>
+      <span class="tag depth">Minimal</span>
+      <span class="tag template">midnight-teal</span>
+      <span class="tag pillar">future-signals</span>
+    </div>
+    <h3>AI-Designed Drugs Hit Phase 3 Trials in 2026</h3>
+    <p class="hook-text">"Can AI discover the cancer drug humans couldn&#x27;t?"</p>
+    <p class="insight">The real signal isn&#x27;t that AI found new drugs -- it&#x27;s that AI-discovered drugs are surviving clinical trials at higher rates than traditionally discovered ones. The selection filter just permanently c</p>
+    <details><summary>Caption Preview</summary><pre class="caption">What if the biggest AI story of 2026 isn&#x27;t chatbots or image generators -- but a cancer drug?
+
+For the first time ever, AI-designed drug candidates are reaching Phase 3 clinical trials. Not as a novelty. As the new standard.
+
+Digital twins modeling individual patients. AI handling 30% of preclinical work. Drug development costs dropping 16%.
+
+We spend so much time debating AI&#x27;s impact on knowledge work. But the most profound impact might be measured in lives saved, not jobs displaced.
+
+What AI application excites you most outside of tech? I&#x27;d love to hear.</pre></details>
+    <p class="source">Source: World Economic Forum</p>
+  </div>
+</div>
+<div class="card" data-account="personal">
+  <img src="posts/personal-5/infographic_20260325_134914.png" alt="NVIDIA Nemotron 3 Super: 120B Power, 12B Cost" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Builder</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Medium</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">builders-edge</span>
+    </div>
+    <h3>NVIDIA Nemotron 3 Super: 120B Power, 12B Cost</h3>
+    <p class="hook-text">"This open-source model just mass-obsoleted your GPU budget"</p>
+    <p class="insight">The MoE architecture activating only 12B of 120B parameters means enterprise teams can now run frontier-class reasoning at mid-tier model costs. The open weight release forces every cloud provider to </p>
+    <details><summary>Caption Preview</summary><pre class="caption">NVIDIA just made running 120B-parameter models affordable for every dev team.
+
+Nemotron 3 Super activates only 12B of its 120B parameters per call. 5x throughput. 1M-token context. Open weights on Hugging Face.
+
+For anyone building agentic AI systems, this is the inflection point where you stop choosing between quality and cost.
+
+The open-source AI stack just leveled up. Who&#x27;s already testing it?</pre></details>
+    <p class="source">Source: NVIDIA Blog</p>
+  </div>
+</div>
+<div class="card" data-account="personal">
+  <img src="posts/personal-6/infographic_20260325_134915.png" alt="White House AI Framework Preempts State Laws" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Commentator</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Dense</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">policy-ethics</span>
+    </div>
+    <h3>White House AI Framework Preempts State Laws</h3>
+    <p class="hook-text">"In 12 months, no US state will regulate AI developers independently"</p>
+    <p class="insight">The framework&#x27;s real power is in what it prevents, not what it creates. By preempting state AI laws while declining to build a federal enforcement body, Washington is constructing a regulatory vacuum </p>
+    <details><summary>Caption Preview</summary><pre class="caption">The White House just told 50 states to stop regulating AI developers.
+
+Its new National Policy Framework asks Congress to preempt state AI laws, shield developers from third-party misuse liability, and rely on industry self-governance instead of a new federal authority.
+
+Child safety gets a carve-out. Innovation gets a blank check. Accountability gets... a question mark.
+
+This four-page document will shape AI law for the next decade. The question is: who does the accountability vacuum actually serve?
+
+What&#x27;s your read on federal preemption of state AI laws?</pre></details>
+    <p class="source">Source: White House</p>
+  </div>
+</div>
+<div class="card" data-account="personal">
+  <img src="posts/personal-7/infographic_20260325_134915.png" alt="LeCun&#x27;s AMI Labs: Largest European Seed Ever" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Analyst</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Minimal</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">money-moves</span>
+    </div>
+    <h3>LeCun&#x27;s AMI Labs: Largest European Seed Ever</h3>
+    <p class="hook-text">"$1.03B. That&#x27;s what a single AI seed round costs now."</p>
+    <p class="insight">A $1B seed round for an architecture that doesn&#x27;t exist yet in production signals that top-tier investors believe the LLM paradigm has a ceiling. The JEPA bet is binary: either world models unlock AGI</p>
+    <details><summary>Caption Preview</summary><pre class="caption">$1.03 billion. Seed round. Four months old.
+
+Yann LeCun just raised the largest seed in European history to prove that LLMs are the wrong path to intelligence.
+
+AMI Labs is building world models on JEPA architecture: AI that learns physics, not just predicts text.
+
+Is this the most important funding round of 2026, or the most expensive contrarian bet in tech history?</pre></details>
+    <p class="source">Source: TechCrunch</p>
+  </div>
+</div>
+<div class="card" data-account="personal">
+  <img src="posts/personal-8/infographic_20260325_134916.png" alt="LTX 2.3: Open-Source 4K AI Video at 50 FPS" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Storyteller</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Medium</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">breaking-ai</span>
+    </div>
+    <h3>LTX 2.3: Open-Source 4K AI Video at 50 FPS</h3>
+    <p class="hook-text">"This 22B model generates 4K video with audio. Open source."</p>
+    <p class="insight">LTX 2.3 is the moment AI video stops being a novelty and starts being infrastructure. The open-source release democratizes production-quality video generation, but it also eliminates the cost barrier </p>
+    <details><summary>Caption Preview</summary><pre class="caption">Three years from fever dreams to 4K masterpieces.
+
+LTX 2.3 is a 22B open-source model that generates 4K video at 50 FPS with synchronized audio. Not behind an API. Not gated. Fully open weights.
+
+This changes everything for filmmakers, game devs, and creators. It also changes everything for deepfakes.
+
+The tools are free now. The question is whether our verification infrastructure can keep up.
+
+What&#x27;s your take: creative revolution or verification crisis?</pre></details>
+    <p class="source">Source: devFlokers</p>
+  </div>
+</div>
+<div class="card" data-account="company">
+  <img src="posts/company-1/infographic_20260325_134939.png" alt="The DFM Mistake Costing You $2/Board" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Helpful Engineer</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Medium</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">dfm-tips</span>
+    </div>
+    <h3>The DFM Mistake Costing You $2/Board</h3>
+    <p class="hook-text">"Is your annular ring quietly killing your yield?"</p>
+    <p class="insight">Target 6+ mil annular rings on vias (not the EDA default). That single rule change can improve first-pass yield by 10-15% and eliminate the most common DFM rejection we see.</p>
+    <details><summary>Caption Preview</summary><pre class="caption">This is the single most common DFM issue we flag at CU Circuits — and it&#x27;s 100% preventable.
+
+Every week we see designs come in with annular rings right at the minimum. The designer&#x27;s EDA tool said it was fine. But stack up drill wander, etch compensation, and layer misregistration, and suddenly your via reliability craters.
+
+Quick rule of thumb: take your fab house&#x27;s minimum annular ring spec and add 2 mil. That&#x27;s your new design rule.
+
+What&#x27;s the most frustrating DFM rejection you&#x27;ve dealt with? Drop it in the comments — let&#x27;s build a checklist together.</pre></details>
+    <p class="source">Source: IPC-2221 Standard / PCBSync DFM Analysis</p>
+  </div>
+</div>
+<div class="card" data-account="company">
+  <img src="posts/company-2/infographic_20260325_134940.png" alt="AI Is Eating the PCB Supply Chain" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Industry Expert</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Dense</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">industry-intel</span>
+    </div>
+    <h3>AI Is Eating the PCB Supply Chain</h3>
+    <p class="hook-text">"$105.2 billion. That&#x27;s global PCB output in 2026 — up 13.9% YoY."</p>
+    <p class="insight">AI server demand is structurally reallocating global PCB material capacity. Mid-market buyers who don&#x27;t lock in supply agreements now face 8-12 week lead times on standard FR-4 — double the 2024 basel</p>
+    <details><summary>Caption Preview</summary><pre class="caption">The AI boom isn&#x27;t just a software story — it&#x27;s rewriting the rules of hardware supply chains.
+
+Global PCB output is surging to $105.2B in 2026, but behind that growth lies a materials squeeze that&#x27;s hitting everyone from hyperscalers to small-batch prototype shops. Copper foil prices up 20%+. CCL suppliers issuing 30% price hikes. Lead times doubling.
+
+At CU Circuits, we&#x27;re seeing these pressures firsthand — and working to keep our customers ahead of the curve by maintaining material buffers and diversified sourcing.
+
+Three questions for hardware leaders:
+1. Have you locked in material allocation for H2 2026?
+2. Are your designs qualified for alternative laminates?
+3. When did you last audit your fab partner&#x27;s supply chain?
+
+The teams answering these questions now will ship on time. The rest will learn the hard way.</pre></details>
+    <p class="source">Source: EIPC Q1 2026 Supply Chain Update / I-Connect007</p>
+  </div>
+</div>
+<div class="card" data-account="company">
+  <img src="posts/company-3/infographic_20260325_134941.png" alt="ECMS Budget Doubles — PCB Manufacturing&#x27;s Moment" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Scrappy Startup</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Medium</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">made-in-india</span>
+    </div>
+    <h3>ECMS Budget Doubles — PCB Manufacturing&#x27;s Moment</h3>
+    <p class="hook-text">"India just bet ₹40,000 crore that PCBs will be Made in India."</p>
+    <p class="insight">India&#x27;s ECMS budget hike to ₹40,000 crore signals a structural shift — domestic multi-layer PCB capacity is scaling, and hardware startups should start qualifying Indian fab partners now before demand</p>
+    <details><summary>Caption Preview</summary><pre class="caption">₹40,000 crore. That&#x27;s not a typo — that&#x27;s India&#x27;s new bet on domestic electronics component manufacturing.
+
+The ECMS outlay just got a 75% boost in the Union Budget, and multi-layer PCBs are right at the center of it. Investment commitments have already crossed ₹1.15 lakh crore.
+
+At CU Circuits, this is the moment we&#x27;ve been building toward. Indian PCB fab isn&#x27;t just catching up — it&#x27;s gearing up to compete globally.
+
+Are you sourcing PCBs domestically yet? If not, what&#x27;s holding you back? Let&#x27;s talk about it.</pre></details>
+    <p class="source">Source: Union Budget 2026-27 / Business Today</p>
+  </div>
+</div>
+<div class="card" data-account="company">
+  <img src="posts/company-4/infographic_20260325_134942.png" alt="MIT Prints a Working Motor in 3 Hours" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Educator</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Medium</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">new-tech</span>
+    </div>
+    <h3>MIT Prints a Working Motor in 3 Hours</h3>
+    <p class="hook-text">"What if your next PCB didn&#x27;t need a factory at all?"</p>
+    <p class="insight">MIT&#x27;s multi-material 3D printer fabricated a working linear motor in 3 hours for $0.50. While not production-ready, this technology is collapsing prototype iteration cycles from weeks to hours — every</p>
+    <details><summary>Caption Preview</summary><pre class="caption">A working electric motor. 3D printed. Three hours. Fifty cents in materials.
+
+MIT&#x27;s Microsystems Technology Lab just demonstrated something that should be on every hardware engineer&#x27;s radar: a multi-material 3D printing platform that prints conductive traces, insulation, structural parts, and magnetics in one continuous process.
+
+This won&#x27;t replace your PCB fab line (the physics of etched copper on FR-4 is still king for production). But for prototyping — testing geometries, validating concepts, iterating on sensor placements — this is a paradigm shift.
+
+At CU Circuits, we see 3D printing and traditional PCB fab as complementary tools. Prototype fast, then manufacture right.
+
+What emerging manufacturing tech are you most excited about? Share below.</pre></details>
+    <p class="source">Source: MIT News / Virtual and Physical Prototyping</p>
+  </div>
+</div>
+<div class="card" data-account="company">
+  <img src="posts/company-5/infographic_20260325_134957.png" alt="India&#x27;s PCB Market Hits $2.49B in 2026 as 45% CAGR Reshapes Global Supply Chains" loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Data Analyst</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Dense</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">industry-intel</span>
+    </div>
+    <h3>India&#x27;s PCB Market Hits $2.49B in 2026 as 45% CAGR Reshapes Global Supply Chains</h3>
+    <p class="hook-text">"$77.45 billion. That&#x27;s where the global PCB market lands in 2026 -- and India is the fastest-growing player in the game."</p>
+    <p class="insight">By 2028, India could capture 5-7% of global PCB production. Companies building supplier relationships with Indian fabs now will have a structural cost and lead-time advantage.</p>
+    <details><summary>Caption Preview</summary><pre class="caption">The numbers don&#x27;t lie.
+
+India&#x27;s PCB market is growing at 45% CAGR while the global market averages 6.65%. That&#x27;s not a rounding error -- it&#x27;s a structural shift in where the world&#x27;s circuit boards get made.
+
+Three years ago, sourcing PCBs from India meant compromises. Today, Indian fabs are producing HDI boards, flex-rigid assemblies, and 8+ layer stacks that compete on quality with established Asian hubs.
+
+The $2.49 billion figure for 2026 is just the beginning. With PLI incentives, growing EV demand, and 5G rollouts, India is positioned to become a top-5 PCB manufacturing nation by the end of this decade.
+
+The question isn&#x27;t whether to consider Indian PCB partners. It&#x27;s whether you can afford not to.
+
+#PCBManufacturing #MakeInIndia #ElectronicsManufacturing #PCBIndustry #IndiaManufacturing #SupplyChain</pre></details>
+    <p class="source">Source: Fortune Business Insights / IMARC Group / Manufacturing Today India</p>
+  </div>
+</div>
+<div class="card" data-account="company">
+  <img src="posts/company-6/infographic_20260325_134959.png" alt="IPC-A-610J Dropped Target Conditions. Here&#x27;s What That Actually Means for Your Fab Floor." loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Insider</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Medium</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">standards-process</span>
+    </div>
+    <h3>IPC-A-610J Dropped Target Conditions. Here&#x27;s What That Actually Means for Your Fab Floor.</h3>
+    <p class="hook-text">"Everyone&#x27;s celebrating the new IPC-A-610J revision. They shouldn&#x27;t be -- at least not for the reasons they think."</p>
+    <p class="insight">Don&#x27;t just update your reference documents. Rebuild your inspection criteria around the class-specific requirements that matter for YOUR product. The era of one standard fits all is ending.</p>
+    <details><summary>Caption Preview</summary><pre class="caption">IPC-A-610J removed target conditions. Most people shrugged. They shouldn&#x27;t have.
+
+Target conditions were the &#x27;gold standard&#x27; images that every inspector compared their boards against. Without them, quality becomes about understanding class-specific requirements deeply -- not just pattern-matching against a photo.
+
+If your inspection team hasn&#x27;t retrained on Revision J, now is the time.
+
+#IPC #IPCA610 #QualityControl #PCBAssembly #ElectronicsManufacturing #Standards</pre></details>
+    <p class="source">Source: IPC / Sierra Circuits / ANSI Blog</p>
+  </div>
+</div>
+<div class="card" data-account="company">
+  <img src="posts/company-7/infographic_20260325_134959.png" alt="Stop Routing Traces at 90-Degree Angles. Your Yield Depends on It." loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Helpful Engineer</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Minimal</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">dfm-tips</span>
+    </div>
+    <h3>Stop Routing Traces at 90-Degree Angles. Your Yield Depends on It.</h3>
+    <p class="hook-text">"One DFM rule change can cut your PCB respin rate by 60%. This is that rule."</p>
+    <p class="insight">Engage your fab partner when you have your first layout draft -- not your final Gerber. Early DFM review catches 80% of issues that cause costly respins.</p>
+    <details><summary>Caption Preview</summary><pre class="caption">Three DFM rules. Zero excuses.
+
+Route at 45 degrees. Keep annular rings above 0.1mm. Run DFM checks before your first review, not after your last respin.
+
+Simple changes. Massive yield improvements.
+
+#DFM #PCBDesign #DesignForManufacturing #PCBTips #ElectronicsEngineering #HardwareDesign</pre></details>
+    <p class="source">Source: Sierra Circuits / Sierra Assembly / NCAB Group</p>
+  </div>
+</div>
+<div class="card" data-account="company">
+  <img src="posts/company-8/infographic_20260325_135000.png" alt="MIT&#x27;s New 3D Printing Platform Builds a Working Motor in 3 Hours for 50 Cents. PCB Prototyping Is Next." loading="lazy">
+  <div class="meta">
+    <div class="tags">
+      <span class="tag voice">Scrappy Startup</span>
+      <span class="tag hook"></span>
+      <span class="tag depth">Medium</span>
+      <span class="tag template"></span>
+      <span class="tag pillar">new-tech</span>
+    </div>
+    <h3>MIT&#x27;s New 3D Printing Platform Builds a Working Motor in 3 Hours for 50 Cents. PCB Prototyping Is Next.</h3>
+    <p class="hook-text">"In 12 months, 3D-printed circuit boards will go from lab curiosity to production-ready prototyping tool. The economics just flipped."</p>
+    <p class="insight">3D-printed PCBs won&#x27;t replace conventional fab for volume production. But for prototyping and low-volume runs, they&#x27;ll collapse timelines from weeks to hours. Hardware teams that adopt hybrid workflow</p>
+    <details><summary>Caption Preview</summary><pre class="caption">MIT just 3D-printed a working electric motor. Three hours. Fifty cents.
+
+We&#x27;re watching additive electronics manufacturing cross from &#x27;interesting research&#x27; to &#x27;we need to integrate this.&#x27; The multimaterial platform handles conductive, magnetic, and structural materials in a single print run.
+
+At CU Circuits, we see this as the future of rapid prototyping. Traditional PCB fab isn&#x27;t going anywhere for production runs -- but the prototype-to-test cycle is about to get radically faster.
+
+The hybrid manufacturing era is starting. Are you building for it?
+
+#3DPrinting #AdditiveManufacturing #PCBPrototyping #MIT #ElectronicsInnovation #HardwareDev</pre></details>
+    <p class="source">Source: MIT News / Virtual and Physical Prototyping / 3D Printing Industry</p>
+  </div>
+</div>
+</div>
+<script>
+function filter(account) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  event.target.classList.add('active');
+  document.querySelectorAll('.card').forEach(function(c) {
+    if (account === 'all' || c.dataset.account === account) {
+      c.removeAttribute('hidden');
+    } else {
+      c.setAttribute('hidden', '');
+    }
+  });
+}
+</script>
+</body>
+</html>

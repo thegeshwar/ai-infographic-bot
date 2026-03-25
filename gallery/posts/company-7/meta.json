@@ -1,0 +1,23 @@
+{
+  "hook": "One DFM rule change can cut your PCB respin rate by 60%. This is that rule.",
+  "headline": "Stop Routing Traces at 90-Degree Angles. Your Yield Depends on It.",
+  "body": [
+    "Sharp trace angles under 90 degrees trap etchant during fabrication. This over-etches copper and raises your defect rate by 5-10%. Route at 45 degrees or use curved transitions instead.",
+    "A 0.3mm drill with a 0.4mm pad leaves only 0.05mm annular ring -- too thin for reliable plating. Always aim for 0.1mm minimum annular ring to avoid barrel cracks and open circuits.",
+    "Run DFM checks early and often, not just before tapeout. Updated 2026 DFM rules now emphasize automation compatibility: pick-and-place machines are faster than ever, but they demand cleaner layouts, consistent component orientation, and standard footprints like 0402 and QFN."
+  ],
+  "insight": "Engage your fab partner when you have your first layout draft -- not your final Gerber. Early DFM review catches 80% of issues that cause costly respins.",
+  "source": "Sierra Circuits / Sierra Assembly / NCAB Group",
+  "source_url": "https://www.protoexpress.com/blog/dfm-issues-pcb-manufacturing/",
+  "pillar": "dfm-tips",
+  "account": "company",
+  "hashtags": ["#DFM", "#PCBDesign", "#DesignForManufacturing", "#PCBTips", "#ElectronicsEngineering", "#HardwareDesign"],
+  "caption": "Three DFM rules. Zero excuses.\n\nRoute at 45 degrees. Keep annular rings above 0.1mm. Run DFM checks before your first review, not after your last respin.\n\nSimple changes. Massive yield improvements.\n\n#DFM #PCBDesign #DesignForManufacturing #PCBTips #ElectronicsEngineering #HardwareDesign",
+  "strategy": {
+    "voice": "Helpful Engineer",
+    "hook_style": "Bold claim",
+    "depth": "Minimal",
+    "template": "circuit-board-dark",
+    "caption_style": "Short & punchy"
+  }
+}

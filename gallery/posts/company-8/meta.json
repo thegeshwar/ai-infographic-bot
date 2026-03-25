@@ -1,0 +1,23 @@
+{
+  "hook": "In 12 months, 3D-printed circuit boards will go from lab curiosity to production-ready prototyping tool. The economics just flipped.",
+  "headline": "MIT's New 3D Printing Platform Builds a Working Motor in 3 Hours for 50 Cents. PCB Prototyping Is Next.",
+  "body": [
+    "MIT researchers just published a multimaterial 3D-printing platform that produces fully functional electric machines in a single step. Four extruders handle conductive, magnetic, structural, and insulating materials simultaneously. A complete linear motor: 3 hours, ~50 cents in materials.",
+    "This isn't just an academic flex. The platform generated several times more actuation force than hydraulic-amplifier-based linear engines. Published in Virtual and Physical Prototyping (February 2026), it signals that additive electronics manufacturing is crossing the performance threshold.",
+    "For PCB prototyping, the trajectory is clear. What costs $500 per board today will cost $50 by 2028. What takes a week of fab turnaround will take an afternoon. Conductive inks, insulating polymers, and pick-and-place in a single print cycle -- the pieces are falling into place. We're betting on this future at CU Circuits, because the companies that master hybrid manufacturing (traditional fab + additive prototyping) will own the next decade of hardware development."
+  ],
+  "insight": "3D-printed PCBs won't replace conventional fab for volume production. But for prototyping and low-volume runs, they'll collapse timelines from weeks to hours. Hardware teams that adopt hybrid workflows early will iterate 10x faster than competitors.",
+  "source": "MIT News / Virtual and Physical Prototyping / 3D Printing Industry",
+  "source_url": "https://news.mit.edu/2026/3d-printing-platform-rapidly-produces-complex-electric-machines-0218",
+  "pillar": "new-tech",
+  "account": "company",
+  "hashtags": ["#3DPrinting", "#AdditiveManufacturing", "#PCBPrototyping", "#MIT", "#ElectronicsInnovation", "#HardwareDev"],
+  "caption": "MIT just 3D-printed a working electric motor. Three hours. Fifty cents.\n\nWe're watching additive electronics manufacturing cross from 'interesting research' to 'we need to integrate this.' The multimaterial platform handles conductive, magnetic, and structural materials in a single print run.\n\nAt CU Circuits, we see this as the future of rapid prototyping. Traditional PCB fab isn't going anywhere for production runs -- but the prototype-to-test cycle is about to get radically faster.\n\nThe hybrid manufacturing era is starting. Are you building for it?\n\n#3DPrinting #AdditiveManufacturing #PCBPrototyping #MIT #ElectronicsInnovation #HardwareDev",
+  "strategy": {
+    "voice": "Scrappy Startup",
+    "hook_style": "Future prediction",
+    "depth": "Medium",
+    "template": "copper-navy",
+    "caption_style": "Opinion-led"
+  }
+}
