@@ -18,6 +18,7 @@ class StoryContent:
     hashtags: list[str] = field(default_factory=list)
     caption: str = ""
     strategy: dict = field(default_factory=dict)
+    html: str = ""  # Custom HTML/CSS for the infographic visual
 
     def to_dict(self) -> dict:
         return asdict(self)

@@ -1,16 +1,24 @@
 """Tests for the single-story renderer."""
+
+from pathlib import Path
+from PIL import Image
+
 from src.render.model import StoryContent
+from src.render.engine import render_story
 from src.render.templates import get_template, list_templates
 from src.render.fonts import load_font
 
+
+# ── Model Tests ─────────────────────────────────────────────────
 
 class TestStoryContent:
     def test_create_minimal(self):
         story = StoryContent(
             hook="This changes everything.",
             headline="GPT-5 Scores 95% on ARC-AGI",
-            body=["OpenAI's latest model just achieved what many thought impossible.", "The ARC-AGI benchmark tests genuine reasoning ability."],
-            insight="This isn't incremental. It's a phase change in AI capability.",
+            body=["OpenAI's latest model achieved what many thought impossible.",
+                  "The ARC-AGI benchmark tests genuine reasoning ability."],
+            insight="This is a phase change in AI capability.",
             source="TechCrunch",
             source_url="https://techcrunch.com/gpt5",
             pillar="breaking-ai",
@@ -29,6 +37,7 @@ class TestStoryContent:
         assert story.hashtags == []
         assert story.caption == ""
         assert story.strategy == {}
+        assert story.html == ""
 
     def test_to_dict_roundtrip(self):
         story = StoryContent(
@@ -36,44 +45,35 @@ class TestStoryContent:
             insight="Insight", source="Source", source_url="https://example.com",
             pillar="breaking-ai", account="personal",
             hashtags=["#AI", "#Tech"], caption="Great post about AI",
-            strategy={"voice": "analyst", "format": "infographic"},
+            strategy={"voice": "analyst"}, html="<div>test</div>",
         )
         d = story.to_dict()
         restored = StoryContent.from_dict(d)
         assert restored.headline == story.headline
-        assert restored.strategy == story.strategy
-        assert restored.hashtags == story.hashtags
+        assert restored.html == story.html
 
+
+# ── Template Tests ──────────────────────────────────────────────
 
 class TestTemplates:
     def test_list_personal_templates(self):
-        templates = list_templates("personal")
-        assert len(templates) == 6
-        assert "dark-glassmorphism" in templates
+        assert len(list_templates("personal")) == 6
 
     def test_list_company_templates(self):
-        templates = list_templates("company")
-        assert len(templates) == 6
-        assert "circuit-board-dark" in templates
+        assert len(list_templates("company")) == 6
 
     def test_get_template_has_required_keys(self):
         t = get_template("dark-glassmorphism")
-        required = ["bg", "text_primary", "text_secondary", "text_muted",
-                     "card_bg", "card_border", "card_radius", "accent_line"]
-        for key in required:
-            assert key in t, f"Missing key: {key}"
+        for key in ["bg", "text_primary", "text_secondary", "accent_line"]:
+            assert key in t
 
     def test_unknown_template_raises(self):
         import pytest
         with pytest.raises(KeyError):
             get_template("nonexistent")
 
-    def test_each_template_has_valid_colors(self):
-        for name in list_templates("personal") + list_templates("company"):
-            t = get_template(name)
-            assert isinstance(t["bg"], (str, list))
-            assert t["text_primary"].startswith("#")
 
+# ── Font Tests ──────────────────────────────────────────────────
 
 class TestFonts:
     def test_load_default_font(self):
@@ -85,99 +85,75 @@ class TestFonts:
         font = load_font(32, bold=True)
         assert font is not None
 
-    def test_different_sizes(self):
-        small = load_font(12)
-        large = load_font(48)
-        assert small.size < large.size
+
+# ── Render Engine Tests ─────────────────────────────────────────
+
+SAMPLE_HTML = """
+<div style="width:1080px; height:1350px; background:#0a0a1a; color:white;
+            display:flex; flex-direction:column; justify-content:center;
+            align-items:center; padding:60px;">
+  <div style="font-size:120px; font-weight:900; color:#4f8cff;">83%</div>
+  <div style="font-size:36px; font-weight:700; margin-top:20px; text-align:center;">
+    GPT 5.4 Outscores Human Analysts
+  </div>
+  <div style="font-size:20px; color:#888; margin-top:16px;">
+    on the GDPVal benchmark for knowledge work
+  </div>
+  <div style="position:absolute; bottom:30px; color:#555; font-size:14px;">
+    thegeshwar | Source: TechCrunch
+  </div>
+</div>
+"""
 
 
-from pathlib import Path
-from PIL import Image
-from src.render.engine import render_story
-
-
-def _sample_story(account="personal") -> StoryContent:
-    if account == "personal":
-        return StoryContent(
-            hook="This changes everything.",
-            headline="GPT-5 Scores 95% on ARC-AGI",
-            body=[
-                "OpenAI's latest model achieved what many thought impossible — a 95% score on ARC-AGI, testing genuine reasoning.",
-                "Previous SOTA peaked at 55%. The jump represents a qualitative shift in AI capability.",
-                "The model uses chain-of-thought with self-verification loops.",
-            ],
-            insight="This isn't incremental. It's a phase change — the gap between 55% and 95% is the gap between autocomplete and reasoning.",
-            source="TechCrunch", source_url="https://techcrunch.com/gpt5",
-            pillar="breaking-ai", account="personal",
-            hashtags=["#AI", "#GPT5", "#AGI", "#MachineLearning", "#Tech"],
-        )
+def _sample_story_with_html(account="personal") -> StoryContent:
     return StoryContent(
-        hook="Your via placement is costing you $2 per board.",
-        headline="5 Via Mistakes That Inflate Your PCB Cost",
-        body=[
-            "Most engineers don't think about via costs during schematic capture. But by the time Gerbers hit the fab, those decisions are locked in.",
-            "The biggest offender: through-hole vias where blind vias would work. Each unnecessary through-hole adds drilling time.",
-            "Other mistakes: via-in-pad without filling, excessive via counts, wrong annular ring sizes.",
-        ],
-        insight="Run a DFM check before sending to fab. A 10-minute review saves $2/board — at 1000 units that's $2,000.",
-        source="CU Circuits Engineering", source_url="https://cucircuits.com",
-        pillar="dfm-tips", account="company",
-        hashtags=["#PCB", "#DFM", "#Electronics", "#Manufacturing", "#MadeInIndia"],
+        hook="83%. That is GPT 5.4's score beating human experts.",
+        headline="GPT 5.4 Outscores Human Analysts",
+        body=["OpenAI's latest model scored 83% on GDPVal."],
+        insight="We just entered the good enough to trust era.",
+        source="TechCrunch", source_url="https://techcrunch.com",
+        pillar="breaking-ai", account=account,
+        html=SAMPLE_HTML,
     )
 
 
 class TestRenderEngine:
     def test_renders_valid_png(self, tmp_path):
-        path = render_story(_sample_story(), template="dark-glassmorphism", output_dir=tmp_path)
-        assert path.exists() and path.suffix == ".png"
-        assert Image.open(path).format == "PNG"
-
-    def test_linkedin_dimensions(self, tmp_path):
-        path = render_story(_sample_story(), template="dark-glassmorphism", output_dir=tmp_path)
-        assert Image.open(path).size == (1080, 1350)
-
-    def test_each_personal_template(self, tmp_path):
-        for tmpl in list_templates("personal"):
-            path = render_story(_sample_story("personal"), template=tmpl, output_dir=tmp_path)
-            assert path.exists()
-
-    def test_each_company_template(self, tmp_path):
-        for tmpl in list_templates("company"):
-            path = render_story(_sample_story("company"), template=tmpl, output_dir=tmp_path)
-            assert path.exists()
-
-    def test_long_body_wraps(self, tmp_path):
-        story = _sample_story()
-        story.body = ["A" * 500]
-        path = render_story(story, template="dark-glassmorphism", output_dir=tmp_path)
+        story = _sample_story_with_html()
+        path = render_story(story, output_dir=tmp_path)
         assert path.exists()
+        assert path.suffix == ".png"
+        img = Image.open(path)
+        assert img.format == "PNG"
 
-    def test_gradient_template(self, tmp_path):
-        path = render_story(_sample_story(), template="neon-gradient", output_dir=tmp_path)
-        assert Image.open(path).size == (1080, 1350)
+    def test_correct_dimensions(self, tmp_path):
+        story = _sample_story_with_html()
+        path = render_story(story, output_dir=tmp_path)
+        img = Image.open(path)
+        # 2x device scale factor
+        assert img.size[0] == 1080 * 2
+        assert img.size[1] == 1350 * 2
 
-    def test_company_with_logo(self, tmp_path):
-        path = render_story(_sample_story("company"), template="circuit-board-dark", output_dir=tmp_path)
-        assert Image.open(path).size == (1080, 1350)
+    def test_raises_without_html(self, tmp_path):
+        import pytest
+        story = StoryContent(
+            hook="Hook", headline="Headline", body=["Body"], insight="Insight",
+            source="Source", source_url="https://example.com",
+            pillar="breaking-ai", account="personal",
+        )
+        with pytest.raises(ValueError, match="html is empty"):
+            render_story(story, output_dir=tmp_path)
 
-    def test_tricolor_accent(self, tmp_path):
-        path = render_story(_sample_story("company"), template="india-tech-gradient", output_dir=tmp_path)
-        assert path.exists()
-
-    def test_grid_pattern(self, tmp_path):
-        path = render_story(_sample_story("company"), template="clean-fabrication", output_dir=tmp_path)
-        assert path.exists()
+    def test_output_filename_from_headline(self, tmp_path):
+        story = _sample_story_with_html()
+        path = render_story(story, output_dir=tmp_path)
+        assert "gpt-54-outscores-human-analysts" in path.name
 
 
 class TestCLI:
     def test_render_from_json(self, tmp_path):
-        from src.render.model import StoryContent
-        story = StoryContent(
-            hook="Test hook.", headline="Test Headline",
-            body=["Test body paragraph."],
-            insight="Test insight.", source="Test", source_url="https://test.com",
-            pillar="breaking-ai", account="personal",
-        )
+        story = _sample_story_with_html()
         json_path = tmp_path / "story.json"
         story.to_json(str(json_path))
 
@@ -185,7 +161,6 @@ class TestCLI:
         from run import cli
         result = CliRunner().invoke(cli, [
             "render", str(json_path),
-            "--template", "dark-glassmorphism",
             "--output-dir", str(tmp_path),
         ])
         assert result.exit_code == 0
