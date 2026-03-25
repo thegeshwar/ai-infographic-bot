@@ -1,22 +1,19 @@
 {
-  "hook": "$1.03B. That's what a single AI seed round costs now.",
-  "headline": "LeCun's AMI Labs: Largest European Seed Ever",
+  "hook": "Meta is spending $135 billion on AI this year. And cutting 15,000 humans to pay for it.",
+  "headline": "Meta Spends $135B on AI While Cutting 15,000 Jobs",
   "body": [
-    "Yann LeCun's AMI Labs closed $1.03 billion in seed funding at a $3.5B pre-money valuation. Europe's largest seed round ever. Backed by Bezos, NVIDIA, Samsung, Eric Schmidt, and Mark Cuban.",
-    "The bet: world models built on JEPA architecture will outperform LLMs by learning physical laws rather than predicting text tokens. LeCun left Meta to prove the entire AI industry has the wrong approach.",
-    "AMI plans corporate partnerships within two years and 'fairly universal intelligent systems' within five. At this valuation, investors are pricing in a paradigm shift, not incremental progress."
+    "Meta's 2026 AI capital expenditure projected at $115B to $135B",
+    "Up to 20% of workforce could be affected",
+    "15,000 workers potentially laid off",
+    "Reality Labs already cut 1,500 positions"
   ],
-  "insight": "A $1B seed round for an architecture that doesn't exist yet in production signals that top-tier investors believe the LLM paradigm has a ceiling. The JEPA bet is binary: either world models unlock AGI-class capabilities, or this becomes the most expensive research lab in history.",
-  "source": "TechCrunch",
-  "source_url": "https://techcrunch.com/2026/03/09/yann-lecuns-ami-labs-raises-1-03-billion-to-build-world-models/",
-  "pillar": "money-moves",
+  "insight": "This is the clearest signal yet that Big Tech sees AI as a direct replacement for human workers, not a supplement. When a company doubles its AI budget while cutting a fifth of its people, the message is unmistakable.",
+  "source": "CNBC / IBTimes",
+  "source_url": "https://www.cnbc.com/2026/03/16/meta-ai-costs-mass-layoffs-20percent-up-premarket.html",
+  "pillar": "economics",
   "account": "personal",
-  "hashtags": ["#AIFunding", "#AMILabs", "#YannLeCun", "#WorldModels", "#JEPA", "#VentureCapital", "#AIStartup"],
-  "caption": "$1.03 billion. Seed round. Four months old.\n\nYann LeCun just raised the largest seed in European history to prove that LLMs are the wrong path to intelligence.\n\nAMI Labs is building world models on JEPA architecture: AI that learns physics, not just predicts text.\n\nIs this the most important funding round of 2026, or the most expensive contrarian bet in tech history?",
-  "strategy": {
-    "voice": "Analyst",
-    "hook_style": "Statistic",
-    "depth": "Minimal",
-    "template": "clean-editorial"
-  }
+  "hashtags": ["#Meta", "#AI", "#Layoffs", "#BigTech", "#FutureOfWork"],
+  "caption": "Read this number twice.\n\n$135,000,000,000.\n\nThat's what Meta plans to spend on AI infrastructure in 2026. Nearly double last year.\n\nNow read this number: 15,000.\n\nThat's how many human jobs could be cut to help pay for it. Up to 20% of Meta's entire workforce.\n\nReality Labs already lost 1,500 positions. Mid level managers, QA teams, customer support, and internal IT are next.\n\nMeta's stock climbed 3% on the layoff news. Wall Street rewarded the cuts.\n\nThis isn't about efficiency. It's about replacement. The largest social media company on Earth is betting that AI infrastructure is worth more than the people who built it.\n\nThe AI gold rush has a human cost. And we're watching it happen in real time.\n\n#Meta #AI #Layoffs #BigTech #FutureOfWork",
+  "strategy": {},
+  "html": "<div style=\"width:1080px;height:1350px;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;\">\n\n  <!-- Dramatic red glow behind -->\n  <div style=\"position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(239,68,68,0.08) 0%,transparent 70%);border-radius:50%;\"></div>\n\n  <!-- Subtle scan lines -->\n  <div style=\"position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 4px,rgba(255,255,255,0.008) 4px,rgba(255,255,255,0.008) 5px);\"></div>\n\n  <!-- Top label -->\n  <div style=\"position:absolute;top:50px;left:0;right:0;text-align:center;z-index:2;\">\n    <span style=\"background:rgba(239,68,68,0.12);color:#f87171;font-size:14px;font-weight:700;padding:8px 24px;border-radius:24px;letter-spacing:3px;\">META  |  MARCH 2026</span>\n  </div>\n\n  <!-- THE BIG STATEMENT -->\n  <div style=\"z-index:2;text-align:center;padding:0 60px;\">\n    <div style=\"font-size:140px;font-weight:900;color:#ffffff;line-height:0.95;letter-spacing:-4px;\">$135B</div>\n    <div style=\"font-size:28px;color:rgba(255,255,255,0.4);font-weight:500;margin-top:12px;letter-spacing:2px;\">SPENT ON AI</div>\n\n    <div style=\"width:120px;height:3px;background:linear-gradient(90deg,transparent,#ef4444,transparent);margin:40px auto;\"></div>\n\n    <div style=\"font-size:140px;font-weight:900;color:#ef4444;line-height:0.95;letter-spacing:-4px;\">15,000</div>\n    <div style=\"font-size:28px;color:rgba(239,68,68,0.5);font-weight:500;margin-top:12px;letter-spacing:2px;\">HUMANS CUT</div>\n  </div>\n\n  <!-- Supporting context -->\n  <div style=\"z-index:2;margin-top:60px;display:flex;gap:40px;justify-content:center;\">\n    <div style=\"text-align:center;\">\n      <div style=\"font-size:48px;font-weight:800;color:rgba(255,255,255,0.6);\">20%</div>\n      <div style=\"font-size:13px;color:rgba(255,255,255,0.25);letter-spacing:1px;margin-top:4px;\">OF WORKFORCE</div>\n    </div>\n    <div style=\"width:1px;background:rgba(255,255,255,0.1);\"></div>\n    <div style=\"text-align:center;\">\n      <div style=\"font-size:48px;font-weight:800;color:rgba(255,255,255,0.6);\">2x</div>\n      <div style=\"font-size:13px;color:rgba(255,255,255,0.25);letter-spacing:1px;margin-top:4px;\">VS 2025 AI SPEND</div>\n    </div>\n    <div style=\"width:1px;background:rgba(255,255,255,0.1);\"></div>\n    <div style=\"text-align:center;\">\n      <div style=\"font-size:48px;font-weight:800;color:rgba(255,255,255,0.6);\">+3%</div>\n      <div style=\"font-size:13px;color:rgba(255,255,255,0.25);letter-spacing:1px;margin-top:4px;\">STOCK ON NEWS</div>\n    </div>\n  </div>\n\n  <!-- Bottom quote -->\n  <div style=\"position:absolute;bottom:100px;left:0;right:0;text-align:center;z-index:2;padding:0 100px;\">\n    <div style=\"font-size:18px;color:rgba(255,255,255,0.2);font-style:italic;line-height:1.5;\">Wall Street rewarded the cuts. The AI gold rush has a human cost.</div>\n  </div>\n\n  <!-- Footer -->\n  <div style=\"position:absolute;bottom:40px;left:60px;right:60px;display:flex;align-items:center;justify-content:space-between;z-index:2;\">\n    <div style=\"font-size:13px;color:rgba(255,255,255,0.15);\">Source: CNBC, IBTimes</div>\n    <div style=\"font-size:15px;color:rgba(255,255,255,0.25);font-weight:600;letter-spacing:2px;\">thegeshwar</div>\n  </div>\n</div>"
 }
