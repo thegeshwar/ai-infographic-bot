@@ -35,38 +35,162 @@ def api(base_url: str, key: str, method: str, path: str, body: dict = None) -> d
         return r.json()
 
 
-def execute_deploy(post: dict, job: dict) -> dict:
-    """Execute a deploy job — run the posting pipeline."""
-    # TODO: Integrate with actual linkedin-poster / infographic bot posting flow
-    # For now, this is a placeholder that shows what the worker would do
-    print(f"  [DEPLOY] Would post: {post.get('headline', 'unknown')}")
-    print(f"  [DEPLOY] Caption: {(post.get('caption', '') or '')[:80]}...")
-    print(f"  [DEPLOY] Platforms: {json.loads(job.get('payload', '{}')).get('platforms', [])}")
+BOT_DIR = "/Users/thegeshwar/ai-infographic-bot"
 
-    # When ready, replace this with actual posting logic:
-    # subprocess.run(["python3", "-m", "linkedin_poster.post", ...])
-    return {"platforms": ["linkedin", "instagram"], "message": "Posted successfully"}
+
+def execute_deploy(post: dict, job: dict) -> dict:
+    """Execute a deploy job — post to LinkedIn via Claude Code CLI + Chrome DevTools MCP."""
+    headline = post.get("headline", "unknown")
+    caption = post.get("caption", "")
+    image_filename = post.get("image_filename", "")
+    image_path = f"{BOT_DIR}/web/static/images/{image_filename}" if image_filename else ""
+
+    print(f"  [DEPLOY] Posting: {headline}")
+    print(f"  [DEPLOY] Image: {image_path}")
+
+    # Build the Claude Code prompt that runs the LinkedIn posting steps
+    # This mirrors Steps 13-14 from infographic.md
+    deploy_prompt = f"""You are posting an infographic to the CU Circuits LinkedIn company page.
+
+## Post Details
+- **Headline:** {headline}
+- **Image path:** {image_path}
+- **Caption:**
+{caption}
+
+## Instructions
+
+Post this infographic + caption to the Cu Circuits company LinkedIn page using Chrome DevTools MCP.
+
+**Step-by-step:**
+
+1. Navigate to: https://www.linkedin.com/company/92578329/admin/page-posts/published/
+2. Click "+ Create" button in the left sidebar
+3. Click "Start a post" in the modal
+4. Fill the caption into the text editor ("What do you want to talk about?")
+5. Click "Add media" (image icon at bottom of post modal)
+6. Upload the image file: {image_path}
+7. Wait 3 seconds for upload
+8. Click "Post" to publish
+9. Take a screenshot to verify success
+
+IMPORTANT:
+- Post as Cu Circuits (company page), NOT personal profile
+- If not logged into LinkedIn, navigate to linkedin.com/login first
+- After posting, do NOT close the browser
+
+After posting, send a confirmation iMessage to +919500082039 (Yejneshwar):
+```applescript
+osascript -e 'tell application "Messages"
+    set imessageService to 1st account whose service type = iMessage
+    set targetBuddy to participant "+919500082039" of imessageService
+    send "Posted! \\"{headline}\\" is now live on LinkedIn." to targetBuddy
+end tell'
+```
+Close the Messages window after sending.
+
+Report back with the result."""
+
+    result = subprocess.run(
+        ["claude", "-p", deploy_prompt, "--allowedTools",
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__navigate_page,"
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__click,"
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__fill,"
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__upload_file,"
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot,"
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_snapshot,"
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__wait_for,"
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__type_text,"
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__press_key,"
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_pages,"
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__select_page,"
+         "mcp__plugin_chrome-devtools-mcp_chrome-devtools__new_page,"
+         "Bash"],
+        capture_output=True, text=True, cwd=BOT_DIR, timeout=300,
+    )
+
+    if result.returncode != 0:
+        error = result.stderr[:500] if result.stderr else "Unknown error"
+        print(f"  [DEPLOY] Claude CLI failed: {error}")
+        raise RuntimeError(f"Claude CLI deploy failed: {error}")
+
+    print(f"  [DEPLOY] Claude CLI output: {result.stdout[:200]}")
+    return {"platforms": ["linkedin", "instagram"], "message": "Posted via Claude Code CLI"}
 
 
 def execute_rework(post: dict, job: dict) -> dict:
-    """Execute a rework job — run Claude to rewrite caption."""
+    """Execute a rework job — use Claude Code CLI to rewrite caption."""
     payload = json.loads(job.get("payload", "{}"))
     prompt = payload.get("prompt", "")
     current_caption = post.get("caption", "")
     headline = post.get("headline", "")
+    hashtags = post.get("hashtags", "[]")
+    if isinstance(hashtags, str):
+        try:
+            hashtags = json.loads(hashtags)
+        except (json.JSONDecodeError, TypeError):
+            hashtags = []
 
     print(f"  [REWORK] Headline: {headline}")
     print(f"  [REWORK] Prompt: {prompt}")
 
-    # TODO: Integrate with Claude Code CLI or Anthropic API
-    # For now, placeholder
-    # When ready:
-    # result = subprocess.run(
-    #     ["claude", "-p", f"Rewrite this LinkedIn caption for CU Circuits. {prompt}\n\nCurrent caption:\n{current_caption}"],
-    #     capture_output=True, text=True
-    # )
-    # new_caption = result.stdout.strip()
-    return {"caption": current_caption, "message": "Rework placeholder — integrate Claude CLI"}
+    rework_prompt = f"""Rewrite this LinkedIn caption for CU Circuits company page.
+
+## User's Instructions
+{prompt}
+
+## Current Caption
+{current_caption}
+
+## Current Hashtags
+{' '.join(hashtags) if isinstance(hashtags, list) else hashtags}
+
+## Rules
+- Company posts contain FACTS ONLY: what happened, who announced, specific numbers and dates
+- NEVER include predictions, personal analysis, or opinions
+- NEVER make statements that could be interpreted as the company's official position
+- Caption must ALWAYS cite ALL sources used
+- Max 1300 characters
+- End with a question to the audience
+- Keep the same hashtags unless the user asked to change them
+
+## Output Format
+Return ONLY a JSON object with exactly these fields:
+{{"caption": "the new caption text", "hashtags": ["#tag1", "#tag2"]}}
+
+No explanation, no markdown, just the JSON."""
+
+    result = subprocess.run(
+        ["claude", "-p", rework_prompt],
+        capture_output=True, text=True, cwd=BOT_DIR, timeout=120,
+    )
+
+    if result.returncode != 0:
+        error = result.stderr[:500] if result.stderr else "Unknown error"
+        print(f"  [REWORK] Claude CLI failed: {error}")
+        raise RuntimeError(f"Claude CLI rework failed: {error}")
+
+    output = result.stdout.strip()
+    print(f"  [REWORK] Raw output: {output[:200]}")
+
+    # Parse JSON from Claude's output — it might have extra text around it
+    try:
+        # Try direct parse first
+        data = json.loads(output)
+    except json.JSONDecodeError:
+        # Try to extract JSON from the output
+        import re
+        match = re.search(r'\{[^{}]*"caption"[^{}]*\}', output, re.DOTALL)
+        if match:
+            data = json.loads(match.group())
+        else:
+            raise RuntimeError(f"Could not parse rework output: {output[:200]}")
+
+    new_caption = data.get("caption", current_caption)
+    new_hashtags = data.get("hashtags", hashtags)
+
+    print(f"  [REWORK] New caption: {new_caption[:80]}...")
+    return {"caption": new_caption, "hashtags": new_hashtags}
 
 
 def process_job(base_url: str, key: str, job_id: int):
