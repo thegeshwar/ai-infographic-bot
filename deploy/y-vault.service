@@ -1,0 +1,16 @@
+[Unit]
+Description=Y Vault - CU Circuits Post Queue
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/y-vault
+ExecStart=/opt/y-vault/.venv/bin/uvicorn web.app:app --host 127.0.0.1 --port 8100
+Restart=always
+RestartSec=5
+Environment="Y_API_KEY=CHANGE_ME"
+Environment="Y_MAC_WEBHOOK=http://MACS_TUNNEL_URL"
+
+[Install]
+WantedBy=multi-user.target
