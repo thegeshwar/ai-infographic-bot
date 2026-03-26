@@ -1,0 +1,393 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.headline or 'Post' }} — Y Vault{% endblock %}
+
+{% block extra_css %}
+.shell { max-width: 480px; margin: 0 auto; padding: 0 16px 100px; }
+
+/* top bar */
+.topbar {
+  display: flex;
+  align-items: center;
+  padding: 14px 0;
+  gap: 12px;
+}
+.back-arrow {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--tx2);
+}
+.topbar-title { flex: 1; font-weight: 600; font-size: 16px; }
+
+/* author */
+.author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--grn);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--bg);
+}
+.author-name { font-weight: 600; font-size: 14px; }
+.author-handle { font-size: 12px; color: var(--tx2); }
+
+/* caption */
+.caption-area {
+  width: 100%;
+  min-height: 120px;
+  background: var(--bg2);
+  border: 1px solid var(--bg3);
+  border-radius: var(--r);
+  padding: 14px;
+  color: var(--tx);
+  font-size: 15px;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+}
+.caption-area:focus { border-color: var(--gold); }
+.caption-area:disabled { opacity: .5; cursor: not-allowed; }
+
+/* hashtags */
+.hashtags-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg2);
+  border: 1px solid var(--bg3);
+  border-radius: var(--r);
+  color: #0A66C2;
+  font-size: 14px;
+  outline: none;
+  margin-top: 8px;
+  min-height: 44px;
+}
+.hashtags-input:focus { border-color: var(--gold); }
+.hashtags-input:disabled { opacity: .5; cursor: not-allowed; }
+
+/* save status */
+.save-status {
+  font-size: 12px;
+  color: var(--tx3);
+  margin-top: 6px;
+  min-height: 18px;
+}
+
+/* image preview */
+.img-preview {
+  margin-top: 16px;
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--bg2);
+  aspect-ratio: 4/5;
+}
+.img-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tx3);
+  font-size: 14px;
+}
+
+/* source card */
+.source-card {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: var(--bg2);
+  border-radius: var(--r);
+  border: 1px solid var(--bg3);
+}
+.source-domain { font-size: 12px; color: var(--tx3); }
+.source-title { font-size: 14px; margin-top: 4px; }
+.source-card a { color: var(--gold); }
+
+/* char count */
+.char-count {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--tx3);
+  text-align: right;
+}
+
+/* posted banner */
+.posted-banner {
+  margin-top: 16px;
+  padding: 14px;
+  background: rgba(74,222,128,.08);
+  border: 1px solid rgba(74,222,128,.2);
+  border-radius: var(--r);
+  color: var(--grn);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* rework section */
+.rework-section { margin-top: 16px; }
+.rework-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg2);
+  border: 1px solid var(--bg3);
+  border-radius: var(--r);
+  color: var(--tx);
+  font-size: 14px;
+  outline: none;
+  min-height: 44px;
+}
+.rework-input:focus { border-color: var(--vio); }
+.btn-rework {
+  margin-top: 8px;
+  width: 100%;
+  padding: 12px;
+  background: var(--vio);
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+  min-height: 44px;
+}
+.btn-rework:active { opacity: .85; }
+
+/* bottom action bar */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg2);
+  border-top: 1px solid var(--bg3);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.btn-back {
+  padding: 12px 20px;
+  background: var(--bg3);
+  color: var(--tx);
+  font-weight: 500;
+  font-size: 14px;
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+  min-height: 44px;
+  text-align: center;
+}
+.btn-deploy {
+  flex: 1;
+  padding: 12px;
+  background: var(--gold);
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+  min-height: 44px;
+}
+.btn-deploy:active { opacity: .85; }
+
+.badge {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.badge.ready { background: rgba(200,168,78,.15); color: var(--gold); }
+.badge.posted { background: rgba(74,222,128,.12); color: var(--grn); }
+{% endblock %}
+
+{% block body %}
+<div class="shell">
+  <div class="topbar">
+    <a href="/" class="back-arrow">&larr;</a>
+    <div class="topbar-title">Edit Post</div>
+    <span class="badge {% if post.status == 'ready' %}ready{% else %}posted{% endif %}">
+      {{ post.status | capitalize }}
+    </span>
+  </div>
+
+  <div class="author">
+    <div class="avatar">Cu</div>
+    <div>
+      <div class="author-name">CU Circuits</div>
+      <div class="author-handle mono">cucircuits.com</div>
+    </div>
+  </div>
+
+  <textarea id="caption" class="caption-area" placeholder="Write your caption..." {% if post.status == 'posted' %}disabled{% endif %}>{{ post.caption or '' }}</textarea>
+
+  <input id="hashtags" class="hashtags-input" type="text" placeholder="#hashtags"
+    value="{{ post.hashtags | join(' ') }}"
+    {% if post.status == 'posted' %}disabled{% endif %}>
+
+  <div id="save-status" class="save-status"></div>
+
+  <div class="img-preview">
+    {% if post.image_filename %}
+    <img src="/static/images/{{ post.image_filename }}" alt="Infographic">
+    {% else %}
+    <div class="img-placeholder">No image</div>
+    {% endif %}
+  </div>
+
+  {% if post.source %}
+  <div class="source-card">
+    <div class="source-domain mono">{{ post.source_url | domain }}</div>
+    <div class="source-title"><a href="{{ post.source_url }}" target="_blank" rel="noopener">{{ post.source }}</a></div>
+  </div>
+  {% endif %}
+
+  <div class="char-count"><span id="cc">0</span> / 1,300</div>
+
+  {% if post.status == 'posted' %}
+  <div class="posted-banner">Deployed {{ post.posted_at | format_time }}</div>
+  {% endif %}
+
+  {% if post.status == 'ready' %}
+  <div class="rework-section">
+    <input id="rework-prompt" class="rework-input" type="text" placeholder="Rework instructions...">
+    <button id="btn-rework" class="btn-rework">Rework</button>
+  </div>
+  {% endif %}
+</div>
+
+{% if post.status == 'ready' %}
+<div class="bottom-bar">
+  <a href="/" class="btn-back">Back</a>
+  <button id="btn-deploy" class="btn-deploy">Deploy Now</button>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+  var POST_ID = {{ post.id }};
+  var captionEl = document.getElementById('caption');
+  var hashtagsEl = document.getElementById('hashtags');
+  var ccEl = document.getElementById('cc');
+  var saveEl = document.getElementById('save-status');
+
+  function updateCC() {
+    var len = (captionEl.value || '').length;
+    ccEl.textContent = len;
+  }
+  updateCC();
+
+  var saveTimer = null;
+  function scheduleSave() {
+    if (saveTimer) clearTimeout(saveTimer);
+    saveTimer = setTimeout(doSave, 500);
+  }
+
+  function doSave() {
+    saveEl.textContent = 'Saving...';
+    fetch('/api/post/' + POST_ID, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        caption: captionEl.value,
+        hashtags: hashtagsEl.value
+      })
+    }).then(function(r) {
+      if (r.ok) {
+        saveEl.textContent = 'Saved';
+        setTimeout(function(){ saveEl.textContent = ''; }, 2000);
+      } else {
+        saveEl.textContent = 'Save failed';
+      }
+    }).catch(function() {
+      saveEl.textContent = 'Save failed';
+    });
+  }
+
+  if (captionEl && !captionEl.disabled) {
+    captionEl.addEventListener('input', function() {
+      updateCC();
+      scheduleSave();
+    });
+  }
+  if (hashtagsEl && !hashtagsEl.disabled) {
+    hashtagsEl.addEventListener('input', scheduleSave);
+  }
+
+  var deployBtn = document.getElementById('btn-deploy');
+  if (deployBtn) {
+    deployBtn.addEventListener('click', function() {
+      deployBtn.disabled = true;
+      deployBtn.textContent = 'Deploying...';
+      fetch('/api/post/' + POST_ID + '/deploy', {
+        method: 'POST'
+      }).then(function(r) {
+        if (r.ok) {
+          window.location.href = '/';
+        } else {
+          return r.json().then(function(d) { alert(d.detail || 'Deploy failed'); });
+        }
+      }).catch(function() {
+        alert('Deploy failed');
+      }).finally(function() {
+        deployBtn.disabled = false;
+        deployBtn.textContent = 'Deploy Now';
+      });
+    });
+  }
+
+  var reworkBtn = document.getElementById('btn-rework');
+  if (reworkBtn) {
+    reworkBtn.addEventListener('click', function() {
+      var promptEl = document.getElementById('rework-prompt');
+      var prompt = promptEl ? promptEl.value.trim() : '';
+      if (!prompt) { alert('Enter rework instructions'); return; }
+      reworkBtn.disabled = true;
+      reworkBtn.textContent = 'Reworking...';
+      fetch('/api/post/' + POST_ID + '/rework', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({prompt: prompt})
+      }).then(function(r) {
+        if (r.ok) {
+          window.location.reload();
+        } else {
+          return r.json().then(function(d) { alert(d.detail || 'Rework failed'); });
+        }
+      }).catch(function() {
+        alert('Rework failed');
+      }).finally(function() {
+        reworkBtn.disabled = false;
+        reworkBtn.textContent = 'Rework';
+      });
+    });
+  }
+})();
+</script>
+{% endblock %}
