@@ -294,8 +294,11 @@ async def api_deploy_post(request: Request, post_id: int):
                 json=dict(post),
             )
             resp.raise_for_status()
-    except Exception:
-        pass  # webhook failure shouldn't block marking as posted
+    except Exception as e:
+        return JSONResponse(
+            {"error": f"Could not reach Mac for posting: {type(e).__name__}. Post NOT deployed."},
+            status_code=502,
+        )
 
     await mark_posted(post_id, ["linkedin", "instagram"])
     return JSONResponse({"ok": True, "status": "posted"})
@@ -316,7 +319,6 @@ async def api_rework_post(request: Request, post_id: int):
     if not post:
         raise HTTPException(404, "Post not found")
 
-    result = {}
     try:
         async with httpx.AsyncClient(timeout=60) as client:
             resp = await client.post(
@@ -325,8 +327,11 @@ async def api_rework_post(request: Request, post_id: int):
             )
             resp.raise_for_status()
             result = resp.json()
-    except Exception:
-        pass
+    except Exception as e:
+        return JSONResponse(
+            {"error": f"Could not reach Mac for rework: {type(e).__name__}. Try again when Mac is online."},
+            status_code=502,
+        )
 
     if result.get("caption"):
         hashtags = result.get("hashtags", post.get("hashtags", []))

@@ -353,10 +353,10 @@
         if (r.ok) {
           window.location.href = '/';
         } else {
-          return r.json().then(function(d) { alert(d.detail || 'Deploy failed'); });
+          return r.json().then(function(d) { alert(d.error || d.detail || 'Deploy failed'); });
         }
-      }).catch(function() {
-        alert('Deploy failed');
+      }).catch(function(e) {
+        alert('Deploy failed: ' + e.message);
       }).finally(function() {
         deployBtn.disabled = false;
         deployBtn.textContent = 'Deploy Now';
@@ -380,10 +380,10 @@
         if (r.ok) {
           window.location.reload();
         } else {
-          return r.json().then(function(d) { alert(d.detail || 'Rework failed'); });
+          return r.json().then(function(d) { alert(d.error || d.detail || 'Rework failed'); });
         }
-      }).catch(function() {
-        alert('Rework failed');
+      }).catch(function(e) {
+        alert('Rework failed: ' + e.message);
       }).finally(function() {
         reworkBtn.disabled = false;
         reworkBtn.textContent = 'Rework';
