@@ -243,12 +243,18 @@
 <script>
 (function() {
   var SCHEDULE_HOUR = {{ schedule_hour }};
+  var TZ_OFFSET_HOURS = {{ schedule_tz_offset }};
   function update() {
     var now = new Date();
-    var next = new Date(now);
+    /* Get current time in target timezone (IST) */
+    var utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
+    var tzMs = utcMs + TZ_OFFSET_HOURS * 3600000;
+    var tzNow = new Date(tzMs);
+    /* Next run at SCHEDULE_HOUR:00 in that timezone */
+    var next = new Date(tzNow);
     next.setHours(SCHEDULE_HOUR, 0, 0, 0);
-    if (now >= next) next.setDate(next.getDate() + 1);
-    var diff = next - now;
+    if (tzNow >= next) next.setDate(next.getDate() + 1);
+    var diff = next - tzNow;
     var h = Math.floor(diff / 3600000);
     var m = Math.floor((diff % 3600000) / 60000);
     var s = Math.floor((diff % 60000) / 1000);

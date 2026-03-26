@@ -1,5 +1,6 @@
 """Y Vault — FastAPI application."""
 
+import asyncio
 import json
 import os
 import time
@@ -9,14 +10,16 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
-import httpx
 from fastapi import FastAPI, Request, Form, HTTPException
-from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from web.auth import authenticate, create_session, validate_session, delete_session
-from web.db import init_db, get_posts, get_post, update_post, mark_posted, insert_post, get_counts
+from web.db import (
+    init_db, get_posts, get_post, update_post, mark_posted, insert_post, get_counts,
+    create_job, get_pending_jobs, claim_job, complete_job, fail_job, get_job, get_jobs_for_post,
+)
 
 # Rate limiter: track login attempts per IP
 _login_attempts: dict[str, list[float]] = defaultdict(list)
@@ -27,8 +30,11 @@ LOGIN_RATE_WINDOW = 60  # per 60 seconds
 # Config
 # ---------------------------------------------------------------------------
 API_KEY = os.getenv("Y_API_KEY", "change-me-in-production")
-MAC_WEBHOOK_URL = os.getenv("Y_MAC_WEBHOOK", "http://localhost:9876")
-SCHEDULE_HOUR = int(os.getenv("SCHEDULE_HOUR", "8"))
+SCHEDULE_HOUR = int(os.getenv("SCHEDULE_HOUR", "10"))  # 10 AM IST
+SCHEDULE_TZ_OFFSET = float(os.getenv("SCHEDULE_TZ_OFFSET", "5.5"))  # IST = UTC+5:30
+
+# SSE: connected worker streams. Each is an asyncio.Queue.
+_worker_streams: list[asyncio.Queue] = []
 
 # ---------------------------------------------------------------------------
 # App
@@ -219,6 +225,7 @@ async def queue_page(request: Request, status: str = "all"):
         "counts": counts,
         "filter": status,
         "schedule_hour": SCHEDULE_HOUR,
+        "schedule_tz_offset": SCHEDULE_TZ_OFFSET,
     })
 
 # ---------------------------------------------------------------------------
@@ -275,33 +282,32 @@ async def api_update_post(request: Request, post_id: int):
     return JSONResponse({"ok": True})
 
 
+async def notify_workers(job_id: int, job_type: str, post_id: int):
+    """Push a new job event to all connected worker streams."""
+    event = json.dumps({"job_id": job_id, "type": job_type, "post_id": post_id})
+    dead = []
+    for q in _worker_streams:
+        try:
+            q.put_nowait(event)
+        except asyncio.QueueFull:
+            dead.append(q)
+    for q in dead:
+        _worker_streams.remove(q)
+
+
 @app.post("/api/post/{post_id}/deploy")
 async def api_deploy_post(request: Request, post_id: int):
     user = await get_user(request)
     if not user:
         raise HTTPException(401, "Not authenticated")
-
     post = await get_post(post_id)
     if not post:
         raise HTTPException(404, "Post not found")
     if post["status"] != "ready":
         raise HTTPException(400, "Post is not ready")
-
-    try:
-        async with httpx.AsyncClient(timeout=30) as client:
-            resp = await client.post(
-                f"{MAC_WEBHOOK_URL}/webhook/deploy",
-                json=dict(post),
-            )
-            resp.raise_for_status()
-    except Exception as e:
-        return JSONResponse(
-            {"error": f"Could not reach Mac for posting: {type(e).__name__}. Post NOT deployed."},
-            status_code=502,
-        )
-
-    await mark_posted(post_id, ["linkedin", "instagram"])
-    return JSONResponse({"ok": True, "status": "posted"})
+    job_id = await create_job(post_id, "deploy", {"platforms": ["linkedin", "instagram"]})
+    await notify_workers(job_id, "deploy", post_id)
+    return JSONResponse({"ok": True, "job_id": job_id})
 
 
 @app.post("/api/post/{post_id}/rework")
@@ -309,41 +315,151 @@ async def api_rework_post(request: Request, post_id: int):
     user = await get_user(request)
     if not user:
         raise HTTPException(401, "Not authenticated")
-
     body = await request.json()
     prompt = body.get("prompt", "")
     if not prompt:
         raise HTTPException(400, "Prompt is required")
-
     post = await get_post(post_id)
     if not post:
         raise HTTPException(404, "Post not found")
+    job_id = await create_job(post_id, "rework", {"prompt": prompt})
+    await notify_workers(job_id, "rework", post_id)
+    return JSONResponse({"ok": True, "job_id": job_id})
 
-    try:
-        async with httpx.AsyncClient(timeout=60) as client:
-            resp = await client.post(
-                f"{MAC_WEBHOOK_URL}/webhook/rework",
-                json={"post_id": post_id, "prompt": prompt, "post": dict(post)},
-            )
-            resp.raise_for_status()
-            result = resp.json()
-    except Exception as e:
-        return JSONResponse(
-            {"error": f"Could not reach Mac for rework: {type(e).__name__}. Try again when Mac is online."},
-            status_code=502,
-        )
 
-    if result.get("caption"):
-        hashtags = result.get("hashtags", post.get("hashtags", []))
-        if isinstance(hashtags, str):
-            try:
-                hashtags = json.loads(hashtags)
-            except (json.JSONDecodeError, TypeError):
-                hashtags = []
-        await update_post(post_id, result["caption"], hashtags)
+# ---------------------------------------------------------------------------
+# SSE stream for Mac worker
+# ---------------------------------------------------------------------------
 
-    return JSONResponse({"ok": True, "result": result})
+@app.get("/api/stream")
+async def sse_stream(request: Request):
+    """SSE endpoint for Mac worker. Authenticated via API key."""
+    auth = request.headers.get("authorization", "")
+    if auth != f"Bearer {API_KEY}":
+        raise HTTPException(401, "Invalid API key")
 
+    q: asyncio.Queue = asyncio.Queue(maxsize=100)
+    _worker_streams.append(q)
+
+    async def event_generator():
+        try:
+            # On connect, send any pending jobs as catchup
+            pending = await get_pending_jobs()
+            for job in pending:
+                data = json.dumps({"job_id": job["id"], "type": job["type"], "post_id": job["post_id"]})
+                yield f"data: {data}\n\n"
+            # Then wait for new events
+            while True:
+                if await request.is_disconnected():
+                    break
+                try:
+                    event = await asyncio.wait_for(q.get(), timeout=30)
+                    yield f"data: {event}\n\n"
+                except asyncio.TimeoutError:
+                    yield ": keepalive\n\n"
+        finally:
+            if q in _worker_streams:
+                _worker_streams.remove(q)
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
+
+
+# ---------------------------------------------------------------------------
+# Job API (for Mac worker)
+# ---------------------------------------------------------------------------
+
+@app.get("/api/job/{job_id}")
+async def api_get_job(request: Request, job_id: int):
+    """Get job details. Used by Mac worker to get full payload."""
+    auth = request.headers.get("authorization", "")
+    if auth != f"Bearer {API_KEY}":
+        # Also allow session auth for the web UI polling
+        user = await get_user(request)
+        if not user:
+            raise HTTPException(401, "Not authenticated")
+    job = await get_job(job_id)
+    if not job:
+        raise HTTPException(404, "Job not found")
+    # Include full post data
+    post = await get_post(job["post_id"])
+    return JSONResponse({"job": job, "post": post})
+
+
+@app.post("/api/job/{job_id}/claim")
+async def api_claim_job(request: Request, job_id: int):
+    """Mac worker claims a job before processing."""
+    auth = request.headers.get("authorization", "")
+    if auth != f"Bearer {API_KEY}":
+        raise HTTPException(401, "Invalid API key")
+    claimed = await claim_job(job_id)
+    if not claimed:
+        raise HTTPException(409, "Job already claimed or not pending")
+    return JSONResponse({"ok": True})
+
+
+@app.post("/api/job/{job_id}/complete")
+async def api_complete_job(request: Request, job_id: int):
+    """Mac worker reports job completion."""
+    auth = request.headers.get("authorization", "")
+    if auth != f"Bearer {API_KEY}":
+        raise HTTPException(401, "Invalid API key")
+    body = await request.json()
+    result = body.get("result", {})
+    job = await get_job(job_id)
+    if not job:
+        raise HTTPException(404, "Job not found")
+
+    # Apply results based on job type
+    if job["type"] == "deploy":
+        await mark_posted(job["post_id"], result.get("platforms", ["linkedin", "instagram"]))
+    elif job["type"] == "rework":
+        if result.get("caption"):
+            hashtags = result.get("hashtags", [])
+            if isinstance(hashtags, str):
+                try:
+                    hashtags = json.loads(hashtags)
+                except (json.JSONDecodeError, TypeError):
+                    hashtags = []
+            await update_post(job["post_id"], result["caption"], hashtags)
+
+    await complete_job(job_id, result)
+    return JSONResponse({"ok": True})
+
+
+@app.post("/api/job/{job_id}/fail")
+async def api_fail_job(request: Request, job_id: int):
+    """Mac worker reports job failure."""
+    auth = request.headers.get("authorization", "")
+    if auth != f"Bearer {API_KEY}":
+        raise HTTPException(401, "Invalid API key")
+    body = await request.json()
+    error = body.get("error", "Unknown error")
+    await fail_job(job_id, error)
+    return JSONResponse({"ok": True})
+
+
+@app.get("/api/post/{post_id}/jobs")
+async def api_post_jobs(request: Request, post_id: int):
+    """Get job history for a post. Used by detail page for status polling."""
+    user = await get_user(request)
+    if not user:
+        raise HTTPException(401, "Not authenticated")
+    jobs = await get_jobs_for_post(post_id)
+    return JSONResponse(jobs)
+
+
+@app.get("/api/worker/status")
+async def api_worker_status(request: Request):
+    """Check if any Mac worker is connected."""
+    user = await get_user(request)
+    if not user:
+        raise HTTPException(401, "Not authenticated")
+    return JSONResponse({"connected": len(_worker_streams) > 0, "workers": len(_worker_streams)})
+
+
+# ---------------------------------------------------------------------------
+# Ingest API
+# ---------------------------------------------------------------------------
 
 @app.post("/api/ingest")
 async def api_ingest(request: Request):

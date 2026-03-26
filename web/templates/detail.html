@@ -48,7 +48,7 @@
 /* caption */
 .caption-area {
   width: 100%;
-  min-height: 120px;
+  min-height: 60px;
   background: var(--bg2);
   border: 1px solid var(--bg3);
   border-radius: var(--r);
@@ -56,8 +56,9 @@
   color: var(--tx);
   font-size: 15px;
   line-height: 1.5;
-  resize: vertical;
+  resize: none;
   outline: none;
+  overflow: hidden;
 }
 .caption-area:focus { border-color: var(--gold); }
 .caption-area:disabled { opacity: .5; cursor: not-allowed; }
@@ -212,7 +213,27 @@
   min-height: 44px;
 }
 .btn-deploy:active { opacity: .85; }
+.btn-deploy:disabled { opacity: .4; cursor: not-allowed; }
 .author-vis { display: inline-block; margin-top: 4px; padding: 2px 8px; border-radius: 100px; border: 1px solid var(--tx3); font-size: 10px; color: var(--tx2); }
+
+/* job status */
+.job-status {
+  padding: 10px 14px;
+  margin: 8px 0;
+  border-radius: var(--r);
+  font-size: 12px;
+  display: none;
+}
+.job-status.active { display: flex; align-items: center; gap: 8px; }
+.job-status.pending { background: rgba(200,168,78,.08); color: var(--gold); border: 1px solid rgba(200,168,78,.12); }
+.job-status.processing { background: rgba(200,168,78,.12); color: var(--gold); border: 1px solid rgba(200,168,78,.2); }
+.job-status.completed { background: rgba(74,222,128,.08); color: var(--grn); border: 1px solid rgba(74,222,128,.12); }
+.job-status.failed { background: rgba(239,68,68,.08); color: #ef4444; border: 1px solid rgba(239,68,68,.12); }
+.job-spinner { width: 14px; height: 14px; border: 2px solid currentColor; border-top-color: transparent; border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.worker-badge { font-size: 10px; color: var(--tx3); padding: 4px 0; }
+.worker-badge.online { color: var(--grn); }
+.worker-badge.online::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--grn); margin-right: 4px; }
 
 .badge {
   font-size: 10px;
@@ -252,6 +273,8 @@
     {% if post.status == 'posted' %}disabled{% endif %}>
 
   <div id="save-status" class="save-status"></div>
+  <div id="job-status" class="job-status"></div>
+  <div id="worker-status" class="worker-badge"></div>
 
   <div class="img-preview">
     {% if post.image_filename %}
@@ -298,72 +321,111 @@
   var hashtagsEl = document.getElementById('hashtags');
   var ccEl = document.getElementById('cc');
   var saveEl = document.getElementById('save-status');
+  var jobEl = document.getElementById('job-status');
+  var workerEl = document.getElementById('worker-status');
 
-  function updateCC() {
-    var len = (captionEl.value || '').length;
-    ccEl.textContent = len;
+  /* --- Auto-resize textarea --- */
+  function autoResize() {
+    if (!captionEl) return;
+    captionEl.style.height = 'auto';
+    captionEl.style.height = captionEl.scrollHeight + 'px';
   }
+  autoResize();
+
+  /* --- Char count --- */
+  function updateCC() { ccEl.textContent = (captionEl.value || '').length; }
   updateCC();
 
+  /* --- Auto-save --- */
   var saveTimer = null;
   function scheduleSave() {
     if (saveTimer) clearTimeout(saveTimer);
     saveTimer = setTimeout(doSave, 500);
   }
-
   function doSave() {
     saveEl.textContent = 'Saving...';
     fetch('/api/post/' + POST_ID, {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        caption: captionEl.value,
-        hashtags: hashtagsEl.value
-      })
+      body: JSON.stringify({ caption: captionEl.value, hashtags: hashtagsEl.value })
     }).then(function(r) {
-      if (r.ok) {
-        saveEl.textContent = 'Saved';
-        setTimeout(function(){ saveEl.textContent = ''; }, 2000);
-      } else {
-        saveEl.textContent = 'Save failed';
-      }
-    }).catch(function() {
-      saveEl.textContent = 'Save failed';
-    });
+      if (r.ok) { saveEl.textContent = 'Saved'; setTimeout(function(){ saveEl.textContent = ''; }, 2000); }
+      else { saveEl.textContent = 'Save failed'; }
+    }).catch(function() { saveEl.textContent = 'Save failed'; });
   }
 
   if (captionEl && !captionEl.disabled) {
-    captionEl.addEventListener('input', function() {
-      updateCC();
-      scheduleSave();
-    });
+    captionEl.addEventListener('input', function() { updateCC(); autoResize(); scheduleSave(); });
   }
   if (hashtagsEl && !hashtagsEl.disabled) {
     hashtagsEl.addEventListener('input', scheduleSave);
   }
 
+  /* --- Job status display --- */
+  function showJobStatus(status, message) {
+    jobEl.className = 'job-status active ' + status;
+    while (jobEl.firstChild) jobEl.removeChild(jobEl.firstChild);
+    if (status === 'processing' || status === 'pending') {
+      var spinner = document.createElement('div');
+      spinner.className = 'job-spinner';
+      jobEl.appendChild(spinner);
+    }
+    jobEl.appendChild(document.createTextNode(message));
+  }
+  function hideJobStatus() { jobEl.className = 'job-status'; jobEl.textContent = ''; }
+
+  /* --- Poll job status --- */
+  var activeJobId = null;
+  function pollJob() {
+    if (!activeJobId) return;
+    fetch('/api/job/' + activeJobId).then(function(r) { return r.json(); }).then(function(data) {
+      var job = data.job;
+      if (job.status === 'pending') {
+        showJobStatus('pending', 'Waiting for Mac worker...');
+        setTimeout(pollJob, 2000);
+      } else if (job.status === 'processing') {
+        showJobStatus('processing', 'Mac is working on it...');
+        setTimeout(pollJob, 2000);
+      } else if (job.status === 'completed') {
+        showJobStatus('completed', job.type === 'deploy' ? 'Deployed!' : 'Rework complete!');
+        activeJobId = null;
+        setTimeout(function() { window.location.reload(); }, 1500);
+      } else if (job.status === 'failed') {
+        var result = typeof job.result === 'string' ? JSON.parse(job.result) : job.result;
+        showJobStatus('failed', 'Failed: ' + (result.error || 'Unknown error'));
+        activeJobId = null;
+        enableButtons();
+      }
+    }).catch(function() { setTimeout(pollJob, 3000); });
+  }
+
+  function enableButtons() {
+    var d = document.getElementById('btn-deploy');
+    var r = document.getElementById('btn-rework');
+    if (d) { d.disabled = false; d.textContent = 'Deploy Now'; }
+    if (r) { r.disabled = false; r.textContent = 'Rework'; }
+  }
+
+  /* --- Deploy --- */
   var deployBtn = document.getElementById('btn-deploy');
   if (deployBtn) {
     deployBtn.addEventListener('click', function() {
       deployBtn.disabled = true;
-      deployBtn.textContent = 'Deploying...';
-      fetch('/api/post/' + POST_ID + '/deploy', {
-        method: 'POST'
-      }).then(function(r) {
-        if (r.ok) {
-          window.location.href = '/';
-        } else {
-          return r.json().then(function(d) { alert(d.error || d.detail || 'Deploy failed'); });
-        }
-      }).catch(function(e) {
-        alert('Deploy failed: ' + e.message);
-      }).finally(function() {
-        deployBtn.disabled = false;
-        deployBtn.textContent = 'Deploy Now';
-      });
+      deployBtn.textContent = 'Queuing...';
+      fetch('/api/post/' + POST_ID + '/deploy', { method: 'POST' })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.ok) {
+            activeJobId = data.job_id;
+            showJobStatus('pending', 'Deploy queued. Waiting for Mac worker...');
+            pollJob();
+          } else { alert(data.error || data.detail || 'Deploy failed'); enableButtons(); }
+        })
+        .catch(function(e) { alert('Deploy failed: ' + e.message); enableButtons(); });
     });
   }
 
+  /* --- Rework --- */
   var reworkBtn = document.getElementById('btn-rework');
   if (reworkBtn) {
     reworkBtn.addEventListener('click', function() {
@@ -371,25 +433,33 @@
       var prompt = promptEl ? promptEl.value.trim() : '';
       if (!prompt) { alert('Enter rework instructions'); return; }
       reworkBtn.disabled = true;
-      reworkBtn.textContent = 'Reworking...';
+      reworkBtn.textContent = 'Queuing...';
       fetch('/api/post/' + POST_ID + '/rework', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({prompt: prompt})
-      }).then(function(r) {
-        if (r.ok) {
-          window.location.reload();
-        } else {
-          return r.json().then(function(d) { alert(d.error || d.detail || 'Rework failed'); });
-        }
-      }).catch(function(e) {
-        alert('Rework failed: ' + e.message);
-      }).finally(function() {
-        reworkBtn.disabled = false;
-        reworkBtn.textContent = 'Rework';
-      });
+        body: JSON.stringify({ prompt: prompt })
+      })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.ok) {
+            activeJobId = data.job_id;
+            showJobStatus('pending', 'Rework queued. Waiting for Mac worker...');
+            pollJob();
+          } else { alert(data.error || data.detail || 'Rework failed'); enableButtons(); }
+        })
+        .catch(function(e) { alert('Rework failed: ' + e.message); enableButtons(); });
     });
   }
+
+  /* --- Worker status --- */
+  function checkWorker() {
+    fetch('/api/worker/status').then(function(r) { return r.json(); }).then(function(data) {
+      workerEl.className = data.connected ? 'worker-badge online' : 'worker-badge';
+      workerEl.textContent = data.connected ? 'Mac connected' : 'Mac offline';
+    }).catch(function() { workerEl.className = 'worker-badge'; workerEl.textContent = ''; });
+  }
+  checkWorker();
+  setInterval(checkWorker, 30000);
 })();
 </script>
 {% endblock %}

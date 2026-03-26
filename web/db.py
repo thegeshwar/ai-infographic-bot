@@ -22,6 +22,18 @@ CREATE TABLE IF NOT EXISTS sessions (
     expires_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS jobs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    post_id INTEGER NOT NULL REFERENCES posts(id),
+    type TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pending',
+    payload TEXT DEFAULT '{}',
+    result TEXT DEFAULT '{}',
+    created_at TEXT NOT NULL,
+    started_at TEXT,
+    completed_at TEXT
+);
+
 CREATE TABLE IF NOT EXISTS posts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     hook TEXT,
@@ -144,6 +156,101 @@ async def insert_post(data: dict) -> int:
         )
         await db.commit()
         return cursor.lastrowid
+    finally:
+        await db.close()
+
+
+async def create_job(post_id: int, job_type: str, payload: dict) -> int:
+    """Create a pending job and return its ID."""
+    now = datetime.now(timezone.utc).isoformat()
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "INSERT INTO jobs (post_id, type, status, payload, created_at) VALUES (?, ?, 'pending', ?, ?)",
+            (post_id, job_type, json.dumps(payload), now),
+        )
+        await db.commit()
+        return cursor.lastrowid
+    finally:
+        await db.close()
+
+
+async def get_pending_jobs() -> list[dict]:
+    """Return all pending jobs, oldest first."""
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "SELECT * FROM jobs WHERE status = 'pending' ORDER BY created_at ASC"
+        )
+        rows = await cursor.fetchall()
+        return [dict(r) for r in rows]
+    finally:
+        await db.close()
+
+
+async def claim_job(job_id: int) -> bool:
+    """Atomically claim a pending job. Returns True if claimed."""
+    now = datetime.now(timezone.utc).isoformat()
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "UPDATE jobs SET status = 'processing', started_at = ? WHERE id = ? AND status = 'pending'",
+            (now, job_id),
+        )
+        await db.commit()
+        return cursor.rowcount > 0
+    finally:
+        await db.close()
+
+
+async def complete_job(job_id: int, result: dict) -> None:
+    """Mark a job as completed with result."""
+    now = datetime.now(timezone.utc).isoformat()
+    db = await get_db()
+    try:
+        await db.execute(
+            "UPDATE jobs SET status = 'completed', result = ?, completed_at = ? WHERE id = ?",
+            (json.dumps(result), now, job_id),
+        )
+        await db.commit()
+    finally:
+        await db.close()
+
+
+async def fail_job(job_id: int, error: str) -> None:
+    """Mark a job as failed."""
+    now = datetime.now(timezone.utc).isoformat()
+    db = await get_db()
+    try:
+        await db.execute(
+            "UPDATE jobs SET status = 'failed', result = ?, completed_at = ? WHERE id = ?",
+            (json.dumps({"error": error}), now, job_id),
+        )
+        await db.commit()
+    finally:
+        await db.close()
+
+
+async def get_job(job_id: int) -> dict | None:
+    """Get a single job by ID."""
+    db = await get_db()
+    try:
+        cursor = await db.execute("SELECT * FROM jobs WHERE id = ?", (job_id,))
+        row = await cursor.fetchone()
+        return dict(row) if row else None
+    finally:
+        await db.close()
+
+
+async def get_jobs_for_post(post_id: int) -> list[dict]:
+    """Get all jobs for a post, newest first."""
+    db = await get_db()
+    try:
+        cursor = await db.execute(
+            "SELECT * FROM jobs WHERE post_id = ? ORDER BY created_at DESC", (post_id,)
+        )
+        rows = await cursor.fetchall()
+        return [dict(r) for r in rows]
     finally:
         await db.close()
 
