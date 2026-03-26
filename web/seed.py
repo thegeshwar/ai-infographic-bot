@@ -9,7 +9,7 @@ from web.db import get_db, init_db
 async def seed() -> None:
     await init_db()
 
-    email = "y@cucircuits.com"
+    email = "yejneshwar@cucircuits.com"
     password = "tejuisjustbetter"
 
     db = await get_db()

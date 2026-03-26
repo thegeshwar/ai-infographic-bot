@@ -28,6 +28,7 @@ LOGIN_RATE_WINDOW = 60  # per 60 seconds
 # ---------------------------------------------------------------------------
 API_KEY = os.getenv("Y_API_KEY", "change-me-in-production")
 MAC_WEBHOOK_URL = os.getenv("Y_MAC_WEBHOOK", "http://localhost:9876")
+SCHEDULE_HOUR = int(os.getenv("SCHEDULE_HOUR", "8"))
 
 # ---------------------------------------------------------------------------
 # App
@@ -217,6 +218,7 @@ async def queue_page(request: Request, status: str = "all"):
         "posts": posts,
         "counts": counts,
         "filter": status,
+        "schedule_hour": SCHEDULE_HOUR,
     })
 
 # ---------------------------------------------------------------------------

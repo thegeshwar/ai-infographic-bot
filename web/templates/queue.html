@@ -148,6 +148,20 @@
   color: var(--tx3);
   margin-top: 2px;
 }
+/* next run countdown */
+.next-run {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  border-radius: var(--r);
+  background: var(--bg2);
+  border: 1px solid rgba(200,168,78,.08);
+}
+.next-run-label { font-size: 11px; color: var(--tx3); }
+.next-run-time { font-size: 13px; color: var(--gold); font-weight: 500; letter-spacing: .5px; }
+
 .empty {
   text-align: center;
   color: var(--tx3);
@@ -176,6 +190,11 @@
       <div class="counter-num muted">{{ counts.get('today', 0) }}</div>
       <div class="counter-label">Today</div>
     </div>
+  </div>
+
+  <div class="next-run mono" id="countdown">
+    <span class="next-run-label">Next generation in</span>
+    <span class="next-run-time" id="countdown-time">--:--:--</span>
   </div>
 
   <div class="tabs">
@@ -218,4 +237,26 @@
   <div class="empty">No posts yet.</div>
   {% endif %}
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+  var SCHEDULE_HOUR = {{ schedule_hour }};
+  function update() {
+    var now = new Date();
+    var next = new Date(now);
+    next.setHours(SCHEDULE_HOUR, 0, 0, 0);
+    if (now >= next) next.setDate(next.getDate() + 1);
+    var diff = next - now;
+    var h = Math.floor(diff / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    var el = document.getElementById('countdown-time');
+    if (el) el.textContent = (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  update();
+  setInterval(update, 1000);
+})();
+</script>
 {% endblock %}
