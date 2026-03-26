@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Login — Y Vault{% endblock %}
+
+{% block extra_css %}
+.login-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+.login-card {
+  width: 100%;
+  max-width: 360px;
+}
+.logo {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  line-height: 1;
+}
+.subtitle {
+  text-align: center;
+  color: var(--tx2);
+  font-size: 13px;
+  margin-top: 4px;
+  margin-bottom: 32px;
+}
+.field {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg2);
+  border: 1px solid var(--bg3);
+  border-radius: var(--r);
+  color: var(--tx);
+  font-size: 16px;
+  outline: none;
+  margin-bottom: 12px;
+  min-height: 44px;
+}
+.field::placeholder { color: var(--tx3); }
+.field:focus { border-color: var(--gold); }
+.btn-gold {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: var(--gold);
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+  min-height: 44px;
+  margin-top: 8px;
+}
+.btn-gold:active { opacity: .85; }
+.error-msg {
+  color: #ef4444;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+{% endblock %}
+
+{% block body %}
+<div class="login-wrap">
+  <form class="login-card" method="post" action="/login">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <div class="logo">Y</div>
+    <div class="subtitle mono">CU Circuits</div>
+    {% if error %}
+    <div class="error-msg">{{ error }}</div>
+    {% endif %}
+    <input class="field" type="email" name="email" placeholder="Email" required autocomplete="email">
+    <input class="field" type="password" name="password" placeholder="Password" required autocomplete="current-password">
+    <button class="btn-gold" type="submit">Enter the Vault</button>
+  </form>
+</div>
+{% endblock %}
