@@ -162,6 +162,35 @@
 .next-run-label { font-size: 11px; color: var(--tx3); }
 .next-run-time { font-size: 13px; color: var(--gold); font-weight: 500; letter-spacing: .5px; }
 
+/* runner status */
+.runner-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  border-radius: var(--r);
+  background: var(--bg2);
+}
+.runner-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--tx3);
+  flex-shrink: 0;
+}
+.runner-dot.online {
+  background: var(--grn);
+  box-shadow: 0 0 6px rgba(74,222,128,.4);
+  animation: rpulse 2.5s ease-in-out infinite;
+}
+@keyframes rpulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+.runner-text { font-size: 11px; color: var(--tx3); flex: 1; }
+.runner-text.online { color: var(--grn); }
+.runner-job {
+  font-size: 10px; color: var(--gold);
+  background: rgba(200,168,78,.08);
+  padding: 2px 8px; border-radius: 4px;
+}
+
 .empty {
   text-align: center;
   color: var(--tx3);
@@ -175,6 +204,11 @@
   <div class="header">
     <div class="header-logo"><span>Y</span></div>
     <div class="header-sub mono">CU Circuits</div>
+  </div>
+
+  <div class="runner-bar" id="runner-bar">
+    <div class="runner-dot" id="runner-dot"></div>
+    <div class="runner-text" id="runner-text">Checking Mac...</div>
   </div>
 
   <div class="counters">
@@ -263,6 +297,35 @@
   }
   update();
   setInterval(update, 1000);
+
+  /* --- Runner status --- */
+  var dot = document.getElementById('runner-dot');
+  var txt = document.getElementById('runner-text');
+  var bar = document.getElementById('runner-bar');
+
+  function checkRunner() {
+    fetch('/api/worker/status').then(function(r) { return r.json(); }).then(function(data) {
+      if (data.connected) {
+        dot.className = 'runner-dot online';
+        txt.className = 'runner-text online';
+        if (data.active_job) {
+          txt.textContent = 'Mac connected \u2014 ' + data.active_job;
+        } else {
+          txt.textContent = 'Mac connected \u2014 idle';
+        }
+      } else {
+        dot.className = 'runner-dot';
+        txt.className = 'runner-text';
+        txt.textContent = 'Mac offline';
+      }
+    }).catch(function() {
+      dot.className = 'runner-dot';
+      txt.className = 'runner-text';
+      txt.textContent = 'Mac offline';
+    });
+  }
+  checkRunner();
+  setInterval(checkRunner, 15000);
 })();
 </script>
 {% endblock %}

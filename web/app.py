@@ -17,7 +17,7 @@ from fastapi.templating import Jinja2Templates
 
 from web.auth import authenticate, create_session, validate_session, delete_session
 from web.db import (
-    init_db, get_posts, get_post, update_post, mark_posted, insert_post, get_counts,
+    init_db, get_db, get_posts, get_post, update_post, mark_posted, insert_post, get_counts,
     create_job, get_pending_jobs, claim_job, complete_job, fail_job, get_job, get_jobs_for_post,
 )
 
@@ -450,11 +450,25 @@ async def api_post_jobs(request: Request, post_id: int):
 
 @app.get("/api/worker/status")
 async def api_worker_status(request: Request):
-    """Check if any Mac worker is connected."""
+    """Check if any Mac worker is connected + active job info."""
     user = await get_user(request)
     if not user:
         raise HTTPException(401, "Not authenticated")
-    return JSONResponse({"connected": len(_worker_streams) > 0, "workers": len(_worker_streams)})
+    connected = len(_worker_streams) > 0
+    active_job = None
+    if connected:
+        # Check for any processing jobs
+        db = await get_db()
+        try:
+            cursor = await db.execute(
+                "SELECT j.type, p.headline FROM jobs j JOIN posts p ON j.post_id = p.id WHERE j.status = 'processing' LIMIT 1"
+            )
+            row = await cursor.fetchone()
+            if row:
+                active_job = f"{row[0]}ing \"{row[1][:30]}...\""  if len(row[1]) > 30 else f"{row[0]}ing \"{row[1]}\""
+        finally:
+            await db.close()
+    return JSONResponse({"connected": connected, "workers": len(_worker_streams), "active_job": active_job})
 
 
 # ---------------------------------------------------------------------------
