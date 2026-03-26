@@ -2,7 +2,9 @@
 
 import json
 import os
+import time
 import uuid
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
@@ -15,6 +17,11 @@ from fastapi.templating import Jinja2Templates
 
 from web.auth import authenticate, create_session, validate_session, delete_session
 from web.db import init_db, get_posts, get_post, update_post, mark_posted, insert_post, get_counts
+
+# Rate limiter: track login attempts per IP
+_login_attempts: dict[str, list[float]] = defaultdict(list)
+LOGIN_RATE_LIMIT = 5  # max attempts
+LOGIN_RATE_WINDOW = 60  # per 60 seconds
 
 # ---------------------------------------------------------------------------
 # Config
@@ -127,12 +134,35 @@ async def login_page(request: Request):
         "csrf_token": csrf,
         "error": None,
     })
-    response.set_cookie("csrf", csrf, httponly=True, samesite="strict")
+    response.set_cookie("csrf", csrf, httponly=True, samesite="strict", secure=True)
     return response
 
 
 @app.post("/login")
 async def login_submit(request: Request, email: str = Form(...), password: str = Form(...), csrf_token: str = Form("")):
+    # CSRF validation
+    csrf_cookie = request.cookies.get("csrf", "")
+    if not csrf_token or csrf_token != csrf_cookie:
+        csrf = str(uuid.uuid4())
+        response = templates.TemplateResponse("login.html", {
+            "request": request, "csrf_token": csrf, "error": "Invalid request. Please try again.",
+        })
+        response.set_cookie("csrf", csrf, httponly=True, samesite="strict", secure=True)
+        return response
+
+    # Rate limiting
+    client_ip = request.client.host if request.client else "unknown"
+    now = time.time()
+    _login_attempts[client_ip] = [t for t in _login_attempts[client_ip] if now - t < LOGIN_RATE_WINDOW]
+    if len(_login_attempts[client_ip]) >= LOGIN_RATE_LIMIT:
+        csrf = str(uuid.uuid4())
+        response = templates.TemplateResponse("login.html", {
+            "request": request, "csrf_token": csrf, "error": "Too many attempts. Try again later.",
+        })
+        response.set_cookie("csrf", csrf, httponly=True, samesite="strict", secure=True)
+        return response
+    _login_attempts[client_ip].append(now)
+
     user_id = await authenticate(email, password)
     if not user_id:
         csrf = str(uuid.uuid4())
@@ -141,7 +171,7 @@ async def login_submit(request: Request, email: str = Form(...), password: str =
             "csrf_token": csrf,
             "error": "Invalid email or password.",
         })
-        response.set_cookie("csrf", csrf, httponly=True, samesite="strict")
+        response.set_cookie("csrf", csrf, httponly=True, samesite="strict", secure=True)
         return response
     session_id = await create_session(user_id)
     response = RedirectResponse("/", status_code=302)
@@ -214,6 +244,20 @@ async def detail_page(request: Request, post_id: int):
 # API routes
 # ---------------------------------------------------------------------------
 
+@app.get("/api/posts")
+async def api_list_posts(request: Request, status: str = "all"):
+    user = await get_user(request)
+    if not user:
+        raise HTTPException(401, "Not authenticated")
+    if status == "all":
+        ready = await get_posts("ready")
+        posted = await get_posts("posted")
+        posts = sorted(ready + posted, key=lambda p: p["created_at"], reverse=True)
+    else:
+        posts = await get_posts(status)
+    return JSONResponse([parse_hashtags(p) for p in posts])
+
+
 @app.patch("/api/post/{post_id}")
 async def api_update_post(request: Request, post_id: int):
     user = await get_user(request)
@@ -251,7 +295,7 @@ async def api_deploy_post(request: Request, post_id: int):
     except Exception:
         pass  # webhook failure shouldn't block marking as posted
 
-    await mark_posted(post_id, ["linkedin"])
+    await mark_posted(post_id, ["linkedin", "instagram"])
     return JSONResponse({"ok": True, "status": "posted"})
 
 

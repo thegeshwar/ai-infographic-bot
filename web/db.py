@@ -149,7 +149,7 @@ async def insert_post(data: dict) -> int:
 
 
 async def get_counts() -> dict:
-    """Return counts of posts by status."""
+    """Return counts of posts by status + today."""
     db = await get_db()
     try:
         cursor = await db.execute(
@@ -159,6 +159,12 @@ async def get_counts() -> dict:
         counts = {row["status"]: row["count"] for row in rows}
         counts.setdefault("ready", 0)
         counts.setdefault("posted", 0)
+        today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        cursor2 = await db.execute(
+            "SELECT COUNT(*) FROM posts WHERE created_at LIKE ?", (f"{today}%",)
+        )
+        row = await cursor2.fetchone()
+        counts["today"] = row[0] if row else 0
         return counts
     finally:
         await db.close()
