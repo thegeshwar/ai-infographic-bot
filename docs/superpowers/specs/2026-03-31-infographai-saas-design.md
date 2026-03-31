@@ -364,14 +364,27 @@ All of these are designed to be addable without schema migrations or architectur
 | Frontend | Next.js 15 (App Router) | Already used in QMS Leader, SSR for landing page SEO |
 | Styling | Tailwind CSS | Fast iteration, consistent design |
 | Auth | Supabase Auth | Free tier generous, RLS integration, Google OAuth built-in |
-| Database | Supabase Postgres | RLS, Realtime for job status updates, free tier |
-| Storage | Supabase Storage | PNG hosting, user logo uploads, CDN |
+| Database | Supabase Cloud (Postgres) | RLS, Realtime for job status updates, separate from VPS Supabase |
+| Storage | Supabase Cloud Storage | PNG hosting, user logo uploads, CDN |
 | Payments | Stripe | Industry standard, Checkout + Portal + Webhooks |
 | Worker | Python (systemd service) | Existing pipeline code reuse |
 | Rendering | Playwright (Python) | Already proven in current pipeline |
 | AI | Claude CLI | Zero marginal cost on existing subscription |
 | Hosting | VPS (existing Oracle) | Already running, nginx + SSL configured |
 | Email | Resend or Supabase built-in | Transactional emails (verification, post ready) |
+
+### 11.1 Design Direction
+
+**Light theme. Minimal. Not dark, not navy, not blue-heavy.**
+
+- Background: warm white (#FAFAF8) or light cream
+- Typography: clean sans-serif (Inter or similar), generous spacing
+- Accent: single warm accent color (coral, amber, or teal — NOT blue)
+- Cards: subtle shadows, no heavy borders, rounded but not bubbly
+- Infographic previews are the star — UI gets out of the way
+- Inspiration: Linear, Notion, Readwise — functional beauty, zero clutter
+- Mobile-responsive from day one
+- No gradients, no glassmorphism, no dark mode in V1
 
 ---
 
