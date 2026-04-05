@@ -237,6 +237,7 @@ The background is part of the story, not wallpaper. It should reinforce what the
 - All background elements are SVG (inline) at opacity 0.06 to 0.25. Never below 0.05 or above 0.35.
 - Every post MUST have at least one meaningful background element. Plain flat backgrounds look cheap.
 - SVG `<pattern>` tiles (60x60 to 80x80) work well for repeating motifs.
+- **Library illustration assets** from `assets/illustrations/` work as large background elements at 400-800px with opacity 0.08-0.15. A `neural-network.svg` behind an AI story or `pcb-board.svg` behind a manufacturing story adds thematic depth without competing with foreground content.
 - Gradient orbs add depth: soft radial gradients at 0.08 to 0.15 opacity, placed to complement the layout.
 - **Vary backgrounds between consecutive posts.** Never repeat the same pattern type back to back.
 
@@ -254,9 +255,10 @@ An infographic needs BOTH meaningful text content AND visual elements working to
 
 **Text budget:** Aim for 400 to 1200 characters of visible text (excluding footer). Under 400 looks empty and purposeless. Over 1200 means you're writing paragraphs — cut to punchy labels and let graphics carry the data.
 
-**Graphics budget:** Include 2 to 6 meaningful SVG visual elements (charts, diagrams, data visualizations). More than 6 risks overlapping and clutter. Fewer than 2 makes it a text card. Each SVG should serve a clear purpose — don't add graphics just to hit a number.
+**Graphics budget:** Include 2 to 6 meaningful SVG visual elements (charts, diagrams, data visualizations). More than 6 risks overlapping and clutter. Fewer than 2 makes it a text card. Each SVG should serve a clear purpose — don't add graphics just to hit a number. **At least 1 must be a library illustration asset** from `assets/illustrations/` (selected in Step 5b of the pipeline). Stats-only infographics without illustrations look generic.
 
 **Good visual elements to use (pick 2 to 4 per infographic):**
+- **Library illustration assets (MANDATORY — at least 1):** Featured at 200-400px as a visual anchor, or at 400-800px with low opacity (0.08-0.15) as a thematic background element, or at 48-80px paired with stats
 - SVG bar/line/area charts for trends or comparisons
 - Large stat numbers (80px+) with small labels — the number IS the graphic
 - SVG icon+stat pairs (icon left, number right)
@@ -338,5 +340,6 @@ Ask yourself:
 14. **NO space-between CHECK:** Search your HTML for `space-between` on vertical flex containers. Replace with `flex-start` + explicit margins.
 15. **OVERLAP CHECK:** Does any text block risk colliding with its neighbor if content were slightly longer? Add buffer margins.
 16. **MAP LABEL CHECK:** If you have a map with locations, are you using a numbered legend (not overlaid text labels)? Do you have 3+ labels positioned directly on the map? If yes, STOP and switch to the numbered legend pattern.
-17. **LEGEND CHECK:** If you have a color-coded legend, does every color in the graphic appear in the legend AND vice versa? No orphan colors.
-18. **ACCURACY CHECK:** Are geographic positions correct? Are chart values proportional? Do labels match the data? Would an expert in this field spot an error?
+17. **LIBRARY ASSET CHECK:** Did you embed at least 1 SVG from `assets/illustrations/`? Search your HTML for the SVG content. If no library asset is present, STOP and add one as a featured element or background.
+18. **LEGEND CHECK:** If you have a color-coded legend, does every color in the graphic appear in the legend AND vice versa? No orphan colors.
+19. **ACCURACY CHECK:** Are geographic positions correct? Are chart values proportional? Do labels match the data? Would an expert in this field spot an error?
