@@ -161,6 +161,8 @@ Overlapping happens when content exceeds the 1080px container. Follow this techn
 
 **Limit to 3-5 content sections per column.** More than 5 items WILL overlap.
 
+**Column content budget check:** For each column, count: (number of child elements) x (gap value) + (sum of element heights). If using `gap:20px` with 7 elements, that is 120px of gap alone. Add estimated content heights. If the total exceeds ~880px (920px available minus margins), reduce gap size, shrink illustrations, or remove an element. Bottom elements in a flex column with `overflow:hidden` get silently clipped with no visual warning.
+
 **Use flex ratios, not pixel heights, for children inside flex containers.** Pixel heights (height:250px, height:300px) overflow when they add up to more than the container. Use `flex:1` / `flex:2` instead.
 
 **Overflow check after writing HTML:** Count every explicit `height: Npx` (excluding the 1080 container). If the sum exceeds 1000px, you have overlap. Fix by removing elements or converting to flex ratios.
@@ -196,6 +198,7 @@ Overlapping happens when content exceeds the 1080px container. Follow this techn
 - Area charts: SVG path with gradient fill underneath
 - Bar charts: SVG rects with proper spacing
 - Include axis labels on charts (small, muted text)
+- **SVG viewBox clipping check (CRITICAL):** After writing any inline SVG, verify that ALL content fits inside the viewBox. Check the maximum y-coordinate of any element (including text baselines) and ensure the viewBox height exceeds it by at least 10px of padding. A viewBox of `0 0 460 120` will silently clip any element at y=121 or beyond. If your last text element has y="126", your viewBox must be at least `0 0 460 136`. Same rule applies to the x-axis.
 
 ## Timelines and Process Flows
 - In landscape, timelines run LEFT TO RIGHT (horizontal), not top to bottom
@@ -342,4 +345,5 @@ Ask yourself:
 16. **MAP LABEL CHECK:** If you have a map with locations, are you using a numbered legend (not overlaid text labels)? Do you have 3+ labels positioned directly on the map? If yes, STOP and switch to the numbered legend pattern.
 17. **LIBRARY ASSET CHECK:** Did you embed at least 1 SVG from `assets/illustrations/`? Search your HTML for the SVG content. If no library asset is present, STOP and add one as a featured element or background.
 18. **LEGEND CHECK:** If you have a color-coded legend, does every color in the graphic appear in the legend AND vice versa? No orphan colors.
-19. **ACCURACY CHECK:** Are geographic positions correct? Are chart values proportional? Do labels match the data? Would an expert in this field spot an error?
+19. **SVG VIEWBOX CHECK:** For every inline SVG chart, find the largest y-coordinate used by any element inside it. Is the viewBox height at least 10px larger? If not, increase it. SVG clips silently.
+20. **ACCURACY CHECK:** Are geographic positions correct? Are chart values proportional? Do labels match the data? Would an expert in this field spot an error?
