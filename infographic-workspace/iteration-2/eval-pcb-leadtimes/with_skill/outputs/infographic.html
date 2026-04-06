@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#000;">
+<div style="width:1920px;height:1080px;background:#12100e;position:relative;overflow:hidden;font-family:system-ui,-apple-system,Helvetica,Arial,sans-serif;color:#ffffff;">
+
+<!-- Background PCB trace pattern -->
+<svg width="1920" height="1080" style="position:absolute;top:0;left:0;opacity:0.07;" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern id="pcb" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+<circle cx="10" cy="10" r="3" fill="none" stroke="#ff6600" stroke-width="1"/>
+<line x1="10" y1="10" x2="40" y2="10" stroke="#ff6600" stroke-width="1"/>
+<line x1="40" y1="10" x2="40" y2="40" stroke="#ff6600" stroke-width="1"/>
+<circle cx="40" cy="40" r="3" fill="none" stroke="#ff6600" stroke-width="1"/>
+<line x1="40" y1="40" x2="70" y2="40" stroke="#ff6600" stroke-width="1"/>
+<circle cx="70" cy="40" r="2" fill="#ff6600"/>
+<line x1="70" y1="40" x2="70" y2="70" stroke="#ff6600" stroke-width="1"/>
+<circle cx="70" cy="70" r="3" fill="none" stroke="#ff6600" stroke-width="1"/>
+<rect x="18" y="55" width="12" height="8" fill="none" stroke="#ff6600" stroke-width="0.8" rx="1"/>
+</pattern>
+</defs>
+<rect width="1920" height="1080" fill="url(#pcb)"/>
+</svg>
+
+<!-- Radial gradient orb behind hero -->
+<div style="position:absolute;top:200px;left:200px;width:600px;height:600px;background:radial-gradient(circle,rgba(255,102,0,0.1) 0%,transparent 70%);border-radius:50%;"></div>
+
+<!-- Radial gradient orb bottom right -->
+<div style="position:absolute;bottom:100px;right:200px;width:400px;height:400px;background:radial-gradient(circle,rgba(255,102,0,0.06) 0%,transparent 70%);border-radius:50%;"></div>
+
+<!-- Main content container -->
+<div style="position:absolute;top:0;left:0;width:1920px;height:1080px;display:flex;flex-direction:column;align-items:center;box-sizing:border-box;padding:50px 80px 0 80px;">
+
+<!-- Top bar: logo + label -->
+<div style="width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;">
+<img alt="Cu Circuits" src="" style="height:72px;width:auto;" />
+<div style="text-align:center;font-size:16px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);">Supply Chain Intelligence</div>
+<div style="width:72px;"></div>
+</div>
+
+<!-- Two column layout -->
+<div style="width:100%;display:flex;align-items:center;flex:1;gap:60px;max-height:840px;">
+
+<!-- LEFT COLUMN: Hero -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+
+<div style="font-size:16px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:#ff6600;margin-bottom:24px;">Advanced Laminate Lead Time</div>
+
+<div style="font-size:110px;font-weight:900;letter-spacing:-3px;color:#ff6600;line-height:1;">140</div>
+<div style="font-size:34px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:rgba(255,255,255,0.9);margin-top:8px;">Days</div>
+
+<div style="margin-top:32px;font-size:22px;font-weight:300;line-height:1.6;color:rgba(255,255,255,0.75);max-width:600px;text-align:center;">
+High-Tg and advanced laminates now require 140 day lead times, driven by surging AI server demand and constrained raw material supply.
+</div>
+
+<!-- Before/After bar comparison SVG -->
+<div style="margin-top:48px;width:100%;max-width:520px;">
+<div style="font-size:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:20px;text-align:center;">Standard FR-4 Lead Time Shift</div>
+<svg width="520" height="100" viewBox="0 0 520 100" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;">
+<!-- Before bar -->
+<text x="260" y="18" fill="rgba(255,255,255,0.5)" font-size="16" font-weight="400" text-anchor="middle" font-family="system-ui">BEFORE</text>
+<rect x="210" y="24" width="100" height="24" rx="2" fill="rgba(255,255,255,0.15)"/>
+<text x="260" y="42" fill="#ffffff" font-size="16" font-weight="700" text-anchor="middle" font-family="system-ui">5 days</text>
+<!-- After bar -->
+<text x="260" y="68" fill="rgba(255,255,255,0.5)" font-size="16" font-weight="400" text-anchor="middle" font-family="system-ui">NOW</text>
+<rect x="128" y="74" width="264" height="24" rx="2" fill="#ff6600"/>
+<text x="260" y="92" fill="#ffffff" font-size="16" font-weight="700" text-anchor="middle" font-family="system-ui">18 days</text>
+</svg>
+</div>
+
+</div>
+
+<!-- Vertical divider -->
+<div style="width:2px;height:600px;background:linear-gradient(to bottom,transparent,rgba(255,102,0,0.3),rgba(255,102,0,0.3),transparent);flex-shrink:0;"></div>
+
+<!-- RIGHT COLUMN: Supporting data -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:48px;">
+
+<!-- AI Server Demand stat with bar chart -->
+<div style="text-align:center;">
+<div style="font-size:16px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:12px;">AI Server Demand Growth (YoY)</div>
+<div style="font-size:52px;font-weight:900;color:#ffffff;line-height:1;">+340%</div>
+<div style="font-size:18px;font-weight:300;color:rgba(255,255,255,0.6);margin-top:8px;">Year over year increase</div>
+<!-- Mini bar chart showing growth -->
+<svg width="300" height="80" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:16px auto 0 auto;">
+<text x="50" y="75" fill="rgba(255,255,255,0.4)" font-size="16" text-anchor="middle" font-family="system-ui">2023</text>
+<rect x="25" y="48" width="50" height="20" rx="1" fill="rgba(255,255,255,0.15)"/>
+<text x="150" y="75" fill="rgba(255,255,255,0.4)" font-size="16" text-anchor="middle" font-family="system-ui">2024</text>
+<rect x="125" y="28" width="50" height="40" rx="1" fill="rgba(255,102,0,0.4)"/>
+<text x="250" y="75" fill="rgba(255,255,255,0.4)" font-size="16" text-anchor="middle" font-family="system-ui">2025</text>
+<rect x="225" y="2" width="50" height="66" rx="1" fill="#ff6600"/>
+</svg>
+</div>
+
+<!-- Copper Price stat -->
+<div style="text-align:center;">
+<div style="font-size:16px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:12px;">Copper Spot Price</div>
+<div style="font-size:52px;font-weight:900;color:#ffffff;line-height:1;">$13,300</div>
+<div style="font-size:18px;font-weight:300;color:rgba(255,255,255,0.6);margin-top:8px;">Per tonne (LME)</div>
+<!-- Copper price line chart -->
+<svg width="300" height="60" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:16px auto 0 auto;">
+<polyline points="0,50 60,45 120,40 180,30 240,18 300,8" fill="none" stroke="#ff6600" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="300" cy="8" r="4" fill="#ff6600"/>
+<line x1="0" y1="55" x2="300" y2="55" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+<text x="0" y="55" fill="rgba(255,255,255,0.3)" font-size="16" font-family="system-ui" dominant-baseline="hanging">2024</text>
+<text x="272" y="55" fill="rgba(255,255,255,0.3)" font-size="16" font-family="system-ui" dominant-baseline="hanging">Now</text>
+</svg>
+</div>
+
+<!-- Impact callout -->
+<div style="border-left:4px solid #ff6600;padding-left:24px;text-align:center;max-width:480px;">
+<div style="font-size:20px;font-weight:400;line-height:1.6;color:rgba(255,255,255,0.8);text-align:center;">
+Procurement teams are shifting to 6 month forward planning as standard lead times stretch across the board.
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- Footer -->
+<div style="width:100%;margin-top:auto;padding-bottom:40px;">
+<div style="width:100%;height:1px;background:rgba(255,255,255,0.1);margin-bottom:16px;"></div>
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div style="font-size:13px;color:rgba(255,255,255,0.35);">cucircuits.com</div>
+<div style="font-size:13px;color:rgba(255,255,255,0.35);text-align:right;">Source: ILFA GmbH</div>
+</div>
+</div>
+
+</div>
+
+</div>
+</body>
+</html>

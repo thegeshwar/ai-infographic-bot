@@ -1,0 +1,271 @@
+{
+  "skill_name": "infographic",
+  "iteration": 2,
+  "configurations": [
+    {
+      "name": "with_skill",
+      "description": "Balanced skill: 400-1200 chars text, 2-6 SVGs, center-aligned"
+    },
+    {
+      "name": "without_skill",
+      "description": "Baseline from iteration 1 (no skill)"
+    }
+  ],
+  "evals": [
+    {
+      "name": "eval-semiconductor",
+      "results": [
+        {
+          "configuration": "with_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 43277,
+          "duration_seconds": 140.3,
+          "expectations": [
+            {
+              "text": "Text in 400-1200 char range",
+              "passed": true,
+              "evidence": "413 chars"
+            },
+            {
+              "text": "SVGs in 2-6 range",
+              "passed": true,
+              "evidence": "3 content SVGs"
+            },
+            {
+              "text": "No text-align:left",
+              "passed": true,
+              "evidence": "0 instances"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "14 instances"
+            },
+            {
+              "text": "Validator passes",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080",
+              "passed": true,
+              "evidence": "dims present"
+            }
+          ]
+        },
+        {
+          "configuration": "without_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 31957,
+          "duration_seconds": 169.3,
+          "expectations": [
+            {
+              "text": "Visible text under 800 characters",
+              "passed": true,
+              "evidence": "536 chars of visible text"
+            },
+            {
+              "text": "At least 4 SVG visual elements",
+              "passed": true,
+              "evidence": "6 content SVG elements found"
+            },
+            {
+              "text": "No text-align:left in HTML",
+              "passed": true,
+              "evidence": "0 instances of text-align:left"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "4 instances of text-align:center"
+            },
+            {
+              "text": "Validator passes clean",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080 dimensions",
+              "passed": true,
+              "evidence": "1920 found, 1080 found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eval-openai-funding",
+      "results": [
+        {
+          "configuration": "with_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 40875,
+          "duration_seconds": 113.5,
+          "expectations": [
+            {
+              "text": "Text in 400-1200 char range",
+              "passed": true,
+              "evidence": "476 chars"
+            },
+            {
+              "text": "SVGs in 2-6 range",
+              "passed": true,
+              "evidence": "2 content SVGs"
+            },
+            {
+              "text": "No text-align:left",
+              "passed": true,
+              "evidence": "0 instances"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "20 instances"
+            },
+            {
+              "text": "Validator passes",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080",
+              "passed": true,
+              "evidence": "dims present"
+            }
+          ]
+        },
+        {
+          "configuration": "without_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 29295,
+          "duration_seconds": 134.9,
+          "expectations": [
+            {
+              "text": "Visible text under 800 characters",
+              "passed": true,
+              "evidence": "564 chars of visible text"
+            },
+            {
+              "text": "At least 4 SVG visual elements",
+              "passed": true,
+              "evidence": "4 content SVG elements found"
+            },
+            {
+              "text": "No text-align:left in HTML",
+              "passed": true,
+              "evidence": "0 instances of text-align:left"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "5 instances of text-align:center"
+            },
+            {
+              "text": "Validator passes clean",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080 dimensions",
+              "passed": true,
+              "evidence": "1920 found, 1080 found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eval-pcb-leadtimes",
+      "results": [
+        {
+          "configuration": "with_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 40346,
+          "duration_seconds": 168.4,
+          "expectations": [
+            {
+              "text": "Text in 400-1200 char range",
+              "passed": true,
+              "evidence": "520 chars"
+            },
+            {
+              "text": "SVGs in 2-6 range",
+              "passed": true,
+              "evidence": "3 content SVGs"
+            },
+            {
+              "text": "No text-align:left",
+              "passed": true,
+              "evidence": "0 instances"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "9 instances"
+            },
+            {
+              "text": "Validator passes",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080",
+              "passed": true,
+              "evidence": "dims present"
+            }
+          ]
+        },
+        {
+          "configuration": "without_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 41725,
+          "duration_seconds": 209.3,
+          "expectations": [
+            {
+              "text": "Visible text under 800 characters",
+              "passed": true,
+              "evidence": "427 chars of visible text"
+            },
+            {
+              "text": "At least 4 SVG visual elements",
+              "passed": true,
+              "evidence": "6 content SVG elements found"
+            },
+            {
+              "text": "No text-align:left in HTML",
+              "passed": true,
+              "evidence": "0 instances of text-align:left"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "34 instances of text-align:center"
+            },
+            {
+              "text": "Validator passes clean",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080 dimensions",
+              "passed": true,
+              "evidence": "1920 found, 1080 found"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

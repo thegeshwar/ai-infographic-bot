@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#000;">
+<div style="width:1920px;height:1080px;overflow:hidden;display:flex;flex-direction:column;background:#0c0a08;font-family:system-ui,-apple-system,Helvetica,Arial,sans-serif;color:#fff;position:relative;">
+
+<!-- Background SVG pattern: semiconductor/chip icons -->
+<svg style="position:absolute;top:0;left:0;width:1920px;height:1080px;pointer-events:none;" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern id="chipPattern" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+<!-- Chip icon -->
+<rect x="28" y="28" width="24" height="24" fill="none" stroke="#cd7f32" stroke-width="1" opacity="0.07"/>
+<line x1="40" y1="28" x2="40" y2="20" stroke="#cd7f32" stroke-width="0.8" opacity="0.07"/>
+<line x1="40" y1="52" x2="40" y2="60" stroke="#cd7f32" stroke-width="0.8" opacity="0.07"/>
+<line x1="28" y1="40" x2="20" y2="40" stroke="#cd7f32" stroke-width="0.8" opacity="0.07"/>
+<line x1="52" y1="40" x2="60" y2="40" stroke="#cd7f32" stroke-width="0.8" opacity="0.07"/>
+<line x1="34" y1="28" x2="34" y2="22" stroke="#cd7f32" stroke-width="0.8" opacity="0.07"/>
+<line x1="46" y1="28" x2="46" y2="22" stroke="#cd7f32" stroke-width="0.8" opacity="0.07"/>
+<line x1="34" y1="52" x2="34" y2="58" stroke="#cd7f32" stroke-width="0.8" opacity="0.07"/>
+<line x1="46" y1="52" x2="46" y2="58" stroke="#cd7f32" stroke-width="0.8" opacity="0.07"/>
+</pattern>
+<radialGradient id="orbLeft" cx="25%" cy="40%" r="35%">
+<stop offset="0%" stop-color="#cd7f32" stop-opacity="0.10"/>
+<stop offset="100%" stop-color="#cd7f32" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="orbRight" cx="80%" cy="70%" r="25%">
+<stop offset="0%" stop-color="#cd7f32" stop-opacity="0.06"/>
+<stop offset="100%" stop-color="#cd7f32" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1920" height="1080" fill="url(#chipPattern)"/>
+<rect width="1920" height="1080" fill="url(#orbLeft)"/>
+<rect width="1920" height="1080" fill="url(#orbRight)"/>
+</svg>
+
+<!-- HEADER ZONE -->
+<div style="height:100px;flex-shrink:0;display:flex;flex-direction:row;align-items:center;justify-content:space-between;padding:0 60px;position:relative;z-index:1;">
+<div style="display:flex;align-items:center;gap:16px;">
+<img alt="Cu Circuits" src="" style="height:72px;width:auto;" />
+</div>
+<div style="display:flex;align-items:center;gap:8px;">
+<span style="font-size:16px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);">INDIA SEMICONDUCTOR REPORT</span>
+<span style="font-size:16px;color:rgba(255,255,255,0.3);">|</span>
+<span style="font-size:16px;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);">2026</span>
+</div>
+</div>
+
+<!-- CONTENT ZONE -->
+<div style="flex:1;display:flex;overflow:hidden;padding:0 60px;gap:60px;position:relative;z-index:1;">
+
+<!-- LEFT COLUMN (50%) -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;gap:24px;">
+
+<!-- Hero number -->
+<div style="text-align:center;">
+<div style="font-size:110px;font-weight:900;color:#cd7f32;letter-spacing:-3px;line-height:1;">80M</div>
+<div style="font-size:22px;font-weight:300;color:rgba(255,255,255,0.7);letter-spacing:2px;text-transform:uppercase;margin-top:8px;">CHIPS PER DAY</div>
+</div>
+
+<!-- Headline -->
+<div style="text-align:center;max-width:700px;">
+<div style="font-size:32px;font-weight:700;color:#fff;line-height:1.3;">India's Semiconductor</div>
+<div style="font-size:32px;font-weight:700;color:#fff;line-height:1.3;">Production Target by Late 2026</div>
+</div>
+
+<!-- Investment stat -->
+<div style="text-align:center;margin-top:12px;">
+<div style="width:80px;height:3px;background:#cd7f32;margin:0 auto 16px;border-radius:1px;"></div>
+<div style="font-size:56px;font-weight:900;color:#fff;">$15.2B</div>
+<div style="font-size:18px;font-weight:300;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">TOTAL INVESTMENT</div>
+</div>
+
+<!-- Jobs stat -->
+<div style="text-align:center;">
+<div style="font-size:48px;font-weight:900;color:#cd7f32;">28,000</div>
+<div style="font-size:18px;font-weight:300;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">DIRECT JOBS CREATED</div>
+</div>
+
+</div>
+
+<!-- Vertical divider -->
+<div style="width:2px;background:linear-gradient(to bottom,transparent,rgba(205,127,50,0.3),transparent);flex-shrink:0;"></div>
+
+<!-- RIGHT COLUMN (50%) -->
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;gap:32px;">
+
+<!-- Section label -->
+<div style="text-align:center;">
+<div style="font-size:18px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);">4 PLANTS GOING COMMERCIAL</div>
+</div>
+
+<!-- Plant cards as horizontal bar chart -->
+<div style="width:100%;max-width:700px;display:flex;flex-direction:column;gap:20px;">
+
+<!-- Tata Electronics -->
+<div style="text-align:center;">
+<div style="font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;">Tata Electronics, Assam</div>
+<svg width="600" height="28" viewBox="0 0 600 28" style="display:block;margin:0 auto;">
+<rect x="0" y="4" width="600" height="20" rx="2" fill="rgba(205,127,50,0.12)"/>
+<rect x="0" y="4" width="480" height="20" rx="2" fill="#cd7f32"/>
+<text x="490" y="19" fill="rgba(255,255,255,0.7)" font-size="16" font-family="system-ui">Assembly &amp; Test</text>
+</svg>
+</div>
+
+<!-- Micron Gujarat -->
+<div style="text-align:center;">
+<div style="font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;">Micron, Gujarat</div>
+<svg width="600" height="28" viewBox="0 0 600 28" style="display:block;margin:0 auto;">
+<rect x="0" y="4" width="600" height="20" rx="2" fill="rgba(205,127,50,0.12)"/>
+<rect x="0" y="4" width="420" height="20" rx="2" fill="rgba(205,127,50,0.8)"/>
+<text x="430" y="19" fill="rgba(255,255,255,0.7)" font-size="16" font-family="system-ui">Memory Packaging</text>
+</svg>
+</div>
+
+<!-- CG Power -->
+<div style="text-align:center;">
+<div style="font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;">CG Power</div>
+<svg width="600" height="28" viewBox="0 0 600 28" style="display:block;margin:0 auto;">
+<rect x="0" y="4" width="600" height="20" rx="2" fill="rgba(205,127,50,0.12)"/>
+<rect x="0" y="4" width="360" height="20" rx="2" fill="rgba(205,127,50,0.6)"/>
+<text x="370" y="19" fill="rgba(255,255,255,0.7)" font-size="16" font-family="system-ui">OSAT Facility</text>
+</svg>
+</div>
+
+<!-- RRP Electronics -->
+<div style="text-align:center;">
+<div style="font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;">RRP Electronics</div>
+<svg width="600" height="28" viewBox="0 0 600 28" style="display:block;margin:0 auto;">
+<rect x="0" y="4" width="600" height="20" rx="2" fill="rgba(205,127,50,0.12)"/>
+<rect x="0" y="4" width="300" height="20" rx="2" fill="rgba(205,127,50,0.45)"/>
+<text x="310" y="19" fill="rgba(255,255,255,0.7)" font-size="16" font-family="system-ui">Compound Semiconductors</text>
+</svg>
+</div>
+
+</div>
+
+<!-- Insight -->
+<div style="text-align:center;max-width:600px;border-left:4px solid #cd7f32;padding-left:24px;">
+<div style="font-size:20px;font-weight:300;color:rgba(255,255,255,0.8);line-height:1.6;">India moves from zero chip production to 80 million units daily in under three years, backed by $15.2B in committed capital across four facilities.</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER ZONE -->
+<div style="height:60px;flex-shrink:0;position:relative;z-index:1;">
+<div style="height:1px;background:rgba(205,127,50,0.2);margin:0 60px;"></div>
+<div style="display:flex;flex-direction:row;align-items:center;justify-content:space-between;padding:12px 60px 0;">
+<div style="font-size:13px;color:rgba(255,255,255,0.4);">cucircuits.com</div>
+<div style="font-size:13px;color:rgba(255,255,255,0.35);text-align:right;">Source: India Semiconductor Mission, Reuters</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,271 @@
+{
+  "skill_name": "infographic",
+  "iteration": 1,
+  "configurations": [
+    {
+      "name": "with_skill",
+      "description": "Updated skill with graphics-first + center-alignment rules"
+    },
+    {
+      "name": "without_skill",
+      "description": "Baseline: no skill, general knowledge only"
+    }
+  ],
+  "evals": [
+    {
+      "name": "eval-semiconductor",
+      "results": [
+        {
+          "configuration": "with_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 44439,
+          "duration_seconds": 133.8,
+          "expectations": [
+            {
+              "text": "Visible text under 800 characters",
+              "passed": true,
+              "evidence": "354 chars of visible text"
+            },
+            {
+              "text": "At least 4 SVG visual elements",
+              "passed": true,
+              "evidence": "11 content SVG elements found"
+            },
+            {
+              "text": "No text-align:left in HTML",
+              "passed": true,
+              "evidence": "0 instances of text-align:left"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "22 instances of text-align:center"
+            },
+            {
+              "text": "Validator passes clean",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080 dimensions",
+              "passed": true,
+              "evidence": "1920 found, 1080 found"
+            }
+          ]
+        },
+        {
+          "configuration": "without_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 31957,
+          "duration_seconds": 169.3,
+          "expectations": [
+            {
+              "text": "Visible text under 800 characters",
+              "passed": true,
+              "evidence": "536 chars of visible text"
+            },
+            {
+              "text": "At least 4 SVG visual elements",
+              "passed": true,
+              "evidence": "6 content SVG elements found"
+            },
+            {
+              "text": "No text-align:left in HTML",
+              "passed": true,
+              "evidence": "0 instances of text-align:left"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "4 instances of text-align:center"
+            },
+            {
+              "text": "Validator passes clean",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080 dimensions",
+              "passed": true,
+              "evidence": "1920 found, 1080 found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eval-openai-funding",
+      "results": [
+        {
+          "configuration": "with_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 43837,
+          "duration_seconds": 120.9,
+          "expectations": [
+            {
+              "text": "Visible text under 800 characters",
+              "passed": true,
+              "evidence": "503 chars of visible text"
+            },
+            {
+              "text": "At least 4 SVG visual elements",
+              "passed": true,
+              "evidence": "7 content SVG elements found"
+            },
+            {
+              "text": "No text-align:left in HTML",
+              "passed": true,
+              "evidence": "0 instances of text-align:left"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "26 instances of text-align:center"
+            },
+            {
+              "text": "Validator passes clean",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080 dimensions",
+              "passed": true,
+              "evidence": "1920 found, 1080 found"
+            }
+          ]
+        },
+        {
+          "configuration": "without_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 29295,
+          "duration_seconds": 134.9,
+          "expectations": [
+            {
+              "text": "Visible text under 800 characters",
+              "passed": true,
+              "evidence": "564 chars of visible text"
+            },
+            {
+              "text": "At least 4 SVG visual elements",
+              "passed": true,
+              "evidence": "4 content SVG elements found"
+            },
+            {
+              "text": "No text-align:left in HTML",
+              "passed": true,
+              "evidence": "0 instances of text-align:left"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "5 instances of text-align:center"
+            },
+            {
+              "text": "Validator passes clean",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080 dimensions",
+              "passed": true,
+              "evidence": "1920 found, 1080 found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eval-pcb-leadtimes",
+      "results": [
+        {
+          "configuration": "with_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 45230,
+          "duration_seconds": 153.0,
+          "expectations": [
+            {
+              "text": "Visible text under 800 characters",
+              "passed": true,
+              "evidence": "368 chars of visible text"
+            },
+            {
+              "text": "At least 4 SVG visual elements",
+              "passed": true,
+              "evidence": "5 content SVG elements found"
+            },
+            {
+              "text": "No text-align:left in HTML",
+              "passed": true,
+              "evidence": "0 instances of text-align:left"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "16 instances of text-align:center"
+            },
+            {
+              "text": "Validator passes clean",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080 dimensions",
+              "passed": true,
+              "evidence": "1920 found, 1080 found"
+            }
+          ]
+        },
+        {
+          "configuration": "without_skill",
+          "pass_rate": 1.0,
+          "passed": 6,
+          "total": 6,
+          "total_tokens": 41725,
+          "duration_seconds": 209.3,
+          "expectations": [
+            {
+              "text": "Visible text under 800 characters",
+              "passed": true,
+              "evidence": "427 chars of visible text"
+            },
+            {
+              "text": "At least 4 SVG visual elements",
+              "passed": true,
+              "evidence": "6 content SVG elements found"
+            },
+            {
+              "text": "No text-align:left in HTML",
+              "passed": true,
+              "evidence": "0 instances of text-align:left"
+            },
+            {
+              "text": "Has text-align:center",
+              "passed": true,
+              "evidence": "34 instances of text-align:center"
+            },
+            {
+              "text": "Validator passes clean",
+              "passed": true,
+              "evidence": "0 failures"
+            },
+            {
+              "text": "Correct 1920x1080 dimensions",
+              "passed": true,
+              "evidence": "1920 found, 1080 found"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

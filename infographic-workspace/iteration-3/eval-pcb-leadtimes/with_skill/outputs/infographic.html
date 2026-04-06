@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#000;">
+<div style="width:1920px;height:1080px;overflow:hidden;display:flex;flex-direction:column;background:#0f0a06;font-family:system-ui,-apple-system,Helvetica Neue,Arial,sans-serif;color:#fff;position:relative;">
+
+<!-- Background SVG pattern: circuit traces -->
+<svg style="position:absolute;top:0;left:0;width:1920px;height:1080px;pointer-events:none;" viewBox="0 0 1920 1080">
+<defs>
+<pattern id="circuitPattern" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+<path d="M10 40 L30 40 L30 10 L50 10" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.07"/>
+<circle cx="50" cy="10" r="3" fill="#ff6600" opacity="0.08"/>
+<path d="M40 70 L60 70 L60 40 L70 40" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.06"/>
+<circle cx="70" cy="40" r="2.5" fill="#ff6600" opacity="0.07"/>
+<circle cx="10" cy="40" r="2" fill="#ff6600" opacity="0.06"/>
+</pattern>
+<radialGradient id="orbLeft" cx="20%" cy="40%" r="35%">
+<stop offset="0%" stop-color="#ff6600" stop-opacity="0.10"/>
+<stop offset="100%" stop-color="#ff6600" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="orbRight" cx="80%" cy="60%" r="30%">
+<stop offset="0%" stop-color="#ff6600" stop-opacity="0.06"/>
+<stop offset="100%" stop-color="#ff6600" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1920" height="1080" fill="url(#circuitPattern)"/>
+<rect width="1920" height="1080" fill="url(#orbLeft)"/>
+<rect width="1920" height="1080" fill="url(#orbRight)"/>
+</svg>
+
+<!-- HEADER ZONE -->
+<div style="height:100px;flex-shrink:0;display:flex;align-items:center;padding:0 60px;position:relative;z-index:1;">
+<div style="display:flex;align-items:center;gap:16px;flex-shrink:0;">
+<img alt="Cu Circuits" src="" style="height:72px;width:auto;" />
+</div>
+<div style="text-align:center;flex:1;">
+<span style="font-size:16px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);">PCB SUPPLY CHAIN INTELLIGENCE</span>
+</div>
+<div style="width:72px;flex-shrink:0;"></div>
+</div>
+
+<!-- CONTENT ZONE -->
+<div style="flex:1;display:flex;overflow:hidden;padding:0 60px;gap:60px;position:relative;z-index:1;">
+
+<!-- LEFT COLUMN (45%) -->
+<div style="flex:45;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;gap:24px;">
+
+<!-- Hook -->
+<div style="text-align:center;">
+<span style="font-size:20px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:#ff6600;">Critical Alert</span>
+</div>
+
+<!-- Hero Number -->
+<div style="text-align:center;">
+<span style="font-size:110px;font-weight:900;color:#ff6600;line-height:1;letter-spacing:-2px;">140</span>
+<span style="font-size:34px;font-weight:700;color:rgba(255,255,255,0.85);display:block;margin-top:4px;">Day Lead Times</span>
+<span style="font-size:22px;font-weight:300;color:rgba(255,255,255,0.6);display:block;margin-top:8px;line-height:1.6;max-width:600px;">High Tg laminates and advanced PCB materials<br/>are facing unprecedented procurement delays</span>
+</div>
+
+<!-- Copper Price Stat -->
+<div style="text-align:center;margin-top:16px;border-left:4px solid #ff6600;padding:20px 32px;">
+<span style="font-size:48px;font-weight:900;color:#fff;">$13,300</span>
+<span style="font-size:17px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);display:block;margin-top:6px;">Per Tonne (Copper)</span>
+</div>
+
+</div>
+
+<!-- Vertical Divider -->
+<div style="width:2px;background:linear-gradient(to bottom, transparent, rgba(255,102,0,0.3), rgba(255,102,0,0.3), transparent);flex-shrink:0;"></div>
+
+<!-- RIGHT COLUMN (55%) -->
+<div style="flex:55;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;gap:32px;">
+
+<!-- Lead Time Comparison Bar Chart -->
+<div style="text-align:center;width:100%;max-width:700px;">
+<span style="font-size:28px;font-weight:700;color:#fff;display:block;margin-bottom:24px;">Lead Time Explosion: FR4 vs High Tg</span>
+<svg viewBox="0 0 660 260" style="width:660px;height:260px;">
+<!-- Axis lines -->
+<line x1="60" y1="20" x2="60" y2="200" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<line x1="60" y1="200" x2="640" y2="200" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+<!-- Y-axis labels -->
+<text x="50" y="200" fill="rgba(255,255,255,0.5)" font-size="16" text-anchor="end" font-family="system-ui">0</text>
+<text x="50" y="140" fill="rgba(255,255,255,0.5)" font-size="16" text-anchor="end" font-family="system-ui">50</text>
+<text x="50" y="80" fill="rgba(255,255,255,0.5)" font-size="16" text-anchor="end" font-family="system-ui">100</text>
+<text x="50" y="28" fill="rgba(255,255,255,0.5)" font-size="16" text-anchor="end" font-family="system-ui">150</text>
+
+<!-- Grid lines -->
+<line x1="60" y1="140" x2="640" y2="140" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="60" y1="80" x2="640" y2="80" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+<!-- FR-4 WAS: 5 days => height = 5/150*180 = 6px -->
+<rect x="120" y="194" width="70" height="6" fill="rgba(255,255,255,0.25)" rx="0"/>
+<text x="155" y="188" fill="rgba(255,255,255,0.7)" font-size="18" text-anchor="middle" font-weight="700" font-family="system-ui">5d</text>
+<text x="155" y="230" fill="rgba(255,255,255,0.5)" font-size="16" text-anchor="middle" font-family="system-ui">FR4</text>
+<text x="155" y="248" fill="rgba(255,255,255,0.35)" font-size="16" text-anchor="middle" font-family="system-ui">(Was)</text>
+
+<!-- FR-4 NOW: 18 days => height = 18/150*180 = 21.6px -->
+<rect x="230" y="178" width="70" height="22" fill="#ff6600" rx="0"/>
+<text x="265" y="172" fill="#ff6600" font-size="18" text-anchor="middle" font-weight="700" font-family="system-ui">18d</text>
+<text x="265" y="230" fill="rgba(255,255,255,0.5)" font-size="16" text-anchor="middle" font-family="system-ui">FR4</text>
+<text x="265" y="248" fill="rgba(255,255,255,0.35)" font-size="16" text-anchor="middle" font-family="system-ui">(Now)</text>
+
+<!-- High-Tg WAS (estimated ~30d pre-crisis) -->
+<rect x="380" y="164" width="70" height="36" fill="rgba(255,255,255,0.25)" rx="0"/>
+<text x="415" y="158" fill="rgba(255,255,255,0.7)" font-size="18" text-anchor="middle" font-weight="700" font-family="system-ui">30d</text>
+<text x="415" y="230" fill="rgba(255,255,255,0.5)" font-size="16" text-anchor="middle" font-family="system-ui">High Tg</text>
+<text x="415" y="248" fill="rgba(255,255,255,0.35)" font-size="16" text-anchor="middle" font-family="system-ui">(Est.)</text>
+
+<!-- High-Tg NOW: 140 days => height = 140/150*180 = 168px -->
+<rect x="490" y="32" width="70" height="168" fill="#ff6600" rx="0"/>
+<text x="525" y="26" fill="#ff6600" font-size="18" text-anchor="middle" font-weight="700" font-family="system-ui">140d</text>
+<text x="525" y="230" fill="rgba(255,255,255,0.5)" font-size="16" text-anchor="middle" font-family="system-ui">High Tg</text>
+<text x="525" y="248" fill="rgba(255,255,255,0.35)" font-size="16" text-anchor="middle" font-family="system-ui">(Now)</text>
+
+<!-- Days axis label -->
+<text x="350" y="258" fill="rgba(255,255,255,0.35)" font-size="16" text-anchor="middle" font-family="system-ui">DAYS</text>
+</svg>
+</div>
+
+<!-- AI Server Demand Stat -->
+<div style="text-align:center;display:flex;align-items:center;justify-content:center;gap:40px;width:100%;max-width:700px;">
+<div style="text-align:center;flex:1;">
+<span style="font-size:52px;font-weight:900;color:#ff6600;">340%</span>
+<span style="font-size:17px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);display:block;margin-top:6px;">AI Server Demand YoY</span>
+</div>
+<div style="text-align:center;flex:1;">
+<span style="font-size:52px;font-weight:900;color:#fff;">3.6x</span>
+<span style="font-size:17px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);display:block;margin-top:6px;">FR4 Lead Time Increase</span>
+</div>
+</div>
+
+<!-- Insight -->
+<div style="text-align:center;max-width:600px;padding:20px 28px;background:rgba(255,102,0,0.06);border-left:4px solid #ff6600;">
+<span style="font-size:21px;font-weight:400;color:rgba(255,255,255,0.8);line-height:1.6;">Advanced material procurement planning is now a 4+ month exercise. Early specification locking is essential for production timelines.</span>
+</div>
+
+</div>
+</div>
+
+<!-- FOOTER ZONE -->
+<div style="height:60px;flex-shrink:0;display:flex;align-items:center;padding:0 60px;border-top:1px solid rgba(255,255,255,0.08);position:relative;z-index:1;">
+<span style="font-size:13px;color:rgba(255,255,255,0.35);flex-shrink:0;">cucircuits.com</span>
+<span style="flex:1;"></span>
+<span style="font-size:13px;color:rgba(255,255,255,0.35);text-align:right;flex-shrink:0;">Source: IPC, industry reports 2026</span>
+</div>
+
+</div>
+</body>
+</html>

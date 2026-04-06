@@ -1,0 +1,34 @@
+{
+  "expectations": [
+    {
+      "text": "Visible text under 800 characters",
+      "passed": true,
+      "evidence": "503 chars of visible text"
+    },
+    {
+      "text": "At least 4 SVG visual elements",
+      "passed": true,
+      "evidence": "7 content SVG elements found"
+    },
+    {
+      "text": "No text-align:left in HTML",
+      "passed": true,
+      "evidence": "0 instances of text-align:left"
+    },
+    {
+      "text": "Has text-align:center",
+      "passed": true,
+      "evidence": "26 instances of text-align:center"
+    },
+    {
+      "text": "Validator passes clean",
+      "passed": true,
+      "evidence": "0 failures"
+    },
+    {
+      "text": "Correct 1920x1080 dimensions",
+      "passed": true,
+      "evidence": "1920 found, 1080 found"
+    }
+  ]
+}

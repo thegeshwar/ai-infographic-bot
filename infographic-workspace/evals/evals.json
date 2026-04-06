@@ -1,0 +1,20 @@
+{
+  "skill_name": "infographic",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create an infographic HTML (1920x1080) about India's semiconductor industry reaching 80 million chips per day production by late 2026. Key data: 4 plants going commercial (Tata Electronics Assam, Micron Gujarat, CG Power, RRP Electronics), $15.2B total investment, 28000 direct jobs created. Use a company account style with copper accent on dark background.",
+      "expected_output": "A 1920x1080 HTML infographic with center-aligned content, at least 4 SVG visual elements (factory/chip icons, bar chart of investment, timeline of plant launches), under 800 chars of visible text, copper accent color, no text-align:left"
+    },
+    {
+      "id": 2,
+      "prompt": "Design an infographic HTML (1920x1080) for a personal LinkedIn post about OpenAI securing $40B in funding at $300B valuation. Key numbers: $40B raised, $300B valuation, $13B annual revenue, 400M weekly active users, biggest private funding round ever. Blue accent on dark background.",
+      "expected_output": "A 1920x1080 HTML infographic with center-aligned content, at least 4 SVG visual elements (funding comparison chart, user growth visualization, valuation gauge), under 800 chars of visible text, blue accent, all text centered"
+    },
+    {
+      "id": 3,
+      "prompt": "Build an infographic HTML (1920x1080) about PCB lead times hitting 140 days for advanced materials. Key data: standard FR-4 was 5 days now 18 days, high-Tg laminates 140 days, AI server demand up 340% YoY, copper at $13300/tonne. Company post, orange accent on dark background.",
+      "expected_output": "A 1920x1080 HTML infographic with center-aligned content, at least 4 SVG visual elements (lead time comparison bars, copper price trend line, demand growth chart), under 800 chars visible text, orange accent, centered layout"
+    }
+  ]
+}

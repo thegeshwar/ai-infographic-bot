@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#0a0a1a;">
+<div style="width:1920px;height:1080px;position:relative;overflow:hidden;background:#0a0a1a;font-family:system-ui,-apple-system,sans-serif;color:#fff;text-align:center;">
+
+<!-- Background SVG pattern: money/funding icons -->
+<svg style="position:absolute;top:0;left:0;width:1920px;height:1080px;opacity:0.07;" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern id="bgpat" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+<!-- Dollar sign -->
+<path d="M28 12 L28 16 M24 20 Q24 16 28 16 Q32 16 32 20 Q32 24 28 24 Q24 24 24 28 Q24 32 28 32 M28 32 L28 36" stroke="#4f8cff" stroke-width="1.5" fill="none"/>
+<!-- Up arrow -->
+<path d="M60 36 L60 20 M54 26 L60 20 L66 26" stroke="#4f8cff" stroke-width="1.5" fill="none"/>
+<!-- Coin circle -->
+<circle cx="28" cy="60" r="8" stroke="#4f8cff" stroke-width="1" fill="none"/>
+<text x="28" y="64" font-size="10" fill="#4f8cff" text-anchor="middle">$</text>
+<!-- Chart bar -->
+<rect x="54" y="54" width="4" height="12" fill="#4f8cff" opacity="0.5"/>
+<rect x="60" y="50" width="4" height="16" fill="#4f8cff" opacity="0.5"/>
+<rect x="66" y="46" width="4" height="20" fill="#4f8cff" opacity="0.5"/>
+</pattern>
+</defs>
+<rect width="1920" height="1080" fill="url(#bgpat)"/>
+</svg>
+
+<!-- Radial gradient orbs -->
+<div style="position:absolute;top:100px;left:200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(79,140,255,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+<div style="position:absolute;top:300px;right:100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(79,140,255,0.08) 0%,transparent 70%);pointer-events:none;"></div>
+
+<!-- Main content container: two-column 45/55 split -->
+<div style="position:absolute;top:0;left:0;width:1920px;height:1080px;display:flex;align-items:center;justify-content:center;text-align:center;">
+
+<!-- LEFT COLUMN: Hero stat + headline -->
+<div style="width:45%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 40px 60px 80px;box-sizing:border-box;">
+
+<!-- OpenAI simplified logo -->
+<svg width="48" height="48" viewBox="0 0 48 48" style="margin-bottom:20px;">
+<path d="M24 4 C13 4 4 13 4 24 C4 35 13 44 24 44 C35 44 44 35 44 24 C44 13 35 4 24 4 Z M24 8 L30 18 L24 14 L18 18 Z M14 20 L24 14 L34 20 L30 30 L18 30 Z M10 28 L18 30 L14 38 Z M24 44 L18 30 L30 30 Z M38 28 L30 30 L34 38 Z" fill="none" stroke="#4f8cff" stroke-width="1.5"/>
+</svg>
+
+<!-- Label -->
+<div style="font-size:16px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:16px;text-align:center;">RECORD PRIVATE FUNDING ROUND</div>
+
+<!-- Hero number -->
+<div style="font-size:110px;font-weight:900;letter-spacing:-3px;color:#4f8cff;line-height:1;margin-bottom:8px;text-align:center;">$40B</div>
+<div style="font-size:20px;font-weight:300;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:40px;text-align:center;">RAISED IN SINGLE ROUND</div>
+
+<!-- Valuation stat -->
+<div style="font-size:52px;font-weight:900;color:#fff;line-height:1;margin-bottom:8px;text-align:center;">$300B</div>
+<div style="font-size:18px;font-weight:300;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:40px;text-align:center;">POST MONEY VALUATION</div>
+
+<!-- Headline -->
+<div style="font-size:28px;font-weight:700;color:#fff;max-width:600px;line-height:1.4;text-align:center;">OpenAI Secures the Largest Private Funding Round in History</div>
+
+</div>
+
+<!-- Vertical divider -->
+<div style="width:2px;height:700px;background:linear-gradient(to bottom,transparent,rgba(79,140,255,0.3),rgba(79,140,255,0.3),transparent);"></div>
+
+<!-- RIGHT COLUMN: Data visuals -->
+<div style="width:55%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 80px 60px 40px;box-sizing:border-box;">
+
+<!-- Revenue growth chart -->
+<div style="margin-bottom:36px;text-align:center;">
+<div style="font-size:16px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:16px;text-align:center;">ANNUAL REVENUE TRAJECTORY</div>
+<svg width="560" height="180" viewBox="0 0 560 180" style="display:block;margin:0 auto;">
+<!-- Grid lines -->
+<line x1="60" y1="20" x2="60" y2="150" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<line x1="60" y1="150" x2="540" y2="150" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+<line x1="60" y1="107" x2="540" y2="107" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+<line x1="60" y1="64" x2="540" y2="64" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+<line x1="60" y1="20" x2="540" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+<!-- Y axis labels -->
+<text x="50" y="154" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="end">$0B</text>
+<text x="50" y="111" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="end">$5B</text>
+<text x="50" y="68" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="end">$10B</text>
+<text x="50" y="24" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="end">$15B</text>
+<!-- Area fill -->
+<path d="M100 150 L200 145 L300 137 L400 120 L500 43 L500 150 Z" fill="url(#areaGrad)"/>
+<defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4f8cff" stop-opacity="0.3"/><stop offset="100%" stop-color="#4f8cff" stop-opacity="0.02"/></linearGradient></defs>
+<!-- Line -->
+<path d="M100 150 L200 145 L300 137 L400 120 L500 43" fill="none" stroke="#4f8cff" stroke-width="3"/>
+<!-- Data points -->
+<circle cx="100" cy="150" r="4" fill="#4f8cff"/>
+<circle cx="200" cy="145" r="4" fill="#4f8cff"/>
+<circle cx="300" cy="137" r="4" fill="#4f8cff"/>
+<circle cx="400" cy="120" r="4" fill="#4f8cff"/>
+<circle cx="500" cy="43" r="5" fill="#4f8cff" stroke="#fff" stroke-width="2"/>
+<!-- X axis labels -->
+<text x="100" y="170" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="middle">2021</text>
+<text x="200" y="170" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="middle">2022</text>
+<text x="300" y="170" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="middle">2023</text>
+<text x="400" y="170" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="middle">2024</text>
+<text x="500" y="170" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="middle">2025</text>
+<!-- Revenue label on last point -->
+<text x="500" y="33" font-size="16" fill="#fff" font-weight="700" text-anchor="middle">$13B</text>
+</svg>
+</div>
+
+<!-- Three stat columns -->
+<div style="display:flex;align-items:center;justify-content:center;gap:40px;margin-bottom:36px;text-align:center;">
+
+<!-- WAU stat with progress ring -->
+<div style="text-align:center;">
+<svg width="120" height="120" viewBox="0 0 120 120">
+<circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="6"/>
+<circle cx="60" cy="60" r="50" fill="none" stroke="#4f8cff" stroke-width="6" stroke-dasharray="251 63" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+<text x="60" y="55" font-size="24" font-weight="900" fill="#fff" text-anchor="middle">400M</text>
+<text x="60" y="75" font-size="14" fill="rgba(255,255,255,0.5)" text-anchor="middle">WEEKLY</text>
+</svg>
+<div style="font-size:16px;font-weight:300;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase;margin-top:8px;text-align:center;">ACTIVE USERS</div>
+</div>
+
+<!-- Valuation comparison bars -->
+<div style="text-align:center;">
+<svg width="200" height="120" viewBox="0 0 200 120">
+<!-- SpaceX bar -->
+<rect x="20" y="60" width="70" height="30" rx="2" fill="rgba(79,140,255,0.2)"/>
+<text x="55" y="80" font-size="16" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-weight="700">$350B</text>
+<text x="55" y="102" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="middle">SpaceX</text>
+<!-- OpenAI bar -->
+<rect x="110" y="40" width="70" height="50" rx="2" fill="rgba(79,140,255,0.4)"/>
+<text x="145" y="70" font-size="16" fill="#fff" text-anchor="middle" font-weight="700">$300B</text>
+<text x="145" y="102" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="middle">OpenAI</text>
+<!-- Label -->
+<text x="100" y="20" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="middle">TOP PRIVATE VALUATIONS</text>
+</svg>
+<div style="font-size:16px;font-weight:300;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase;margin-top:8px;text-align:center;">PEER COMPARISON</div>
+</div>
+
+<!-- Funding gauge -->
+<div style="text-align:center;">
+<svg width="120" height="120" viewBox="0 0 120 120">
+<!-- Gauge arc background -->
+<path d="M20 80 A45 45 0 1 1 100 80" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="6"/>
+<!-- Gauge arc filled -->
+<path d="M20 80 A45 45 0 1 1 100 80" fill="none" stroke="#4f8cff" stroke-width="6" stroke-dasharray="200 142" stroke-linecap="round"/>
+<!-- Center text -->
+<text x="60" y="70" font-size="20" font-weight="900" fill="#fff" text-anchor="middle">#1</text>
+<text x="60" y="88" font-size="14" fill="rgba(255,255,255,0.5)" text-anchor="middle">EVER</text>
+</svg>
+<div style="font-size:16px;font-weight:300;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase;margin-top:8px;text-align:center;">FUNDING RECORD</div>
+</div>
+
+</div>
+
+<!-- Funding round size comparison bar chart -->
+<div style="margin-bottom:24px;text-align:center;">
+<div style="font-size:16px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:12px;text-align:center;">LARGEST PRIVATE FUNDING ROUNDS</div>
+<svg width="560" height="140" viewBox="0 0 560 140" style="display:block;margin:0 auto;">
+<!-- Bars -->
+<rect x="40" y="20" width="460" height="28" rx="2" fill="#4f8cff"/>
+<text x="510" y="39" font-size="16" fill="#fff" font-weight="700">$40B</text>
+<text x="30" y="39" font-size="14" fill="rgba(255,255,255,0.5)" text-anchor="end">OpenAI</text>
+
+<rect x="40" y="58" width="173" height="28" rx="2" fill="rgba(79,140,255,0.3)"/>
+<text x="222" y="77" font-size="16" fill="rgba(255,255,255,0.6)" font-weight="700">$15B</text>
+<text x="30" y="77" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="end">Stripe</text>
+
+<rect x="40" y="96" width="150" height="28" rx="2" fill="rgba(79,140,255,0.2)"/>
+<text x="199" y="115" font-size="16" fill="rgba(255,255,255,0.5)" font-weight="700">$13B</text>
+<text x="30" y="115" font-size="14" fill="rgba(255,255,255,0.4)" text-anchor="end">Jio</text>
+</svg>
+</div>
+
+<!-- Key investor note -->
+<div style="border-left:4px solid #4f8cff;padding-left:24px;text-align:center;max-width:500px;">
+<div style="font-size:20px;font-weight:400;color:rgba(255,255,255,0.7);line-height:1.6;text-align:center;">Led by SoftBank with participation from Microsoft and other major investors</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- Footer -->
+<div style="position:absolute;bottom:0;left:0;width:1920px;box-sizing:border-box;padding:0 80px 20px 80px;text-align:center;">
+<div style="width:100%;height:1px;background:rgba(255,255,255,0.1);margin-bottom:12px;"></div>
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div style="font-size:13px;color:rgba(255,255,255,0.3);text-align:center;">TechCrunch, Reuters</div>
+<div style="font-size:13px;color:rgba(255,255,255,0.3);text-align:center;">thegeshwar</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>

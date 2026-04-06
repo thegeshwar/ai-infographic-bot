@@ -1,0 +1,34 @@
+{
+  "expectations": [
+    {
+      "text": "Text in 400-1200 char range",
+      "passed": true,
+      "evidence": "520 chars"
+    },
+    {
+      "text": "SVGs in 2-6 range",
+      "passed": true,
+      "evidence": "3 content SVGs"
+    },
+    {
+      "text": "No text-align:left",
+      "passed": true,
+      "evidence": "0 instances"
+    },
+    {
+      "text": "Has text-align:center",
+      "passed": true,
+      "evidence": "9 instances"
+    },
+    {
+      "text": "Validator passes",
+      "passed": true,
+      "evidence": "0 failures"
+    },
+    {
+      "text": "Correct 1920x1080",
+      "passed": true,
+      "evidence": "dims present"
+    }
+  ]
+}

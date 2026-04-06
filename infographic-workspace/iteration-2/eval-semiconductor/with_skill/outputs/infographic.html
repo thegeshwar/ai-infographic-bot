@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#0d0a08;">
+<div style="width:1920px;height:1080px;position:relative;overflow:hidden;background:#0d0a08;font-family:system-ui,-apple-system,Helvetica,Arial,sans-serif;color:#fff;">
+
+<!-- Background: radial gradient orbs -->
+<div style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;">
+<div style="position:absolute;top:-100px;left:-100px;width:700px;height:700px;background:radial-gradient(circle,rgba(205,127,50,0.12) 0%,transparent 70%);border-radius:50%;"></div>
+<div style="position:absolute;bottom:-150px;right:100px;width:600px;height:600px;background:radial-gradient(circle,rgba(205,127,50,0.08) 0%,transparent 70%);border-radius:50%;"></div>
+</div>
+
+<!-- Background: SVG chip/circuit pattern -->
+<svg style="position:absolute;top:0;left:0;width:1920px;height:1080px;opacity:0.07;pointer-events:none;" viewBox="0 0 1920 1080">
+<defs>
+<pattern id="chipgrid" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+<!-- Chip outline -->
+<rect x="30" y="30" width="60" height="60" rx="2" fill="none" stroke="#cd7f32" stroke-width="1.5"/>
+<!-- Pins -->
+<line x1="50" y1="30" x2="50" y2="18" stroke="#cd7f32" stroke-width="1.2"/>
+<line x1="70" y1="30" x2="70" y2="18" stroke="#cd7f32" stroke-width="1.2"/>
+<line x1="50" y1="90" x2="50" y2="102" stroke="#cd7f32" stroke-width="1.2"/>
+<line x1="70" y1="90" x2="70" y2="102" stroke="#cd7f32" stroke-width="1.2"/>
+<line x1="30" y1="50" x2="18" y2="50" stroke="#cd7f32" stroke-width="1.2"/>
+<line x1="30" y1="70" x2="18" y2="70" stroke="#cd7f32" stroke-width="1.2"/>
+<line x1="90" y1="50" x2="102" y2="50" stroke="#cd7f32" stroke-width="1.2"/>
+<line x1="90" y1="70" x2="102" y2="70" stroke="#cd7f32" stroke-width="1.2"/>
+<!-- Die mark -->
+<rect x="48" y="48" width="24" height="24" fill="none" stroke="#cd7f32" stroke-width="0.8"/>
+</pattern>
+</defs>
+<rect width="1920" height="1080" fill="url(#chipgrid)"/>
+</svg>
+
+<!-- Main content container -->
+<div style="position:absolute;top:0;left:0;width:1920px;height:1080px;display:flex;flex-direction:row;align-items:center;justify-content:center;padding:60px 80px;box-sizing:border-box;">
+
+<!-- LEFT COLUMN: Hero -->
+<div style="width:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-right:40px;">
+
+<!-- Cu Circuits Logo -->
+<div style="margin-bottom:32px;">
+<img alt="Cu Circuits" src="" style="height:72px;width:auto;" />
+</div>
+
+<!-- Label -->
+<div style="font-size:18px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:rgba(205,127,50,0.8);margin-bottom:20px;text-align:center;">INDIA SEMICONDUCTOR OUTPUT</div>
+
+<!-- Hero number -->
+<div style="font-size:120px;font-weight:900;letter-spacing:-3px;color:#cd7f32;line-height:1;margin-bottom:12px;text-align:center;">80M</div>
+
+<!-- Hero sub -->
+<div style="font-size:34px;font-weight:700;color:#fff;margin-bottom:24px;text-align:center;">Chips Per Day by Late 2026</div>
+
+<!-- Divider -->
+<div style="width:120px;height:3px;background:#cd7f32;margin-bottom:28px;"></div>
+
+<!-- Headline -->
+<div style="font-size:22px;font-weight:300;color:rgba(255,255,255,0.75);line-height:1.6;max-width:620px;margin-bottom:32px;text-align:center;">Four fabrication plants going commercial across India, marking the country's entry into large scale chip production.</div>
+
+<!-- Investment + Jobs stats row -->
+<div style="display:flex;flex-direction:row;align-items:center;justify-content:center;gap:60px;">
+<div style="text-align:center;">
+<!-- SVG: Investment icon -->
+<svg width="36" height="36" viewBox="0 0 36 36" style="margin-bottom:8px;">
+<rect x="4" y="18" width="8" height="14" fill="none" stroke="#cd7f32" stroke-width="1.8"/>
+<rect x="14" y="12" width="8" height="20" fill="none" stroke="#cd7f32" stroke-width="1.8"/>
+<rect x="24" y="6" width="8" height="26" fill="none" stroke="#cd7f32" stroke-width="1.8"/>
+<line x1="2" y1="34" x2="34" y2="34" stroke="#cd7f32" stroke-width="1.5"/>
+</svg>
+<div style="font-size:48px;font-weight:900;color:#cd7f32;text-align:center;">$15.2B</div>
+<div style="font-size:18px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.55);text-align:center;">TOTAL INVESTMENT</div>
+</div>
+<div style="text-align:center;">
+<!-- SVG: Jobs icon -->
+<svg width="36" height="36" viewBox="0 0 36 36" style="margin-bottom:8px;">
+<circle cx="18" cy="10" r="6" fill="none" stroke="#cd7f32" stroke-width="1.8"/>
+<path d="M6 34 C6 24 30 24 30 34" fill="none" stroke="#cd7f32" stroke-width="1.8"/>
+</svg>
+<div style="font-size:48px;font-weight:900;color:#cd7f32;text-align:center;">28,000</div>
+<div style="font-size:18px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.55);text-align:center;">DIRECT JOBS CREATED</div>
+</div>
+</div>
+</div>
+
+<!-- Vertical Divider -->
+<div style="width:2px;height:600px;background:linear-gradient(to bottom,transparent,rgba(205,127,50,0.4),rgba(205,127,50,0.4),transparent);flex-shrink:0;"></div>
+
+<!-- RIGHT COLUMN: Plant data -->
+<div style="width:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-left:40px;">
+
+<!-- Section label -->
+<div style="font-size:28px;font-weight:700;color:#fff;margin-bottom:36px;text-align:center;">4 Plants Going Commercial</div>
+
+<!-- SVG Bar chart: plants by scale -->
+<svg width="680" height="420" viewBox="0 0 680 420" style="margin-bottom:0;">
+<!-- Axis line -->
+<line x1="40" y1="340" x2="660" y2="340" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+
+<!-- Bar 1: Tata Electronics Assam -->
+<rect x="72" y="100" width="110" height="240" fill="rgba(205,127,50,0.25)" stroke="none"/>
+<rect x="72" y="100" width="110" height="240" fill="url(#barGrad1)" stroke="none"/>
+<!-- Bar 2: Micron Gujarat -->
+<rect x="222" y="140" width="110" height="200" fill="rgba(205,127,50,0.25)" stroke="none"/>
+<rect x="222" y="140" width="110" height="200" fill="url(#barGrad2)" stroke="none"/>
+<!-- Bar 3: CG Power -->
+<rect x="372" y="190" width="110" height="150" fill="rgba(205,127,50,0.25)" stroke="none"/>
+<rect x="372" y="190" width="110" height="150" fill="url(#barGrad3)" stroke="none"/>
+<!-- Bar 4: RRP Electronics -->
+<rect x="522" y="220" width="110" height="120" fill="rgba(205,127,50,0.25)" stroke="none"/>
+<rect x="522" y="220" width="110" height="120" fill="url(#barGrad4)" stroke="none"/>
+
+<!-- Gradients -->
+<defs>
+<linearGradient id="barGrad1" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#cd7f32" stop-opacity="0.9"/>
+<stop offset="100%" stop-color="#cd7f32" stop-opacity="0.35"/>
+</linearGradient>
+<linearGradient id="barGrad2" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#cd7f32" stop-opacity="0.8"/>
+<stop offset="100%" stop-color="#cd7f32" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="barGrad3" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#cd7f32" stop-opacity="0.7"/>
+<stop offset="100%" stop-color="#cd7f32" stop-opacity="0.25"/>
+</linearGradient>
+<linearGradient id="barGrad4" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#cd7f32" stop-opacity="0.6"/>
+<stop offset="100%" stop-color="#cd7f32" stop-opacity="0.2"/>
+</linearGradient>
+</defs>
+
+<!-- Labels under bars -->
+<text x="127" y="365" fill="rgba(255,255,255,0.7)" font-size="16" font-weight="400" text-anchor="middle" font-family="system-ui">Tata Electronics</text>
+<text x="127" y="385" fill="rgba(255,255,255,0.5)" font-size="14" font-weight="300" text-anchor="middle" font-family="system-ui">Assam</text>
+<text x="277" y="365" fill="rgba(255,255,255,0.7)" font-size="16" font-weight="400" text-anchor="middle" font-family="system-ui">Micron</text>
+<text x="277" y="385" fill="rgba(255,255,255,0.5)" font-size="14" font-weight="300" text-anchor="middle" font-family="system-ui">Gujarat</text>
+<text x="427" y="365" fill="rgba(255,255,255,0.7)" font-size="16" font-weight="400" text-anchor="middle" font-family="system-ui">CG Power</text>
+<text x="427" y="385" fill="rgba(255,255,255,0.5)" font-size="14" font-weight="300" text-anchor="middle" font-family="system-ui">OSAT Facility</text>
+<text x="577" y="365" fill="rgba(255,255,255,0.7)" font-size="16" font-weight="400" text-anchor="middle" font-family="system-ui">RRP Electronics</text>
+<text x="577" y="385" fill="rgba(255,255,255,0.5)" font-size="14" font-weight="300" text-anchor="middle" font-family="system-ui">Compound Semi</text>
+
+<!-- Value labels on bars -->
+<text x="127" y="88" fill="#cd7f32" font-size="20" font-weight="700" text-anchor="middle" font-family="system-ui">Largest</text>
+<text x="277" y="128" fill="#cd7f32" font-size="20" font-weight="700" text-anchor="middle" font-family="system-ui">Memory</text>
+<text x="427" y="178" fill="#cd7f32" font-size="20" font-weight="700" text-anchor="middle" font-family="system-ui">Assembly</text>
+<text x="577" y="208" fill="#cd7f32" font-size="20" font-weight="700" text-anchor="middle" font-family="system-ui">Specialty</text>
+</svg>
+
+</div>
+</div>
+
+<!-- Footer -->
+<div style="position:absolute;bottom:0;left:0;width:1920px;box-sizing:border-box;">
+<div style="width:100%;height:1px;background:rgba(205,127,50,0.2);"></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px 80px;">
+<div style="font-size:13px;color:rgba(255,255,255,0.4);text-align:center;">cucircuits.com</div>
+<div style="font-size:13px;color:rgba(255,255,255,0.4);text-align:right;">Source: Reuters, 2026</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>

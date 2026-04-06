@@ -1,0 +1,13 @@
+{
+  "eval_id": "pcb-leadtimes",
+  "eval_name": "eval-pcb-leadtimes",
+  "prompt": "PCB lead times 140 days - company orange",
+  "assertions": [
+    {"name": "text_under_800_chars", "description": "Visible text (tags stripped) is under 800 characters"},
+    {"name": "min_4_svg_visuals", "description": "At least 4 SVG elements with data content (not just bg patterns)"},
+    {"name": "no_text_align_left", "description": "Zero instances of text-align:left in the HTML"},
+    {"name": "has_text_align_center", "description": "At least one text-align:center in the HTML"},
+    {"name": "validator_passes", "description": "python -m src.validate passes with exit code 0"},
+    {"name": "correct_dimensions", "description": "HTML contains 1920 and 1080 for proper sizing"}
+  ]
+}
